@@ -1,0 +1,7 @@
+/target
+**/*.rs.bk
+*.log
+.DS_Store
+# Ignore all JSON files in output/
+output/*.json
+

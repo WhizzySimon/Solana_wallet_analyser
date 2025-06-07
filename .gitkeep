@@ -1,0 +1,2 @@
+# But keep the directory itself (use a .gitkeep trick)
+!output/.gitkeep
