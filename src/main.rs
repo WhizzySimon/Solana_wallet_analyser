@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 
 use serde::{Deserialize, Serialize};
-use std::{collections::{HashMap, HashSet}, fs::File, io::BufReader};
+use std::{collections::{HashMap, HashSet}, fs::File, io::BufReader, env};
 use reqwest::Client;
 use tokio::time::{sleep, Duration};
 use futures::future::join_all;
@@ -55,13 +55,19 @@ fn load_token_map(path: &str) -> HashMap<String, String> {
         .collect()
 }
 
-fn load_settings(path: &str) -> Settings {
-    config::Config::builder()
-        .add_source(config::File::with_name(path))
-        .build()
-        .expect("Could not build config")
-        .try_deserialize()
-        .expect("Could not deserialize config")
+fn load_settings_from_env() -> Result<Settings, String> {
+    let helius_api_key = env::var("HELIUS_API_KEY")
+        .map_err(|_| "HELIUS_API_KEY environment variable not set".to_string())?;
+    let birdeye_api_key = env::var("BIRDEYE_API_KEY")
+        .map_err(|_| "BIRDEYE_API_KEY environment variable not set".to_string())?;
+    let wallet_address = env::var("WALLET_ADDRESS")
+        .map_err(|_| "WALLET_ADDRESS environment variable not set".to_string())?;
+
+    Ok(Settings {
+        helius_api_key,
+        birdeye_api_key,
+        wallet_address,
+    })
 }
 
 async fn get_token_symbol_birdeye(client: &Client, mint: &str, api_key: &str) -> Option<String> {
@@ -88,8 +94,14 @@ async fn get_token_symbol_dexscreener(client: &Client, mint: &str) -> Option<Str
 
 #[tokio::main]
 async fn main() {
-    // Load settings
-    let settings: Settings = load_settings("config/config.toml");
+    // Load settings from environment variables
+    let settings: Settings = match load_settings_from_env() {
+        Ok(s) => s,
+        Err(e) => {
+            eprintln!("Error: {}", e);
+            std::process::exit(1);
+        }
+    };
     let client = Client::new();
 
     // Load token map
