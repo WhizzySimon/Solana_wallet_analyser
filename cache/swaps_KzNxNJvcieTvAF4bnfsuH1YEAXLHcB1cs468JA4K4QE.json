@@ -1,0 +1,1022 @@
+[
+  {
+    "timestamp": 1749473472,
+    "signature": "2cLam51WhjMkdswHjK1bq6DhxcwuNwNHpKKv5x8qD7k74Jnz9mz1u8LnkYAzhHhmkzidrfv4xzua1eDHSEMYDXD8",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "So11111111111111111111111111111111111111112",
+    "bought_token_name": "Wrapped SOL",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1749473456,
+    "signature": "Q18d8wox5cVXtctCs6qTHne4bEJhAuTGZvuvj2nNaWwknoySdFHFNUhLQjRmDJVtuiT9rrkhwdvQcprMeBPVhhW",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "So11111111111111111111111111111111111111112",
+    "bought_token_name": "Wrapped SOL",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1749473453,
+    "signature": "5itj4Exaji2mT3CZuQp55i6fynvSWEBSZrwe1XZqAPJqcV7cVSGGFakNtXrzXNUaPjR65M6is68nuoji1KkuF5f5",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "So11111111111111111111111111111111111111112",
+    "bought_token_name": "Wrapped SOL",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1749473433,
+    "signature": "4FjiC4yc7HKoQG6wKC3ypo9HncuesBiG9FgMuX5H1nSjfhoZ9WSePKDPNancXnybAvZcng9aEQDyWwoGHMy7rLdg",
+    "sold_mint": "So11111111111111111111111111111111111111112",
+    "sold_token_name": "Wrapped SOL",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1749473414,
+    "signature": "uPqvzwNsvceZfUSq1h6L4fcirEvS72TS2Qz4gF69GedGKsWj6fQ1FxjiCWfELHzaix2pSiwbfBDnw31JeSQvZsQ",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "So11111111111111111111111111111111111111112",
+    "bought_token_name": "Wrapped SOL",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1749473405,
+    "signature": "5hYfxHaHqa5iLdGzN63jLFhUzp9Gd2GDmJPB9N8TvkgqgQBnVFpsYTDRBcHNNrp9qjA5J8w1bhNjydKmcNo4dXa5",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "So11111111111111111111111111111111111111112",
+    "bought_token_name": "Wrapped SOL",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1749473398,
+    "signature": "2XrsrD8HViWchfZ5EJk9T4em3ENXn47KqwnmAnn4QcC3n4wYYimPR5CFyaoBkvVitdrzR4tPSjhCWQapnGVuu2pQ",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "So11111111111111111111111111111111111111112",
+    "bought_token_name": "Wrapped SOL",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1749473391,
+    "signature": "5Q77YuimKpFW5Tfq3VAy7CWdyAtFWU1VjmdfVkFw6Yo5TWgVMYoazKswoRCBumSPNth3fd14rQyrWdP1dkxvNpas",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "So11111111111111111111111111111111111111112",
+    "bought_token_name": "Wrapped SOL",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748686024,
+    "signature": "2dZpczvxeUEBHMEjTdYjoeWkyvM5xEdKSpKwaXhWsDduNCQnQV7PEmeAxjkSE1822nNiJ4UwK94hKKgczh4cZvXq",
+    "sold_mint": "So11111111111111111111111111111111111111112",
+    "sold_token_name": "Wrapped SOL",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748613064,
+    "signature": "5gNnh8tk8qaNhXFQhxNG5kXDrFr8NNPkGhYBPhmagEAo4vrpck3oYT7kG84hPVWoL17ieHAerczg1J466sL9huhE",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748613062,
+    "signature": "2tQocoX4e2A8tq7iA2KniZvVwiiY94bDRUePNAvA4BPcDKeqs2AUPiP8bePaKueU9bGtQXM2doqeySTtzwketdyU",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748613018,
+    "signature": "49PNnGkhTweXBYPwXa2rVqejCVdD3NZrNmZyebh7si7hYvqUMTvoKCpcMipeEPuUyqGYpvjWjqRWY8fBRGajDkzk",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748613011,
+    "signature": "5RzBzmrvAg6xCq5bt8UesCD4kn2uPSfjv6GQicHX7m3adK8AD2n1VW3Y8DjkeWCVD8yvHQNZY884rL2Wmr7vnon9",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612975,
+    "signature": "3LwMLMpZ8wZPwcoEpMX1LtUYpLogfMqrr4PKFuGeG54cRerUBEWz5KeQZuheU4RmmaGoDJetGmZJtvDWRSBBiYPa",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612972,
+    "signature": "4aTF348ip8zFaUXLjRgdh5LC7SVGHVxuzBAMrZ4YTvcrnRjjFSZsv11fDfZFMXFHVhXcbMwfgSuEZvT66dY63b8q",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612972,
+    "signature": "2vQmhxKA5JPrMcCBD6kS9evRdQ3oDoDNJQ986oBP5rTorN1uTZdR3nvJb93t7Xds8vd68LD87uzLcqWKQGUi2wt3",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612940,
+    "signature": "4DQXKzPoQ9MQbpdJ6QotN4LoHip4sv2QRV39GL6UucX82xpK7ziCh55y4nixQH7GH2wQSdJbLAaLrmCfvQYdoNP9",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612940,
+    "signature": "4C19dK553N1kBVgT1AcZzYLcmxxu9zByzt6Z1Z5WBgachov1iVaH1NP21DtiX1Qmds7cZ9xWjGLkZNM3t8aZibzG",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612426,
+    "signature": "NDe2Jdyd3mnA8PucFSVTdNaiQsNrjRY7uoFRzcygyFwi4frVkPGfojux6Rj8TBW4bMCDzW82cEvNGRrH375tAQT",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612426,
+    "signature": "PWPEAWnQsbBAVuQs2u5dWvLupzR7ccD3hfrGs92X6UgcVoP61rBz6wF7UfeNZarwSPA9dFjULUZePkP6Y5ZBpYH",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612426,
+    "signature": "2otaap8pH8PqccueYsDFHhxUfEer9vFMyH5x6P7HpC5k3Ghiu3HUWJRqnoPJyCXGBDgUmYuLXwazdbasS9FiWbT4",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612426,
+    "signature": "38dwF4A2TdBJQN1GwLHhfeKmsDdp63YTsXSykLpXpc4mu4VrboBm3YLyCzM5nzepetBpoXPWNuXExxH67esuTS45",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612322,
+    "signature": "3bnXmsdfKfZjgQt1mK4iaT9bToSMmbDa1ggo7pzXvtHBf4gkJvuxtaQDKcnqet5mXEuFnZkSV9z1snyPgW1RvbHJ",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612322,
+    "signature": "ghQUjhkmYAQNQtu5VAu6pY5K8GWhtpiusSfvFQgayssiUHz4QXt6MaknLfLMyPLciUFmiPv9ktsKwm71HNWFE5r",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612322,
+    "signature": "4TyMgQ8LJwkpj6njF3MzUvRn5agvpR7PjWYajTH1zdwqLBKCCBEhvTRii77dxGd1q9zXh2ndzqkCyiynwq2mtEHw",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612322,
+    "signature": "Q2X5BtshhHKyAaiAwJFbFiXwTuD4nPFWLmLhapE4VMj4QSnm5XhQxHbVdWsN7CYtS6dZVkVWhU6N1XxRZYsGL7d",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612303,
+    "signature": "3iHs5dRC18Edb7UKujrSDYcuFjFtHdNZFRMT3hydcNJgpe9LmekUQGjjJrqjm5dGnC8qNC7eJTpJv5mhsjxdmntd",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612303,
+    "signature": "5F1BcjcZBg5aWnJARTx3kUgGD6gTfoCDUPZvoezzsqaTT1tVM2Ch1ud33tFVApFQzanBGxBLu3eW6BDdz11UM3LU",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612303,
+    "signature": "4LiyDYQAH2hYMJrbJaETicSNVgTV25pJ5DDZU45F4wZX54t72y9zCkGsTyjU3mg92FwuASsnccti33NzmzmLDFYy",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612269,
+    "signature": "55A7KdQAJzBZ35B3RjtTddgXUH7S7XQhgPK8aft9bjKZv24wPb2mLji9ZKjd6KGAbKLAjWcXBuBgm6fJhShHqFwF",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612269,
+    "signature": "4BvDh13aVNBrHYG5oS7eTDDTqJAoqRLjdqioyvdNcZbQbG98LMdfNDg8fUfPcHfC3uDBocAHVBBJjnkJ5612HgMv",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612236,
+    "signature": "4sDWtgUWW8scjuTPFqFwTsfRm3A2dNJ3txeTQZjsSCHwJb1r8ZrhhCcVtkUydGCYQ8ERVgVu7fpkzkw6qNovtPK",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612233,
+    "signature": "34mUB6f8wxQnibkpcntbWYW6ueCaps8vsfjbzbZkbp5cUUAKeEK5FNFAztW64QVedNPtNWt4XpetPP2MHVTLWXbb",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612148,
+    "signature": "5SCZJff9LeqUgbeaXMcpf9n5X7UgH5ZWKmUPKdo7owvn4GU5uuX91DX16SWeGy6edLgKyFBfrZ92xnUqQGVdDJN6",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612148,
+    "signature": "2zvcMyC6patNcoBr6tAYavwVgKV9JgugyDQ1X1AFKpw6C4oCo766qJbZGLkozPN8LuUfibqj9HA7AH6NZw1yqyMb",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612148,
+    "signature": "49WTvg53hN2b4Ng5snHVETYH3YyyTLZ9tRX7q71JkT9npZsJWPr73AEj4Mkn53f939hRzw5pkhCPnxy6VkrHzEXS",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612117,
+    "signature": "eZ3CJZqL4n6TQF31iwGyyKYWupS4wssADXs3c18vdkQFwQ8YEMkPBUZ7JVk5SyKmcE3J6TRoU1RZqwtsCsCvQX1",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612117,
+    "signature": "5BAR4YEKGNX4UFWcRm2QoTLBqjXXq5T33LrFofYNk81dZ1MRZkdVDuwRdQtHySYJ3EyFtp8JoukadPyVTzDbMWus",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612117,
+    "signature": "5d7nFtKTajZBWjDcbyHap3LG7vb7JHgwY3ZZ5WPMB9mEwWZYb7NbJKowbKnZkuuMcbpXf6iquWWFD1bLDwTiY5BA",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612095,
+    "signature": "22iQc6k75gK9kmhLmRuv2XhnAt1gpiG3RpYqaeAKWHU7Eim9U5SyMMFxfTXZqaCTXjLFLx5JbdrDZ3gYgWMKrihd",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612095,
+    "signature": "ASSPLVLf9eTUS1dD9GvLgNDbhPUB163QjE43uEGN8Q9ezs8FcTznpuhM6CYSo9u4ddcvM4SVDY411ceg3i5t6x3",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612077,
+    "signature": "VQ3DF3jZ8rQzLxqnofZHJD5RvS6VUR52J1vGReFVqfdUqPTX7RkYRkEmLq67KwmSQaztiLi6PiAvBUdUUDv7kTH",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612077,
+    "signature": "4XP2M6ia5cbr34UUxDzrqSJVhYfixTXCigdz8yxKvJKMeYcDJVqk4RFcX1P5MQRkZqKA4HWfNuYtaW1n8f1LPWL9",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612035,
+    "signature": "4roNN3dpmzCGntcn3sEeZ4ZV1xma3BFnCAusjzpfPZTt3vQBnuwKEbaj4vkkzZZoog4ePj5J7i8U15YbTbvsMRDN",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612035,
+    "signature": "2r7PHEhT6qbSN5yK17NVLCnmnDmz5SbnnSLFsj98zMQpxKNJNrsFYyok898SQQgcMCX8Q11gCV7jNLCFBN1xq5hz",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612035,
+    "signature": "NutDKnDetYJukZuTvYqsedqZxx9XkGWJ27Ft8gJieFZLQCfo1emF5jCQKGPkjQ6PCBopX9TR7vzCP2MN8gNDe9s",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612014,
+    "signature": "HMfcbiFcTiNxhSxGqeAQccxpYCffUjC4ETHNfVETbh19Yfpo2crpcmykw5XygLKfK4YdVgVEeRa2aF2qDKXDcU6",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748612013,
+    "signature": "2XSvUSyMbq9fHTEac2McpygbgzYN1VC4S3dDpM3XecjkS8vEYZPCyo2Nc7JXj1iKT3MesMTwvafGUrnEDTzCs12t",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611924,
+    "signature": "5Sd1hYiXbH8zjTC7ZrixivYvCTUnuhxVEDgv9yNAUe1fYkwMPozx2sB4c5z6LNJfq1J6nStAvMT8KtQymc2G7FNM",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611924,
+    "signature": "2ni8XZ1EYMV1GwCkDYkksFvg8M4T1Mvr4UEgzgYT1jF3u26FwRq4hEKv16vfs4F3dRiaAGpZdG8HQPy9qpmSYL8d",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611877,
+    "signature": "3DhkdXrrjMgCphJtZoz7AtxdYWzuB4vg9yUi8mMMHXEc92vt4x5PpFQgzcoFjeFDr9YFb3TrThRqzkjZQ3Qz28c9",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611877,
+    "signature": "4QBLFitwg8A8163WB4EY9x19woMV8xJTqf2J7EuWBBtf4Ap16MJmPUdKmqZTdtWSxUUpbdUJzo9USwrcSPq7K6vX",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611877,
+    "signature": "34kaSJg7b6DdiAGJ6xbEzmunob9VPK5fSLVFqwq2JgdAdPWDbQjfqsoFVwFhF3YbDzhSynY11p3jVEmaLCDkfSrA",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611855,
+    "signature": "8nnockeBU42eCbwkVEmXcn4LxTdhuQ91fKFvw8xbSHSDx7UyYyTE4wg3QgmJ8AmmgefTbJ7NqFTg3VShtPNaEUZ",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611855,
+    "signature": "23KLvRYdwDnmARCdFjCSfq4rNdHxvZfoKrf6GhKSHoYnqZLF3947UUM3NY7HrmHyXMi3PG2eTommoQJG31d4mf1f",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611854,
+    "signature": "5ZdwhA5tNEiG46Q4CciyRY8c4gQGcWVVPp4xCt8yEUb4PNojNsc1Z1dKWNYLUaa9YUpYrF9fUgTMpTYSNBsTa3D8",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611837,
+    "signature": "3ntKVmoqvsD9Nnbu3RmhAjUccaHu2tSq591PsjqiFWzov2MooVVoaCga8P8BrRFwJpNeMR5nvorcSS17UYTwCDD2",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611835,
+    "signature": "3LTMeJ4Ub2WnAryvvA7cS2Kz49KdVyh4ALmJMWdjiC4LUVZxjEGc5rP77WHpU44XaQHsqNzdfFEuWv2GtbSP55yi",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611819,
+    "signature": "42pKHZGHHC2TFmMbsdXtmYRqQrmsopPXETL1wvXoAqa1ZyKSfchofoPQ7BH9fGUzpdH49jDXHTbFkh6vxp9berP4",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611819,
+    "signature": "4dA5rjkYfRcYRNvQPodLrhFtkdcXGnttzJZuKFWrkX3f2vHEWGQcRjDxidT8mZvF3go3kfeUf2b4dewmijokS2GZ",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611816,
+    "signature": "5ZXXStxnpc9HKSqHVyJSEDDAfunvJyUmuGA2QaTATWEAvqE86fXttBozc9Wq6wpuJBDLi3a4yakM5oQVnWKxZcji",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611766,
+    "signature": "3oyohqqVVR7usZ3geqsLsDVMsetjtGpA3mougtQntyXReGbdz8nCvVzkcxziGHTRVWWicePNVX4k4xAfZiBzp7Wq",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611763,
+    "signature": "4YMxZHu4GYbGpQBcGuSb5fqe8UqGfMJUm151aXuZaxgtPw31XZsWPpExqYYhgo5dqdQdknbQ63FEg3vL7j52nnf2",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611737,
+    "signature": "CqhWMK9VFjUzEaqri83wd9nD4j5U9DE231avtt3aQWWubHq594TZbk723UqTZyB5vicbsNCeS8PgtgzvmcGMxkS",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611643,
+    "signature": "2gq2VnnWephhNchQ6s7EAqNfLtFRXZ6jQ5vPpKjzoeyJ3X1Wq3WWvt9ePE5uTG2SQVK7abWwEPrWN6pFVC32oS6W",
+    "sold_mint": "So11111111111111111111111111111111111111112",
+    "sold_token_name": "Wrapped SOL",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611609,
+    "signature": "5yaY5F2G71jbpHDE4ZhV2zFnGtobNgfrv653Ne2vG7HwdZb6D4HHDEL6jmsXnWoDT626tMEdrqTL1uPHVxTBLtAw",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611606,
+    "signature": "3FjqRjxKUxZ5eBZPgEYDJs36aADRmBhJk6rYUn2AtYXorfVpJLfuJhJivFbMki114PJMFTRgk3NUML78iDJ2xHXy",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611579,
+    "signature": "4CUxsqsejKMhXLiWZQnXniHRtLsZZSB7yfH53YgLBko1kNJyg4kCP6maqfgXUzACp3rpdutSAgvJpfSoRkqwcvJi",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611576,
+    "signature": "5rWwqomxX5BmhdDyKcJPrUbmA29j1yadAEz1mfpvXG1NUVBn6WPQaSKEuuQi8nrENoRqq9CzVNkh4J3wuLmDQHdB",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611555,
+    "signature": "4WpGDdpB491aktUZdDVoFRRhH8uy4bgoprxvt78eHsVUCpYiWrvogoXxiXhizUoXxrPZBxsNK5Jmh24Fbh6N2WFr",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611555,
+    "signature": "35e7LYHXjG9aLsyFeo1NirCKoEEAJ4FzCQGBRmxrqm7gq4BuzQTZiJxyg3EcEFkbzLx7J9SMVrJJBP3qWNqq97AY",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611490,
+    "signature": "2GEGJrhhs6CCo6rJKoTUmiZ8TmE7vmwDV7C4eGXW4TbDYeeUWSoa4gq86zeFMa9BY5EDo72j6QHx7Dh69mFvEgx1",
+    "sold_mint": "So11111111111111111111111111111111111111112",
+    "sold_token_name": "Wrapped SOL",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611457,
+    "signature": "4uhsi6Ggw7K2Eqfur8ncjBFH8X4rjNvxDZLjSNsLW2BLVixPfxWwrpnsJi9JbdKn6HRc2rLYCe3mrd1xijegG3Hr",
+    "sold_mint": "So11111111111111111111111111111111111111112",
+    "sold_token_name": "Wrapped SOL",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611439,
+    "signature": "5HRs157cZvkBxEwm4AhhQDbhkrfwGzznHzBSF8J9AqBYUNjdHrmQzS42J5P3PY37ZzKw4QVkjDw6YPEnjbsFRquT",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611439,
+    "signature": "4w9kQTDwLZpJLBQVraRU4YKSzBBDP5zpzHMQrBJdZDJpSGSU4A9gUib9B5rEJENVTxgJkXt4hjJmPJDkRaZupDaD",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611419,
+    "signature": "592JKDDz9UfegEfkjxUimhF4Ve2uZZBKQFdy3cyJ3XRUojx7a14Vvd7X1Kqjh9YDWMxwBzWe7HHMFb6R8ajRxRxL",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611419,
+    "signature": "5UgAxV5TKpYUaMnfaut5uYJH4aRJgJidh5GhSjN8sZabBoVxnmoQqoajSxuexYZsegKNoGszZhCKPyDVqKDvJBWL",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611375,
+    "signature": "5f5r8Swmkbbavh7b3j7s9bcddTRRRkr8FjrC5CYdFRQmfNdaWxjfFGRz4693VzTgPpNRAVewaitNHYF8jNV4oXay",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611369,
+    "signature": "GNb1EuVYtfg6bjAD8BPH91XLR2YMQ3SSzWEpZ4uCJ5gkFvSumDEWJwtep8Qxb3XKNMTxrEsEM39hMCyhY4YdRoB",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611369,
+    "signature": "3d38ugGRHHv59TY13oUSKvFt6WKXW9WCbBv3hBKFumdNjk9qSbVCVUWdQEaxjFFtHJLT7zaQzr3v64rpeAYeaArR",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611266,
+    "signature": "5TWLanhercjTXAcCMhDNV3kSkqFFkRYuFJK4kTJRmbfufkgvvgbv47gazMq1KshY8YjCJF3AnEcUVwsnJAxpZgeX",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611266,
+    "signature": "4CyDRaNCdf8wcda1qcaY4QLaTtFPihwJEhmpZtGdc3BqUFPZVqazEofqD2KMffi6J8YnAx1VLwUTr3w4s4Z5uUYF",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611266,
+    "signature": "64ABRmc2Szz4qrM856NqFm1RKZyU3UL9JrsbR6JYHpipWqV9uoyixs5sife32sicyrYxbMuwcCCLNo1mkHTTDUXt",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611229,
+    "signature": "32jVdcmdL4bdaMvFKsebgL2pLpsjJ2AFoeQdcHXwhPa2fRSSU5qtzetoEefbr6QcW6n1wZBTCy8esfXwKhxu86Rf",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748611160,
+    "signature": "5Ppmo3Ww8TiwR4F6nXLwmdwr3rTrQBmAvVKechtXVnDm9KsCxzysbTrVjGTGJpg6y6Da8cR9o6VSw2yTbj4c2BJE",
+    "sold_mint": "So11111111111111111111111111111111111111112",
+    "sold_token_name": "Wrapped SOL",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748604956,
+    "signature": "5a1cQL5yrjYiGANRXUG3rKWoNsCbL9CS6tnYwmHwpYmQKa9Tt5zmyofxXSAErKzXdvoFdFMG2ySMkHeQ9TUqdQSg",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_token_name": "TTC",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748548406,
+    "signature": "3nXBfeM8ndN37rE5vER8YzWVtfFnGN35pRTNxsJnjExBBAZWm8VVPgsJgMsJtTj3Y3a8SgcxsKP5DmbtEiYU9QD8",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "So11111111111111111111111111111111111111112",
+    "bought_token_name": "Wrapped SOL",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748548394,
+    "signature": "2x6Fi1sx3TrqQC64MGp7YuCVaGCK8AxfxgtgArsAc5X4PTxQp3ZMWyHtnoKm2VHXxpNtQiSpe3tF2DuSQfrWDoKs",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_token_name": "TTC",
+    "sold_amount": 0.0,
+    "bought_mint": "So11111111111111111111111111111111111111112",
+    "bought_token_name": "Wrapped SOL",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748354988,
+    "signature": "5j3csjo9EJjYefb6sDQQcHJM7BSHD9RydnQ6Hq3YkmeinssAsWK4HSH6n1XsAnJPESgMA4AMHMU8PSDk4QJ88B6U",
+    "sold_mint": "So11111111111111111111111111111111111111112",
+    "sold_token_name": "Wrapped SOL",
+    "sold_amount": 0.0,
+    "bought_mint": "GFAb9ARdro6dwcYmcXsynubq5PiHHKjHifDH6NiTpump",
+    "bought_token_name": "point of convergence",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748354985,
+    "signature": "4hBT7dPptPWpDKy2e3uzSJko6FngC3TiaVYaVYwfiWsp3oGZ5RQK5mqPV2dU5ydeVCvxwuCzeBV443T6e2ZEutAg",
+    "sold_mint": "So11111111111111111111111111111111111111112",
+    "sold_token_name": "Wrapped SOL",
+    "sold_amount": 0.0,
+    "bought_mint": "GFAb9ARdro6dwcYmcXsynubq5PiHHKjHifDH6NiTpump",
+    "bought_token_name": "point of convergence",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748354910,
+    "signature": "5WLjCVGkuirJ4kP2surRGyKkRTPdxJ7Jig4heN7ddEVLWDDyXmPPhBM6Ycgbg2gqntepQGtg8umCSHnQdbiEtn4c",
+    "sold_mint": "So11111111111111111111111111111111111111112",
+    "sold_token_name": "Wrapped SOL",
+    "sold_amount": 0.0,
+    "bought_mint": "GFAb9ARdro6dwcYmcXsynubq5PiHHKjHifDH6NiTpump",
+    "bought_token_name": "point of convergence",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748354908,
+    "signature": "5czFWahNDLAbcTpGAjZ9KzaDDU6CHWbe96aXzRQfEjuSj9pDtAR136GXg2mntiSYyjaf2pGkeiPkH5MTHRk5iZJi",
+    "sold_mint": "So11111111111111111111111111111111111111112",
+    "sold_token_name": "Wrapped SOL",
+    "sold_amount": 0.0,
+    "bought_mint": "GFAb9ARdro6dwcYmcXsynubq5PiHHKjHifDH6NiTpump",
+    "bought_token_name": "point of convergence",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748354879,
+    "signature": "4CNMYp5ESTS5Vd3c6GnCN1qmmWSNMWTwsoBBARq8T6bpt6Rw2dobjcsWb3EJbzbso1BUVwnRVGTzt4hhzdhqzwTj",
+    "sold_mint": "So11111111111111111111111111111111111111112",
+    "sold_token_name": "Wrapped SOL",
+    "sold_amount": 0.0,
+    "bought_mint": "CtDG5KAb5sEfonevVLfBmriRcmsDshH7js5qZWLDpump",
+    "bought_token_name": "ORANGIFY",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748354861,
+    "signature": "5TusaqwG8coSmu8m8vdCAnN6cUNcJU9AxzZcXN1Fhz7yzNMEdgo2QB7pGXMQu1Y5Zfjq9CJTxiatYPizrA2gfXvK",
+    "sold_mint": "So11111111111111111111111111111111111111112",
+    "sold_token_name": "Wrapped SOL",
+    "sold_amount": 0.0,
+    "bought_mint": "CtDG5KAb5sEfonevVLfBmriRcmsDshH7js5qZWLDpump",
+    "bought_token_name": "ORANGIFY",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748354851,
+    "signature": "27m4xteq3H9rQj6s5rU23GrPVx5RMVn6ebhJfTEWK7ieLSVB8g5KfKjVSpeQ5MJMNYNc8VjarxMhAp7NAEStP8Jv",
+    "sold_mint": "So11111111111111111111111111111111111111112",
+    "sold_token_name": "Wrapped SOL",
+    "sold_amount": 0.0,
+    "bought_mint": "CtDG5KAb5sEfonevVLfBmriRcmsDshH7js5qZWLDpump",
+    "bought_token_name": "ORANGIFY",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748354849,
+    "signature": "R5rJLgZAJdUbBxLAyZ36jgvSQK3JYq6y3kSjF1wBtLVGDZ5qskFB697NJNduRf2mZGk7mMdMprDXxJEMUs1Ldqa",
+    "sold_mint": "So11111111111111111111111111111111111111112",
+    "sold_token_name": "Wrapped SOL",
+    "sold_amount": 0.0,
+    "bought_mint": "CtDG5KAb5sEfonevVLfBmriRcmsDshH7js5qZWLDpump",
+    "bought_token_name": "ORANGIFY",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748354824,
+    "signature": "2neADLvFfK5roLx74ZtuJmZ3MPw8h9eVmmw62jUYMXR14uxxBkt5MwBLRprbHRYwbvfgh2ddD4hTVqNe538Nsxrm",
+    "sold_mint": "So11111111111111111111111111111111111111112",
+    "sold_token_name": "Wrapped SOL",
+    "sold_amount": 0.0,
+    "bought_mint": "4ZrrR2hXDu1uQFLTJApAHUhVzERQemPH6m4qSNDdgRZP",
+    "bought_token_name": "Wrong Way",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748354814,
+    "signature": "674M1iiMfMWK2fBHBhqjxee3qWbAqYDwDEYcFWzBk5mDZUDnuJQt9VsNTxuSAV8BhTBXysYWp7FhN32LVL9C99UY",
+    "sold_mint": "So11111111111111111111111111111111111111112",
+    "sold_token_name": "Wrapped SOL",
+    "sold_amount": 0.0,
+    "bought_mint": "4ZrrR2hXDu1uQFLTJApAHUhVzERQemPH6m4qSNDdgRZP",
+    "bought_token_name": "Wrong Way",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748354749,
+    "signature": "5XRPM6mi8pGfpGanpN6CXesa7c1odGLy9aix39RyQhMeiPyHJTEFkuLyzMYaX5VmNp4hAbbohA3tiKLsD3ds3U4U",
+    "sold_mint": "So11111111111111111111111111111111111111112",
+    "sold_token_name": "Wrapped SOL",
+    "sold_amount": 0.0,
+    "bought_mint": "CtDG5KAb5sEfonevVLfBmriRcmsDshH7js5qZWLDpump",
+    "bought_token_name": "ORANGIFY",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748354736,
+    "signature": "24ozz6aSEusg9HJjpdz3PP3wgEJPGZHYpfF5aU3nArZVTYTgqgUSsrFecRi4LEH8nvrRMSDFa95uR644nf5wrxyG",
+    "sold_mint": "So11111111111111111111111111111111111111112",
+    "sold_token_name": "Wrapped SOL",
+    "sold_amount": 0.0,
+    "bought_mint": "CtDG5KAb5sEfonevVLfBmriRcmsDshH7js5qZWLDpump",
+    "bought_token_name": "ORANGIFY",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748354733,
+    "signature": "2T29VRbY5EAhHxMwsoyv1FJnd1oDRWaDBWvfDA4fhyZZxsCaFNJmZgenCTcgqCoA4KSvwLTMo3S7huqEnB9QNiGd",
+    "sold_mint": "So11111111111111111111111111111111111111112",
+    "sold_token_name": "Wrapped SOL",
+    "sold_amount": 0.0,
+    "bought_mint": "CtDG5KAb5sEfonevVLfBmriRcmsDshH7js5qZWLDpump",
+    "bought_token_name": "ORANGIFY",
+    "bought_amount": 0.0
+  },
+  {
+    "timestamp": 1748354729,
+    "signature": "2U9ey7UvMNgLGfhguHg6o5fTeSva2gJi5QsTZnyvf9CwnPDcC8USXHtGhNkZm8i8ty3F2dYaC1CB87TVNiPdfhax",
+    "sold_mint": "So11111111111111111111111111111111111111112",
+    "sold_token_name": "Wrapped SOL",
+    "sold_amount": 0.0,
+    "bought_mint": "CtDG5KAb5sEfonevVLfBmriRcmsDshH7js5qZWLDpump",
+    "bought_token_name": "ORANGIFY",
+    "bought_amount": 0.0
+  }
+]
