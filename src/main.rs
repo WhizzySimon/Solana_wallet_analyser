@@ -9,6 +9,7 @@ use std::{
     time::Duration,
 };
 
+/// Configuration loaded from `config.toml`
 #[derive(Debug, Deserialize)]
 struct Settings {
     helius_api_key: String,
@@ -16,9 +17,10 @@ struct Settings {
     use_cached_txns: Option<bool>,
     use_cached_swaps: Option<bool>,
     use_token_cache: Option<bool>,
-    use_jupiter_token_list: Option<bool>, // ✅ Added flag
+    use_jupiter_token_list: Option<bool>,
 }
 
+/// Minimal raw swap structure parsed from transactions
 #[derive(Debug, Serialize, Deserialize)]
 struct SwapSummary {
     timestamp: u64,
@@ -29,6 +31,7 @@ struct SwapSummary {
     bought_amount: f64,
 }
 
+/// Final swap structure including resolved token names
 #[derive(Debug, Serialize)]
 struct EnrichedSwapSummary {
     timestamp: u64,
@@ -41,6 +44,7 @@ struct EnrichedSwapSummary {
     bought_amount: f64,
 }
 
+/// Loads Jupiter token map (mint → token name)
 fn load_jupiter_token_map() -> HashMap<String, String> {
     let path = "data/jupiter_token_map.json";
     if let Ok(content) = fs::read_to_string(path) {
@@ -60,6 +64,7 @@ fn load_jupiter_token_map() -> HashMap<String, String> {
     HashMap::new()
 }
 
+/// Loads resolved token names from cache (Helius results)
 fn load_cached_token_names() -> HashMap<String, String> {
     let path = "cache/token_names.json";
     if let Ok(content) = fs::read_to_string(path) {
@@ -86,6 +91,7 @@ fn load_cached_token_names() -> HashMap<String, String> {
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // Load config
     let settings: Settings = config::Config::builder()
         .add_source(config::File::with_name("config/config"))
         .build()?
@@ -96,9 +102,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let use_cached_txns = settings.use_cached_txns.unwrap_or(false);
     let use_cached_swaps = settings.use_cached_swaps.unwrap_or(false);
     let use_token_cache = settings.use_token_cache.unwrap_or(false);
-    let use_jupiter_token_list = settings.use_jupiter_token_list.unwrap_or(true); // ✅ Use flag
+    let use_jupiter_token_list = settings.use_jupiter_token_list.unwrap_or(true);
 
-    // --- Load Jupiter Token Map if enabled ---
+    // Load Jupiter token map if enabled
     let jupiter_token_map: HashMap<String, String> = if use_jupiter_token_list {
         load_jupiter_token_map()
     } else {
@@ -106,6 +112,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         HashMap::new()
     };
 
+    // Load or fetch transactions from Helius
     let transactions_path = format!("cache/transactions_{}.json", wallet);
     let transactions: Vec<Value> = if use_cached_txns && Path::new(&transactions_path).exists() {
         println!("Using cached transactions...");
@@ -153,12 +160,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     println!("Total transactions loaded: {}", transactions.len());
 
+    // Load or filter/enrich swaps
     let swaps_path = format!("cache/swaps_{}.json", wallet);
     let _swaps: Vec<SwapSummary> = if use_cached_swaps && Path::new(&swaps_path).exists() {
         println!("♻️  Using cached swaps from {}", swaps_path);
         let file = fs::read_to_string(&swaps_path)?;
         serde_json::from_str(&file)?
     } else {
+        // Step 1: Extract swap-like token transfers from raw txs
         println!("Filtering swaps from transactions...");
         let mut swaps = vec![];
         for tx in &transactions {
@@ -190,6 +199,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         println!("🔎 Found {} swaps", swaps.len());
         println!("🧠 Resolving token names for swaps...");
 
+        // Step 2: Resolve mint names using Jupiter, cache, and Helius fallback
         let cached_map = if use_token_cache {
             println!("Using cached token names...");
             load_cached_token_names()
@@ -216,6 +226,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
         }
 
+        // Step 3: Call Helius to resolve remaining unknown mints
         if !unknown_mints.is_empty() {
             println!("Querying {} unknown mints via Helius...", unknown_mints.len());
             let payload = json!({ "mintAccounts": unknown_mints });
@@ -250,6 +261,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
         }
 
+        // Step 4: Enrich swaps with token names
         let enriched_swaps: Vec<EnrichedSwapSummary> = swaps
             .into_iter()
             .map(|s| {
@@ -278,11 +290,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             })
             .collect();
 
+        // Step 5: Write enriched swaps to cache
         let mut file = File::create(&swaps_path)?;
         write!(file, "{}", serde_json::to_string_pretty(&enriched_swaps)?)?;
         println!("✅ Enriched swaps written to {}", swaps_path);
 
-        // Return the minimal version of enriched swaps for consistency
+        // Return simplified struct so rest of program can use it uniformly
         enriched_swaps.iter().map(|e| SwapSummary {
             timestamp: e.timestamp,
             signature: e.signature.clone(),
