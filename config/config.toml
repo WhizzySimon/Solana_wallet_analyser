@@ -5,3 +5,4 @@ use_cached_txns = true
 use_cached_swaps = true
 use_token_cache = true
 use_jupiter_token_list = true
+swaps_path = "cache/swaps_KzNxNJvcieTvAF4bnfsuH1YEAXLHcB1cs468JA4K4QE.json"

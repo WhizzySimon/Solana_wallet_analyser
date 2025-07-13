@@ -90,6 +90,20 @@ fn load_cached_token_names() -> HashMap<String, String> {
     HashMap::new()
 }
 
+/// Extracts token amount using rawTokenAmount.decimals and tokenAmount
+fn extract_token_amount(obj: &Value) -> f64 {
+    if let Some(n) = obj.get("tokenAmount") {
+        if let Some(as_f64) = n.as_f64() {
+            return as_f64;
+        }
+        if let Some(as_str) = n.as_str() {
+            return as_str.parse().unwrap_or(0.0);
+        }
+    }
+    0.0
+}
+
+
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Load config
     let settings: Settings = config::Config::builder()
@@ -171,28 +185,37 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         println!("Filtering swaps from transactions...");
         let mut swaps = vec![];
         for tx in &transactions {
-            if let Some(token_transfers) = tx.get("tokenTransfers").and_then(|v| v.as_array()) {
-                if token_transfers.len() >= 2 {
-                    let t1 = &token_transfers[0];
-                    let t2 = &token_transfers[1];
+            let wallet_lower = wallet.to_lowercase();
+            if let Some(transfers) = tx.get("tokenTransfers").and_then(|v| v.as_array()) {
+                let sold = transfers.iter().find(|tt| {
+                    tt.get("fromUserAccount")
+                        .and_then(|v| v.as_str())
+                        .map(|s| s.eq_ignore_ascii_case(&wallet_lower))
+                        .unwrap_or(false)
+                });
 
-                    let (sold, bought) = if t1.get("source").unwrap_or(&Value::Null) == wallet.as_str()
-                        || t1.get("destination").unwrap_or(&Value::Null) == wallet.as_str()
-                    {
-                        (t1, t2)
-                    } else {
-                        (t2, t1)
-                    };
+                let bought = transfers.iter().find(|tt| {
+                    tt.get("toUserAccount")
+                        .and_then(|v| v.as_str())
+                        .map(|s| s.eq_ignore_ascii_case(&wallet_lower))
+                        .unwrap_or(false)
+                });
+
+                if let (Some(s), Some(b)) = (sold, bought) {
+                    let sold_amt = extract_token_amount(s);
+                    let bought_amt = extract_token_amount(b);
 
                     swaps.push(SwapSummary {
                         timestamp: tx.get("timestamp").and_then(|v| v.as_u64()).unwrap_or(0),
                         signature: tx.get("signature").and_then(|v| v.as_str()).unwrap_or("").to_string(),
-                        sold_mint: sold.get("mint").and_then(|v| v.as_str()).unwrap_or("").to_string(),
-                        sold_amount: sold.get("tokenAmount").and_then(|v| v.as_str()).unwrap_or("0").parse().unwrap_or(0.0),
-                        bought_mint: bought.get("mint").and_then(|v| v.as_str()).unwrap_or("").to_string(),
-                        bought_amount: bought.get("tokenAmount").and_then(|v| v.as_str()).unwrap_or("0").parse().unwrap_or(0.0),
+                        sold_mint: s.get("mint").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+                        sold_amount: sold_amt,
+                        bought_mint: b.get("mint").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+                        bought_amount: bought_amt,
                     });
+
                 }
+
             }
         }
 
