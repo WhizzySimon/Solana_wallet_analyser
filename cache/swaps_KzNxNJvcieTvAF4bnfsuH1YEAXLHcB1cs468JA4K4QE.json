@@ -288,5 +288,47 @@
     "bought_mint": "CtDG5KAb5sEfonevVLfBmriRcmsDshH7js5qZWLDpump",
     "bought_token_name": "ORANGIFY",
     "bought_amount": 18663.507532
+  },
+  {
+    "timestamp": 1749500000,
+    "signature": "usd1tokentrade",
+    "sold_mint": "EPjFWdd5AufqSSqeM2q9AEBHk3xkEAYkU4oQpK5rhq9b",
+    "sold_token_name": "USDC",
+    "sold_amount": 10.0,
+    "bought_mint": "ABC123xyzMint",
+    "bought_token_name": "Meme Coin",
+    "bought_amount": 123456.0
+  },
+  {
+    "timestamp": 1749500005,
+    "signature": "token2usdtrade",
+    "sold_mint": "DEF456abcMint",
+    "sold_token_name": "RugCoin",
+    "sold_amount": 500000.0,
+    "bought_mint": "Es9vMFrzaCERCLdXxBtiKjUMnYrxqPfmafkDT3HjWc1",
+    "bought_token_name": "USDT",
+    "bought_amount": 25.0
+  },
+  {
+    "timestamp": 1749500010,
+    "signature": "sol2usdc",
+    "sold_mint": "So11111111111111111111111111111111111111112",
+    "sold_token_name": "Wrapped SOL",
+    "sold_amount": 0.02,
+    "bought_mint": "EPjFWdd5AufqSSqeM2q9AEBHk3xkEAYkU4oQpK5rhq9b",
+    "bought_token_name": "USDC",
+    "bought_amount": 3.6
+  },
+  {
+    "timestamp": 1749500015,
+    "signature": "usdt2sol",
+    "sold_mint": "Es9vMFrzaCERCLdXxBtiKjUMnYrxqPfmafkDT3HjWc1",
+    "sold_token_name": "USDT",
+    "sold_amount": 4.0,
+    "bought_mint": "So11111111111111111111111111111111111111112",
+    "bought_token_name": "Wrapped SOL",
+    "bought_amount": 0.021
   }
+
+
 ]

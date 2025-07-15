@@ -12,8 +12,10 @@ struct Swap {
     timestamp: u64,
     signature: String,
     sold_mint: String,
+    sold_token_name: String,
     sold_amount: f64,
     bought_mint: String,
+    bought_token_name: String,
     bought_amount: f64,
 }
 
@@ -32,13 +34,37 @@ struct PricedSwap {
 const SOLANA_MINT: &str = "So11111111111111111111111111111111111111112";
 const BINANCE_SYMBOL: &str = "SOLUSDT";
 
+fn is_usd_token(token_name: &str) -> bool {
+    matches!(
+        token_name,
+        "USDC" | "USD Coin" | "USDT" | "Tether" | "USDH" | "UXD" | "cUSDC" | "stUSDT"
+    )
+}
+
 fn load_sol_swaps(path: &str) -> Vec<Swap> {
     let content = fs::read_to_string(path).expect("failed to read file");
     let all: Vec<Swap> = serde_json::from_str(&content).expect("failed to parse JSON");
-    all.into_iter()
-        .filter(|s| s.sold_mint == SOLANA_MINT || s.bought_mint == SOLANA_MINT)
-        .collect()
+
+    let mut filtered = vec![];
+    let mut skipped_usd_sol = 0;
+
+    for s in all.into_iter() {
+        let has_sol = s.sold_mint == SOLANA_MINT || s.bought_mint == SOLANA_MINT;
+        let sold_name = s.sold_token_name.as_str();
+        let bought_name = s.bought_token_name.as_str();
+        let is_usd_pair = is_usd_token(sold_name) || is_usd_token(bought_name);
+
+        if has_sol && is_usd_pair {
+            skipped_usd_sol += 1;
+        } else if has_sol {
+            filtered.push(s);
+        }
+    }
+
+    println!("Skipped {} SOL-USD swaps (handled separately)", skipped_usd_sol);
+    filtered
 }
+
 
 fn group_by_time(swaps: &[Swap]) -> Vec<Vec<&Swap>> {
     const MAX_GROUP_SPAN: u64 = 86400;
@@ -98,7 +124,7 @@ fn fetch_price_map_for_range(client: &Client, start_ts: u64, end_ts: u64) -> Has
     map
 }
 
-fn enrich_cache_swaps_with_sol_prices(swaps_path: &str, priced_swaps: &[PricedSwap]) {
+fn enrich_swaps_with_pricing(swaps_path: &str, priced_swaps: &[PricedSwap]) {
     let content = fs::read_to_string(swaps_path).expect("failed to read raw swap file");
     let mut swaps: Vec<Value> = serde_json::from_str(&content).expect("failed to parse JSON");
 
@@ -108,7 +134,18 @@ fn enrich_cache_swaps_with_sol_prices(swaps_path: &str, priced_swaps: &[PricedSw
         .collect();
 
     for swap in swaps.iter_mut() {
-        if let Some(sig) = swap.get("signature").and_then(|s| s.as_str()) {
+        let sig = swap.get("signature").and_then(|s| s.as_str());
+        let sold_name = swap.get("sold_token_name").and_then(|s| s.as_str()).unwrap_or("");
+        let bought_name = swap.get("bought_token_name").and_then(|s| s.as_str()).unwrap_or("");
+        let sold_mint = swap.get("sold_mint").and_then(|s| s.as_str()).unwrap_or("");
+        let bought_mint = swap.get("bought_mint").and_then(|s| s.as_str()).unwrap_or("");
+        let sold_amount = swap.get("sold_amount").and_then(|v| v.as_f64()).unwrap_or(0.0);
+        let bought_amount = swap.get("bought_amount").and_then(|v| v.as_f64()).unwrap_or(0.0);
+
+        let has_sol = sold_mint == SOLANA_MINT || bought_mint == SOLANA_MINT;
+        let is_usd = is_usd_token(sold_name) || is_usd_token(bought_name);
+
+        if let Some(sig) = sig {
             if let Some(p) = price_map.get(sig) {
                 let sol_amount = if p.sold_mint == SOLANA_MINT {
                     p.sold_amount
@@ -119,16 +156,60 @@ fn enrich_cache_swaps_with_sol_prices(swaps_path: &str, priced_swaps: &[PricedSw
 
                 swap["binance_sol_usd_price"] = serde_json::json!(sol_price);
                 swap["pricing_method"] = serde_json::json!(p.pricing_method);
-            } else {
-                swap["pricing_method"] = serde_json::json!("unverified");
+                continue;
             }
+
+            // USD + SOL → calculate price directly
+            if has_sol && is_usd {
+                let (sol_amount, usd_amount) = if sold_mint == SOLANA_MINT {
+                    (sold_amount, bought_amount)
+                } else {
+                    (bought_amount, sold_amount)
+                };
+
+                if sol_amount > 0.0 {
+                    let price = usd_amount / sol_amount;
+                    swap["binance_sol_usd_price"] = serde_json::json!(price);
+                    swap["pricing_method"] = serde_json::json!("usd_direct");
+                } else {
+                    swap["pricing_method"] = serde_json::json!("unverified");
+                }
+                continue;
+            }
+
+            // USD-only swap (no SOL involved)
+            if !has_sol && is_usd {
+                swap["pricing_method"] = serde_json::json!("usd_direct");
+                continue;
+            }
+
+            // Fallback case
+            swap["pricing_method"] = serde_json::json!("unverified");
         } else {
             swap["pricing_method"] = serde_json::json!("unverified");
         }
     }
 
     let json = serde_json::to_string_pretty(&swaps).unwrap();
-    fs::write("output/swaps_enriched_with_sol_price.json", json).unwrap();
+    fs::write("output/swaps_enriched_with_sol&usd_price.json", json).unwrap();
+    let mut count_binance = 0;
+    let mut count_usd_direct = 0;
+    let mut count_unverified = 0;
+
+    for swap in &swaps {
+        match swap.get("pricing_method").and_then(|v| v.as_str()) {
+            Some("binance_1m") => count_binance += 1,
+            Some("usd_direct") => count_usd_direct += 1,
+            Some("unverified") => count_unverified += 1,
+            _ => {}
+        }
+    }
+
+    println!(
+        "Pricing summary: binance_1m: {}, usd_direct: {}, unverified: {}",
+        count_binance, count_usd_direct, count_unverified
+    );
+
 }
 
 fn main() {
@@ -202,5 +283,5 @@ fn main() {
     let json = serde_json::to_string_pretty(&results).unwrap();
     fs::write("output/swaps_with_sol_prices_binance.json", json).unwrap();
 
-    enrich_cache_swaps_with_sol_prices(&swaps_path, &results);
+    enrich_swaps_with_pricing(&swaps_path, &results);
 }
