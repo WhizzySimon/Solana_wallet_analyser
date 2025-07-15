@@ -1,7 +1,7 @@
 use reqwest::blocking::Client;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+use std::collections::{HashMap};
 use std::fs;
 use std::time::Duration;
 use config::Config;
@@ -65,23 +65,27 @@ fn load_sol_swaps(path: &str) -> Vec<Swap> {
     filtered
 }
 
-
 fn group_by_time(swaps: &[Swap]) -> Vec<Vec<&Swap>> {
-    const MAX_GROUP_SPAN: u64 = 86400;
+    const MAX_GROUP_SPAN: u64 = 6 * 3600; // 6 hours in seconds
 
     let mut sorted = swaps.iter().collect::<Vec<_>>();
+    if sorted.is_empty() {
+        return vec![];
+    }
+
     sorted.sort_by_key(|s| s.timestamp);
 
     let mut groups = vec![];
     let mut current_group = vec![sorted[0]];
-    let mut start = sorted[0].timestamp;
+    let mut group_start = sorted[0].timestamp;
 
     for s in sorted.iter().skip(1) {
-        let span = s.timestamp - start;
+        let span = s.timestamp - group_start;
+
         if span > MAX_GROUP_SPAN {
             groups.push(current_group);
             current_group = vec![*s];
-            start = s.timestamp;
+            group_start = s.timestamp;
         } else {
             current_group.push(*s);
         }
@@ -103,7 +107,6 @@ fn fetch_price_map_for_range(client: &Client, start_ts: u64, end_ts: u64) -> Has
     );
 
     println!("Requesting Binance Klines: {}", url);
-
     let resp = client
         .get(&url)
         .timeout(Duration::from_secs(10))
@@ -111,6 +114,9 @@ fn fetch_price_map_for_range(client: &Client, start_ts: u64, end_ts: u64) -> Has
         .expect("failed to send request")
         .json::<Vec<Vec<serde_json::Value>>>()
         .expect("failed to parse response");
+
+    // 🔐 Clone here for debug logging
+    let raw_resp = resp.clone();
 
     let mut map = HashMap::new();
     for entry in resp {
@@ -121,7 +127,18 @@ fn fetch_price_map_for_range(client: &Client, start_ts: u64, end_ts: u64) -> Has
             map.insert(open_time / 1000, close_price);
         }
     }
+
+    // 📝 Write debug copy
+    let debug_file = format!(
+        "output/binance_klines_{}_{}.json",
+        start_ts,
+        end_ts
+    );
+    let raw_json = serde_json::to_string_pretty(&raw_resp).unwrap();
+    fs::write(debug_file, raw_json).expect("failed to write debug klines file");
+
     map
+
 }
 
 fn enrich_swaps_with_pricing(swaps_path: &str, priced_swaps: &[PricedSwap]) {
@@ -159,7 +176,6 @@ fn enrich_swaps_with_pricing(swaps_path: &str, priced_swaps: &[PricedSwap]) {
                 continue;
             }
 
-            // USD + SOL → calculate price directly
             if has_sol && is_usd {
                 let (sol_amount, usd_amount) = if sold_mint == SOLANA_MINT {
                     (sold_amount, bought_amount)
@@ -177,13 +193,11 @@ fn enrich_swaps_with_pricing(swaps_path: &str, priced_swaps: &[PricedSwap]) {
                 continue;
             }
 
-            // USD-only swap (no SOL involved)
             if !has_sol && is_usd {
                 swap["pricing_method"] = serde_json::json!("usd_direct");
                 continue;
             }
 
-            // Fallback case
             swap["pricing_method"] = serde_json::json!("unverified");
         } else {
             swap["pricing_method"] = serde_json::json!("unverified");
@@ -192,6 +206,7 @@ fn enrich_swaps_with_pricing(swaps_path: &str, priced_swaps: &[PricedSwap]) {
 
     let json = serde_json::to_string_pretty(&swaps).unwrap();
     fs::write("output/swaps_enriched_with_sol&usd_price.json", json).unwrap();
+
     let mut count_binance = 0;
     let mut count_usd_direct = 0;
     let mut count_unverified = 0;
@@ -209,7 +224,6 @@ fn enrich_swaps_with_pricing(swaps_path: &str, priced_swaps: &[PricedSwap]) {
         "Pricing summary: binance_1m: {}, usd_direct: {}, unverified: {}",
         count_binance, count_usd_direct, count_unverified
     );
-
 }
 
 fn main() {
@@ -226,8 +240,8 @@ fn main() {
     println!("{}", "-".repeat(65));
 
     for (i, group) in groups.iter().enumerate() {
-        let start_ts = group.first().unwrap().timestamp;
-        let end_ts = group.last().unwrap().timestamp;
+        let start_ts = group.first().unwrap().timestamp.saturating_sub(300);
+        let end_ts = group.last().unwrap().timestamp + 300;
         let start_dt = Utc.timestamp_opt(start_ts as i64, 0).unwrap();
         let end_dt = Utc.timestamp_opt(end_ts as i64, 0).unwrap();
         println!(
@@ -243,7 +257,7 @@ fn main() {
     let mut results = vec![];
 
     for group in groups {
-        let start_ts = group.first().unwrap().timestamp;
+        let start_ts = group.first().unwrap().timestamp.saturating_sub(120);
         let end_ts = group.last().unwrap().timestamp + 60;
         let price_map = fetch_price_map_for_range(&client, start_ts, end_ts);
 
@@ -252,10 +266,20 @@ fn main() {
             let mut timestamps: Vec<_> = price_map.keys().cloned().collect();
             timestamps.sort_unstable();
 
-            for ts in timestamps.into_iter().rev() {
-                if ts <= swap.timestamp {
+            let mut min_diff = u64::MAX;
+            let mut best_ts = None;
+
+            for ts in &timestamps {
+                let diff = swap.timestamp.abs_diff(*ts);
+                if diff < min_diff {
+                    min_diff = diff;
+                    best_ts = Some(*ts);
+                }
+            }
+
+            if let Some(ts) = best_ts {
+                if min_diff <= 90 {
                     matched_price = price_map.get(&ts).cloned();
-                    break;
                 }
             }
 
@@ -276,6 +300,11 @@ fn main() {
                     usd_value,
                     pricing_method: "binance_1m".to_string(),
                 });
+            } else {
+                println!(
+                    "No price found for swap at ts={} (sig={})",
+                    swap.timestamp, swap.signature
+                );
             }
         }
     }

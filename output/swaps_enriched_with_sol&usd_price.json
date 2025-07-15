@@ -12,7 +12,7 @@
     "timestamp": 1749473472
   },
   {
-    "binance_sol_usd_price": 155.32,
+    "binance_sol_usd_price": 155.4,
     "bought_amount": 1650.274803,
     "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
     "bought_token_name": "TTC",
@@ -24,7 +24,7 @@
     "timestamp": 1749473456
   },
   {
-    "binance_sol_usd_price": 155.32,
+    "binance_sol_usd_price": 155.4,
     "bought_amount": 2094.900507,
     "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
     "bought_token_name": "TTC",
@@ -36,7 +36,7 @@
     "timestamp": 1749473453
   },
   {
-    "binance_sol_usd_price": 155.32,
+    "binance_sol_usd_price": 155.4,
     "bought_amount": 0.219545886,
     "bought_mint": "So11111111111111111111111111111111111111112",
     "bought_token_name": "Wrapped SOL",
@@ -72,10 +72,11 @@
     "timestamp": 1749473405
   },
   {
+    "binance_sol_usd_price": 155.32,
     "bought_amount": 2121.520916,
     "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
     "bought_token_name": "TTC",
-    "pricing_method": "unverified",
+    "pricing_method": "binance_1m",
     "signature": "2XrsrD8HViWchfZ5EJk9T4em3ENXn47KqwnmAnn4QcC3n4wYYimPR5CFyaoBkvVitdrzR4tPSjhCWQapnGVuu2pQ",
     "sold_amount": 0.067,
     "sold_mint": "So11111111111111111111111111111111111111112",
@@ -83,10 +84,11 @@
     "timestamp": 1749473398
   },
   {
+    "binance_sol_usd_price": 155.32,
     "bought_amount": 2154.679834,
     "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
     "bought_token_name": "TTC",
-    "pricing_method": "unverified",
+    "pricing_method": "binance_1m",
     "signature": "5Q77YuimKpFW5Tfq3VAy7CWdyAtFWU1VjmdfVkFw6Yo5TWgVMYoazKswoRCBumSPNth3fd14rQyrWdP1dkxvNpas",
     "sold_amount": 0.068,
     "sold_mint": "So11111111111111111111111111111111111111112",
@@ -94,10 +96,11 @@
     "timestamp": 1749473391
   },
   {
+    "binance_sol_usd_price": 153.92,
     "bought_amount": 9.074355921,
     "bought_mint": "So11111111111111111111111111111111111111112",
     "bought_token_name": "Wrapped SOL",
-    "pricing_method": "unverified",
+    "pricing_method": "binance_1m",
     "signature": "2dZpczvxeUEBHMEjTdYjoeWkyvM5xEdKSpKwaXhWsDduNCQnQV7PEmeAxjkSE1822nNiJ4UwK94hKKgczh4cZvXq",
     "sold_amount": 300000.0,
     "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
@@ -105,7 +108,7 @@
     "timestamp": 1748686024
   },
   {
-    "binance_sol_usd_price": 165.48,
+    "binance_sol_usd_price": 161.8,
     "bought_amount": 62.83877361,
     "bought_mint": "So11111111111111111111111111111111111111112",
     "bought_token_name": "Wrapped SOL",
@@ -117,7 +120,7 @@
     "timestamp": 1748611643
   },
   {
-    "binance_sol_usd_price": 165.48,
+    "binance_sol_usd_price": 161.71,
     "bought_amount": 51.153727895,
     "bought_mint": "So11111111111111111111111111111111111111112",
     "bought_token_name": "Wrapped SOL",
@@ -129,7 +132,7 @@
     "timestamp": 1748611490
   },
   {
-    "binance_sol_usd_price": 165.48,
+    "binance_sol_usd_price": 161.81,
     "bought_amount": 89.71179786,
     "bought_mint": "So11111111111111111111111111111111111111112",
     "bought_token_name": "Wrapped SOL",
@@ -141,7 +144,7 @@
     "timestamp": 1748611457
   },
   {
-    "binance_sol_usd_price": 165.48,
+    "binance_sol_usd_price": 162.21,
     "bought_amount": 86.203731388,
     "bought_mint": "So11111111111111111111111111111111111111112",
     "bought_token_name": "Wrapped SOL",
@@ -165,10 +168,11 @@
     "timestamp": 1748548394
   },
   {
+    "binance_sol_usd_price": 166.55,
     "bought_amount": 104.146807,
     "bought_mint": "So11111111111111111111111111111111111111112",
     "bought_token_name": "Wrapped SOL",
-    "pricing_method": "unverified",
+    "pricing_method": "binance_1m",
     "signature": "2g6hCe1ozbGum6vVLTHC1jVF7U2ikQ7VVaMVxq1PgBd2Z8h45oK5pB2ncyUteF3LoH3xUtaj1zVRPHDebCrs1Vos",
     "sold_amount": 104.146807,
     "sold_mint": "So11111111111111111111111111111111111111112",
@@ -176,7 +180,7 @@
     "timestamp": 1748546392
   },
   {
-    "binance_sol_usd_price": 178.2,
+    "binance_sol_usd_price": 178.3,
     "bought_amount": 0.009251422,
     "bought_mint": "So11111111111111111111111111111111111111112",
     "bought_token_name": "Wrapped SOL",
@@ -188,7 +192,7 @@
     "timestamp": 1748354988
   },
   {
-    "binance_sol_usd_price": 178.2,
+    "binance_sol_usd_price": 178.3,
     "bought_amount": 7771.535033,
     "bought_mint": "GFAb9ARdro6dwcYmcXsynubq5PiHHKjHifDH6NiTpump",
     "bought_token_name": "point of convergence",
@@ -224,7 +228,7 @@
     "timestamp": 1748354908
   },
   {
-    "binance_sol_usd_price": 177.9,
+    "binance_sol_usd_price": 177.89,
     "bought_amount": 0.008264618,
     "bought_mint": "So11111111111111111111111111111111111111112",
     "bought_token_name": "Wrapped SOL",
@@ -236,7 +240,7 @@
     "timestamp": 1748354879
   },
   {
-    "binance_sol_usd_price": 177.9,
+    "binance_sol_usd_price": 177.89,
     "bought_amount": 19154.743623,
     "bought_mint": "CtDG5KAb5sEfonevVLfBmriRcmsDshH7js5qZWLDpump",
     "bought_token_name": "ORANGIFY",
@@ -248,7 +252,7 @@
     "timestamp": 1748354861
   },
   {
-    "binance_sol_usd_price": 177.9,
+    "binance_sol_usd_price": 177.89,
     "bought_amount": 0.009510454,
     "bought_mint": "So11111111111111111111111111111111111111112",
     "bought_token_name": "Wrapped SOL",
@@ -284,7 +288,7 @@
     "timestamp": 1748354824
   },
   {
-    "binance_sol_usd_price": 177.42,
+    "binance_sol_usd_price": 177.9,
     "bought_amount": 14172.679574,
     "bought_mint": "4ZrrR2hXDu1uQFLTJApAHUhVzERQemPH6m4qSNDdgRZP",
     "bought_token_name": "Wrong Way",
@@ -296,10 +300,11 @@
     "timestamp": 1748354814
   },
   {
+    "binance_sol_usd_price": 177.42,
     "bought_amount": 0.008574416,
     "bought_mint": "So11111111111111111111111111111111111111112",
     "bought_token_name": "Wrapped SOL",
-    "pricing_method": "unverified",
+    "pricing_method": "binance_1m",
     "signature": "5XRPM6mi8pGfpGanpN6CXesa7c1odGLy9aix39RyQhMeiPyHJTEFkuLyzMYaX5VmNp4hAbbohA3tiKLsD3ds3U4U",
     "sold_amount": 19631.099122,
     "sold_mint": "CtDG5KAb5sEfonevVLfBmriRcmsDshH7js5qZWLDpump",
@@ -307,10 +312,11 @@
     "timestamp": 1748354749
   },
   {
+    "binance_sol_usd_price": 177.42,
     "bought_amount": 19631.099122,
     "bought_mint": "CtDG5KAb5sEfonevVLfBmriRcmsDshH7js5qZWLDpump",
     "bought_token_name": "ORANGIFY",
-    "pricing_method": "unverified",
+    "pricing_method": "binance_1m",
     "signature": "24ozz6aSEusg9HJjpdz3PP3wgEJPGZHYpfF5aU3nArZVTYTgqgUSsrFecRi4LEH8nvrRMSDFa95uR644nf5wrxyG",
     "sold_amount": 0.009216543,
     "sold_mint": "So11111111111111111111111111111111111111112",
@@ -318,10 +324,11 @@
     "timestamp": 1748354736
   },
   {
+    "binance_sol_usd_price": 177.42,
     "bought_amount": 0.008112852,
     "bought_mint": "So11111111111111111111111111111111111111112",
     "bought_token_name": "Wrapped SOL",
-    "pricing_method": "unverified",
+    "pricing_method": "binance_1m",
     "signature": "2T29VRbY5EAhHxMwsoyv1FJnd1oDRWaDBWvfDA4fhyZZxsCaFNJmZgenCTcgqCoA4KSvwLTMo3S7huqEnB9QNiGd",
     "sold_amount": 18663.507532,
     "sold_mint": "CtDG5KAb5sEfonevVLfBmriRcmsDshH7js5qZWLDpump",
@@ -329,10 +336,11 @@
     "timestamp": 1748354733
   },
   {
+    "binance_sol_usd_price": 177.61,
     "bought_amount": 18663.507532,
     "bought_mint": "CtDG5KAb5sEfonevVLfBmriRcmsDshH7js5qZWLDpump",
     "bought_token_name": "ORANGIFY",
-    "pricing_method": "unverified",
+    "pricing_method": "binance_1m",
     "signature": "2U9ey7UvMNgLGfhguHg6o5fTeSva2gJi5QsTZnyvf9CwnPDcC8USXHtGhNkZm8i8ty3F2dYaC1CB87TVNiPdfhax",
     "sold_amount": 0.009411034,
     "sold_mint": "So11111111111111111111111111111111111111112",

@@ -1,12 +1,52 @@
 [
   {
+    "timestamp": 1748354729,
+    "signature": "2U9ey7UvMNgLGfhguHg6o5fTeSva2gJi5QsTZnyvf9CwnPDcC8USXHtGhNkZm8i8ty3F2dYaC1CB87TVNiPdfhax",
+    "sold_mint": "So11111111111111111111111111111111111111112",
+    "sold_amount": 0.009411034,
+    "bought_mint": "CtDG5KAb5sEfonevVLfBmriRcmsDshH7js5qZWLDpump",
+    "bought_amount": 18663.507532,
+    "usd_value": 1.6714937487400001,
+    "pricing_method": "binance_1m"
+  },
+  {
+    "timestamp": 1748354733,
+    "signature": "2T29VRbY5EAhHxMwsoyv1FJnd1oDRWaDBWvfDA4fhyZZxsCaFNJmZgenCTcgqCoA4KSvwLTMo3S7huqEnB9QNiGd",
+    "sold_mint": "CtDG5KAb5sEfonevVLfBmriRcmsDshH7js5qZWLDpump",
+    "sold_amount": 18663.507532,
+    "bought_mint": "So11111111111111111111111111111111111111112",
+    "bought_amount": 0.008112852,
+    "usd_value": 1.43938220184,
+    "pricing_method": "binance_1m"
+  },
+  {
+    "timestamp": 1748354736,
+    "signature": "24ozz6aSEusg9HJjpdz3PP3wgEJPGZHYpfF5aU3nArZVTYTgqgUSsrFecRi4LEH8nvrRMSDFa95uR644nf5wrxyG",
+    "sold_mint": "So11111111111111111111111111111111111111112",
+    "sold_amount": 0.009216543,
+    "bought_mint": "CtDG5KAb5sEfonevVLfBmriRcmsDshH7js5qZWLDpump",
+    "bought_amount": 19631.099122,
+    "usd_value": 1.63519905906,
+    "pricing_method": "binance_1m"
+  },
+  {
+    "timestamp": 1748354749,
+    "signature": "5XRPM6mi8pGfpGanpN6CXesa7c1odGLy9aix39RyQhMeiPyHJTEFkuLyzMYaX5VmNp4hAbbohA3tiKLsD3ds3U4U",
+    "sold_mint": "CtDG5KAb5sEfonevVLfBmriRcmsDshH7js5qZWLDpump",
+    "sold_amount": 19631.099122,
+    "bought_mint": "So11111111111111111111111111111111111111112",
+    "bought_amount": 0.008574416,
+    "usd_value": 1.5212728867199998,
+    "pricing_method": "binance_1m"
+  },
+  {
     "timestamp": 1748354814,
     "signature": "674M1iiMfMWK2fBHBhqjxee3qWbAqYDwDEYcFWzBk5mDZUDnuJQt9VsNTxuSAV8BhTBXysYWp7FhN32LVL9C99UY",
     "sold_mint": "So11111111111111111111111111111111111111112",
     "sold_amount": 0.00906583,
     "bought_mint": "4ZrrR2hXDu1uQFLTJApAHUhVzERQemPH6m4qSNDdgRZP",
     "bought_amount": 14172.679574,
-    "usd_value": 1.6084595586,
+    "usd_value": 1.612811157,
     "pricing_method": "binance_1m"
   },
   {
@@ -36,7 +76,7 @@
     "sold_amount": 20343.582765,
     "bought_mint": "So11111111111111111111111111111111111111112",
     "bought_amount": 0.009510454,
-    "usd_value": 1.6919097666,
+    "usd_value": 1.6918146620599999,
     "pricing_method": "binance_1m"
   },
   {
@@ -46,7 +86,7 @@
     "sold_amount": 0.009242903,
     "bought_mint": "CtDG5KAb5sEfonevVLfBmriRcmsDshH7js5qZWLDpump",
     "bought_amount": 19154.743623,
-    "usd_value": 1.6443124437,
+    "usd_value": 1.64422001467,
     "pricing_method": "binance_1m"
   },
   {
@@ -56,7 +96,7 @@
     "sold_amount": 19154.743623,
     "bought_mint": "So11111111111111111111111111111111111111112",
     "bought_amount": 0.008264618,
-    "usd_value": 1.4702755422,
+    "usd_value": 1.47019289602,
     "pricing_method": "binance_1m"
   },
   {
@@ -86,7 +126,7 @@
     "sold_amount": 0.00942496,
     "bought_mint": "GFAb9ARdro6dwcYmcXsynubq5PiHHKjHifDH6NiTpump",
     "bought_amount": 7771.535033,
-    "usd_value": 1.6795278719999998,
+    "usd_value": 1.680470368,
     "pricing_method": "binance_1m"
   },
   {
@@ -96,7 +136,17 @@
     "sold_amount": 7771.535033,
     "bought_mint": "So11111111111111111111111111111111111111112",
     "bought_amount": 0.009251422,
-    "usd_value": 1.6486034004,
+    "usd_value": 1.6495285426000001,
+    "pricing_method": "binance_1m"
+  },
+  {
+    "timestamp": 1748546392,
+    "signature": "2g6hCe1ozbGum6vVLTHC1jVF7U2ikQ7VVaMVxq1PgBd2Z8h45oK5pB2ncyUteF3LoH3xUtaj1zVRPHDebCrs1Vos",
+    "sold_mint": "So11111111111111111111111111111111111111112",
+    "sold_amount": 104.146807,
+    "bought_mint": "So11111111111111111111111111111111111111112",
+    "bought_amount": 104.146807,
+    "usd_value": 17345.65070585,
     "pricing_method": "binance_1m"
   },
   {
@@ -116,7 +166,7 @@
     "sold_amount": 3000000.0,
     "bought_mint": "So11111111111111111111111111111111111111112",
     "bought_amount": 86.203731388,
-    "usd_value": 14264.993470086238,
+    "usd_value": 13983.10726844748,
     "pricing_method": "binance_1m"
   },
   {
@@ -126,7 +176,7 @@
     "sold_amount": 3000012.0,
     "bought_mint": "So11111111111111111111111111111111111111112",
     "bought_amount": 89.71179786,
-    "usd_value": 14845.5083098728,
+    "usd_value": 14516.2660117266,
     "pricing_method": "binance_1m"
   },
   {
@@ -136,7 +186,7 @@
     "sold_amount": 2001211.0,
     "bought_mint": "So11111111111111111111111111111111111111112",
     "bought_amount": 51.153727895,
-    "usd_value": 8464.9188920646,
+    "usd_value": 8272.069337900452,
     "pricing_method": "binance_1m"
   },
   {
@@ -146,7 +196,37 @@
     "sold_amount": 3012111.0,
     "bought_mint": "So11111111111111111111111111111111111111112",
     "bought_amount": 62.83877361,
-    "usd_value": 10398.560256982799,
+    "usd_value": 10167.313570098,
+    "pricing_method": "binance_1m"
+  },
+  {
+    "timestamp": 1748686024,
+    "signature": "2dZpczvxeUEBHMEjTdYjoeWkyvM5xEdKSpKwaXhWsDduNCQnQV7PEmeAxjkSE1822nNiJ4UwK94hKKgczh4cZvXq",
+    "sold_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "sold_amount": 300000.0,
+    "bought_mint": "So11111111111111111111111111111111111111112",
+    "bought_amount": 9.074355921,
+    "usd_value": 1396.72486336032,
+    "pricing_method": "binance_1m"
+  },
+  {
+    "timestamp": 1749473391,
+    "signature": "5Q77YuimKpFW5Tfq3VAy7CWdyAtFWU1VjmdfVkFw6Yo5TWgVMYoazKswoRCBumSPNth3fd14rQyrWdP1dkxvNpas",
+    "sold_mint": "So11111111111111111111111111111111111111112",
+    "sold_amount": 0.068,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_amount": 2154.679834,
+    "usd_value": 10.56176,
+    "pricing_method": "binance_1m"
+  },
+  {
+    "timestamp": 1749473398,
+    "signature": "2XrsrD8HViWchfZ5EJk9T4em3ENXn47KqwnmAnn4QcC3n4wYYimPR5CFyaoBkvVitdrzR4tPSjhCWQapnGVuu2pQ",
+    "sold_mint": "So11111111111111111111111111111111111111112",
+    "sold_amount": 0.067,
+    "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
+    "bought_amount": 2121.520916,
+    "usd_value": 10.40644,
     "pricing_method": "binance_1m"
   },
   {
@@ -176,7 +256,7 @@
     "sold_amount": 7027.498429,
     "bought_mint": "So11111111111111111111111111111111111111112",
     "bought_amount": 0.219545886,
-    "usd_value": 34.09986701352,
+    "usd_value": 34.1174306844,
     "pricing_method": "binance_1m"
   },
   {
@@ -186,7 +266,7 @@
     "sold_amount": 0.066,
     "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
     "bought_amount": 2094.900507,
-    "usd_value": 10.25112,
+    "usd_value": 10.256400000000001,
     "pricing_method": "binance_1m"
   },
   {
@@ -196,7 +276,7 @@
     "sold_amount": 0.052,
     "bought_mint": "FZHTzddMqH4T8ySS8a2fq5uyRMKCJKiovJuUGQ9Wcook",
     "bought_amount": 1650.274803,
-    "usd_value": 8.07664,
+    "usd_value": 8.0808,
     "pricing_method": "binance_1m"
   },
   {
