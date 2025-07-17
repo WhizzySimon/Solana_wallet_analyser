@@ -1,6 +1,6 @@
 [package]
-name = "wallet-analyzer"
-default-run = "wallet-analyzer"
+name = "wallet_analyzer"
+default-run = "wallet_analyzer"
 version = "0.1.0"
 edition = "2021"
 
