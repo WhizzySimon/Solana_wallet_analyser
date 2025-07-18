@@ -4,12 +4,11 @@ use std::{
     fs::{self, File},
     io::Write,
     path::Path,
-    thread,
-    time::Duration,
 };
 use wallet_analyzer::modules::utils::load_config;
 use wallet_analyzer::modules::types::SwapSummary;
 use wallet_analyzer::modules::types::EnrichedSwapSummary;
+use wallet_analyzer::modules::transactions::get_transactions;
 
 /// Loads Jupiter token map (mint → token name)
 fn load_jupiter_token_map() -> HashMap<String, String> {
@@ -77,57 +76,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let helius_api_key = settings.helius_api_key;
     let wallet = settings.wallet_address;
-    let use_cached_txns = settings.use_cached_txns.unwrap_or(false);
     let use_cached_swaps = settings.use_cached_swaps.unwrap_or(false);
     let use_token_cache = settings.use_token_cache.unwrap_or(false);
     let use_jupiter_token_list = settings.use_jupiter_token_list.unwrap_or(true);
 
-
-    // Load or fetch transactions from Helius
-    let transactions_path = format!("cache/transactions_{}.json", wallet);
-    let transactions: Vec<Value> = if use_cached_txns && Path::new(&transactions_path).exists() {
-        println!("Using cached transactions...");
-        let file = fs::read_to_string(&transactions_path)?;
-        serde_json::from_str(&file)?
-    } else {
-        println!("Fetching transactions for wallet: {}", wallet);
-        let mut all = vec![];
-        let mut before: Option<String> = None;
-        let client = reqwest::blocking::Client::new();
-
-        loop {
-            let url = format!(
-                "https://api.helius.xyz/v0/addresses/{}/transactions?api-key={}&limit=100{}",
-                wallet,
-                helius_api_key,
-                before
-                    .as_ref()
-                    .map(|b| format!("&before={}", b))
-                    .unwrap_or_default()
-            );
-
-            let response = client.get(&url).send()?;
-            if !response.status().is_success() {
-                println!("Helius error: {}", response.status());
-                break;
-            }
-
-            let batch: Vec<Value> = response.json()?;
-            if batch.is_empty() {
-                break;
-            }
-
-            before = batch.last().and_then(|tx| tx.get("signature")?.as_str().map(String::from));
-            all.extend(batch);
-            thread::sleep(Duration::from_millis(300));
-        }
-
-        println!("Saving transactions to cache...");
-        fs::create_dir_all("cache")?;
-        let mut file = File::create(&transactions_path)?;
-        write!(file, "{}", serde_json::to_string_pretty(&all)?)?;
-        all
-    };
+    let transactions = get_transactions()?;
 
     println!("Total transactions loaded: {}", transactions.len());
 
@@ -138,7 +91,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         println!("Skipping Jupiter token list (use_jupiter_token_list=false)");
         HashMap::new()
     };
-    
+
     // Load or filter/enrich swaps
     let swaps_path = format!("cache/swaps_{}.json", wallet);
     let _swaps: Vec<SwapSummary> = if use_cached_swaps && Path::new(&swaps_path).exists() {
