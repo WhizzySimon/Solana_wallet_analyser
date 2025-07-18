@@ -1,7 +1,7 @@
 helius_api_key = "807b9237-fe0d-4677-9d02-30c20228ae87"
 birdeye_api_key = "78aed522375e415e836276eee3552d34"
 wallet_address = "KzNxNJvcieTvAF4bnfsuH1YEAXLHcB1cs468JA4K4QE"
-use_cached_txns = false
+use_cached_txns = true
 use_cached_swaps = true
 use_token_cache = true
 use_jupiter_token_list = true
