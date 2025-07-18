@@ -1,4 +1,3 @@
-use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 use std::{
     collections::{HashMap, HashSet},
@@ -8,43 +7,9 @@ use std::{
     thread,
     time::Duration,
 };
-//use wallet_analyzer::modules::utils::get_swaps_path;
-
-
-/// Configuration loaded from `config.toml`
-#[derive(Debug, Deserialize)]
-struct Settings {
-    helius_api_key: String,
-    wallet_address: String,
-    use_cached_txns: Option<bool>,
-    use_cached_swaps: Option<bool>,
-    use_token_cache: Option<bool>,
-    use_jupiter_token_list: Option<bool>,
-}
-
-/// Minimal raw swap structure parsed from transactions
-#[derive(Debug, Serialize, Deserialize)]
-struct SwapSummary {
-    timestamp: u64,
-    signature: String,
-    sold_mint: String,
-    sold_amount: f64,
-    bought_mint: String,
-    bought_amount: f64,
-}
-
-/// Final swap structure including resolved token names
-#[derive(Debug, Serialize)]
-struct EnrichedSwapSummary {
-    timestamp: u64,
-    signature: String,
-    sold_mint: String,
-    sold_token_name: String,
-    sold_amount: f64,
-    bought_mint: String,
-    bought_token_name: String,
-    bought_amount: f64,
-}
+use wallet_analyzer::modules::utils::load_config;
+use wallet_analyzer::modules::types::SwapSummary;
+use wallet_analyzer::modules::types::EnrichedSwapSummary;
 
 /// Loads Jupiter token map (mint → token name)
 fn load_jupiter_token_map() -> HashMap<String, String> {
@@ -108,10 +73,7 @@ fn extract_token_amount(obj: &Value) -> f64 {
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Load config
-    let settings: Settings = config::Config::builder()
-        .add_source(config::File::with_name("config/config"))
-        .build()?
-        .try_deserialize()?;
+    let settings = load_config()?;
 
     let helius_api_key = settings.helius_api_key;
     let wallet = settings.wallet_address;
@@ -120,13 +82,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let use_token_cache = settings.use_token_cache.unwrap_or(false);
     let use_jupiter_token_list = settings.use_jupiter_token_list.unwrap_or(true);
 
-    // Load Jupiter token map if enabled
-    let jupiter_token_map: HashMap<String, String> = if use_jupiter_token_list {
-        load_jupiter_token_map()
-    } else {
-        println!("Skipping Jupiter token list (use_jupiter_token_list=false)");
-        HashMap::new()
-    };
 
     // Load or fetch transactions from Helius
     let transactions_path = format!("cache/transactions_{}.json", wallet);
@@ -176,6 +131,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     println!("Total transactions loaded: {}", transactions.len());
 
+    // Load Jupiter token map if enabled
+    let jupiter_token_map: HashMap<String, String> = if use_jupiter_token_list {
+        load_jupiter_token_map()
+    } else {
+        println!("Skipping Jupiter token list (use_jupiter_token_list=false)");
+        HashMap::new()
+    };
+    
     // Load or filter/enrich swaps
     let swaps_path = format!("cache/swaps_{}.json", wallet);
     let _swaps: Vec<SwapSummary> = if use_cached_swaps && Path::new(&swaps_path).exists() {
