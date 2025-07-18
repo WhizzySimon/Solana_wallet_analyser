@@ -1,5 +1,4 @@
 use reqwest::blocking::Client;
-use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::{HashMap};
 use std::fs;
@@ -7,34 +6,9 @@ use std::time::Duration;
 use config::Config;
 use chrono::{Utc, TimeZone};
 use crate::modules::utils::{get_project_root, get_swaps_path};
+use crate::modules::types::{SwapWithTokenNames, PricedSwap};
 
 
-
-#[derive(Debug, Deserialize)]
-struct Swap {
-    timestamp: u64,
-    signature: String,
-    sold_mint: String,
-    sold_token_name: String,
-    sold_amount: f64,
-    bought_mint: String,
-    bought_token_name: String,
-    bought_amount: f64,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-struct PricedSwap {
-    timestamp: u64,
-    signature: String,
-    sold_mint: String,
-    sold_token_name: String,
-    sold_amount: f64,
-    bought_mint: String,
-    bought_token_name: String,
-    bought_amount: f64,
-    usd_value: f64,
-    pricing_method: String,
-}
 
 
 const SOLANA_MINT: &str = "So11111111111111111111111111111111111111112";
@@ -47,9 +21,9 @@ fn is_usd_token(token_name: &str) -> bool {
     )
 }
 
-fn load_sol_swaps(path: &str) -> Vec<Swap> {
+fn load_sol_swaps(path: &str) -> Vec<SwapWithTokenNames> {
     let content = fs::read_to_string(path).expect("failed to read file");
-    let all: Vec<Swap> = serde_json::from_str(&content).expect("failed to parse JSON");
+    let all: Vec<SwapWithTokenNames> = serde_json::from_str(&content).expect("failed to parse JSON");
 
     let mut filtered = vec![];
     let mut skipped_usd_sol = 0;
@@ -71,7 +45,7 @@ fn load_sol_swaps(path: &str) -> Vec<Swap> {
     filtered
 }
 
-fn group_by_time(swaps: &[Swap]) -> Vec<Vec<&Swap>> {
+fn group_by_time(swaps: &[SwapWithTokenNames]) -> Vec<Vec<&SwapWithTokenNames>> {
     const MAX_GROUP_SPAN: u64 = 6 * 3600; // 6 hours in seconds
 
     let mut sorted = swaps.iter().collect::<Vec<_>>();

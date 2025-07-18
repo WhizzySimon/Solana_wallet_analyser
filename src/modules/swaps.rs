@@ -5,7 +5,7 @@ use std::{
     io::Write,
     path::Path,
 };
-use crate::modules::types::{SwapSummary, EnrichedSwapSummary};
+use crate::modules::types::{Swap, SwapWithTokenNames};
 use crate::modules::utils::load_config;
 
 
@@ -69,7 +69,7 @@ fn extract_token_amount(obj: &Value) -> f64 {
 }
 
 
-pub fn load_or_filter_and_enrich_swaps (transactions:&Vec<Value>) -> Result<Vec<SwapSummary>, Box<dyn std::error::Error>> {
+pub fn load_or_filter_and_enrich_swaps (transactions:&Vec<Value>) -> Result<Vec<Swap>, Box<dyn std::error::Error>> {
 
         // Load config
     let settings = load_config()?;
@@ -90,7 +90,7 @@ pub fn load_or_filter_and_enrich_swaps (transactions:&Vec<Value>) -> Result<Vec<
 
     // Load or filter/enrich swaps
     let swaps_path = format!("cache/swaps_{}.json", wallet);
-    let swaps: Vec<SwapSummary> = if use_cached_swaps && Path::new(&swaps_path).exists() {
+    let swaps: Vec<Swap> = if use_cached_swaps && Path::new(&swaps_path).exists() {
         println!("♻️  Using cached swaps from {}", swaps_path);
         let file = fs::read_to_string(&swaps_path)?;
         serde_json::from_str(&file)?
@@ -119,7 +119,7 @@ pub fn load_or_filter_and_enrich_swaps (transactions:&Vec<Value>) -> Result<Vec<
                     let sold_amt = extract_token_amount(s);
                     let bought_amt = extract_token_amount(b);
 
-                    swaps.push(SwapSummary {
+                    swaps.push(Swap {
                         timestamp: tx.get("timestamp").and_then(|v| v.as_u64()).unwrap_or(0),
                         signature: tx.get("signature").and_then(|v| v.as_str()).unwrap_or("").to_string(),
                         sold_mint: s.get("mint").and_then(|v| v.as_str()).unwrap_or("").to_string(),
@@ -199,7 +199,7 @@ pub fn load_or_filter_and_enrich_swaps (transactions:&Vec<Value>) -> Result<Vec<
         }
 
         // Step 4: Enrich swaps with token names
-        let enriched_swaps: Vec<EnrichedSwapSummary> = swaps
+        let enriched_swaps: Vec<SwapWithTokenNames> = swaps
             .into_iter()
             .map(|s| {
                 let sold_token_name = jupiter_token_map
@@ -214,7 +214,7 @@ pub fn load_or_filter_and_enrich_swaps (transactions:&Vec<Value>) -> Result<Vec<
                     .or_else(|| mint_name_map.get(&s.bought_mint).cloned())
                     .unwrap_or_else(|| "UNKNOWN".to_string());
 
-                EnrichedSwapSummary {
+                SwapWithTokenNames {
                     timestamp: s.timestamp,
                     signature: s.signature,
                     sold_mint: s.sold_mint,
@@ -233,7 +233,7 @@ pub fn load_or_filter_and_enrich_swaps (transactions:&Vec<Value>) -> Result<Vec<
         println!("✅ Enriched swaps written to {}", swaps_path);
 
         // Return simplified struct so rest of program can use it uniformly
-        enriched_swaps.iter().map(|e| SwapSummary {
+        enriched_swaps.iter().map(|e| Swap {
             timestamp: e.timestamp,
             signature: e.signature.clone(),
             sold_mint: e.sold_mint.clone(),

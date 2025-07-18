@@ -13,7 +13,7 @@ pub struct Settings {
 
 /// Minimal raw swap structure parsed from transactions
 #[derive(Debug, Serialize, Deserialize)]
-pub struct SwapSummary {
+pub struct Swap {
     pub timestamp: u64,
     pub signature: String,
     pub sold_mint: String,
@@ -23,8 +23,8 @@ pub struct SwapSummary {
 }
 
 /// Final swap structure including resolved token names
-#[derive(Debug, Serialize)]
-pub struct EnrichedSwapSummary {
+#[derive(Debug, Serialize, Deserialize)]
+pub struct SwapWithTokenNames {
     pub timestamp: u64,
     pub signature: String,
     pub sold_mint: String,
@@ -33,4 +33,19 @@ pub struct EnrichedSwapSummary {
     pub bought_mint: String,
     pub bought_token_name: String,
     pub bought_amount: f64,
+}
+
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct PricedSwap {
+    pub timestamp: u64,
+    pub signature: String,
+    pub sold_mint: String,
+    pub sold_token_name: String,
+    pub sold_amount: f64,
+    pub bought_mint: String,
+    pub bought_token_name: String,
+    pub bought_amount: f64,
+    pub usd_value: f64,
+    pub pricing_method: String,
 }
