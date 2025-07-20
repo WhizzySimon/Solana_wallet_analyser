@@ -1,13 +1,12 @@
-use serde_json::{json, Value};
-use std::{
-    collections::{HashMap, HashSet},
-    fs::{self, File},
-    io::Write,
-    path::Path,
-};
-use crate::modules::types::{Swap, SwapWithTokenNames};
-use crate::modules::utils::load_config;
 
+use crate::modules::types::{RawTxn, Swap, SwapWithTokenNames};
+use crate::modules::utils::get_swaps_path;
+use std::collections::{HashMap, HashSet};
+use std::fs::{self, File};
+use std::io::Write;
+use std::path::Path;
+use serde_json::json;
+use serde_json::Value;
 
 /// Loads Jupiter token map (mint → token name)
 fn load_jupiter_token_map() -> HashMap<String, String> {
@@ -55,88 +54,83 @@ fn load_cached_token_names() -> HashMap<String, String> {
     HashMap::new()
 }
 
-/// Extracts token amount using rawTokenAmount.decimals and tokenAmount
-fn extract_token_amount(obj: &Value) -> f64 {
-    if let Some(n) = obj.get("tokenAmount") {
-        if let Some(as_f64) = n.as_f64() {
-            return as_f64;
-        }
-        if let Some(as_str) = n.as_str() {
-            return as_str.parse().unwrap_or(0.0);
-        }
-    }
-    0.0
-}
 
+pub fn filter_and_enrich_swaps(
+    transactions: &Vec<RawTxn>,
+) -> Result<Vec<SwapWithTokenNames>, Box<dyn std::error::Error>> {
 
-pub fn load_or_filter_and_enrich_swaps (transactions:&Vec<Value>) -> Result<Vec<Swap>, Box<dyn std::error::Error>> {
-
-        // Load config
-    let settings = load_config()?;
-
+    let settings = crate::modules::utils::load_config()?;
+    let use_cached_swaps = settings.use_cached_swaps.unwrap_or(true);
+    let use_token_cache = settings.use_token_cache.unwrap_or(true);
+    let use_jupiter_token_list = settings.use_jupiter_token_list.unwrap_or(true);
     let helius_api_key = settings.helius_api_key;
     let wallet = settings.wallet_address;
-    let use_cached_swaps = settings.use_cached_swaps.unwrap_or(false);
-    let use_token_cache = settings.use_token_cache.unwrap_or(false);
-    let use_jupiter_token_list = settings.use_jupiter_token_list.unwrap_or(true);
+    let wallet_lower = wallet.to_lowercase();
+    let swaps_path = get_swaps_path(&wallet);
 
-    // Load Jupiter token map if enabled
-    let jupiter_token_map: HashMap<String, String> = if use_jupiter_token_list {
-        load_jupiter_token_map()
-    } else {
-        println!("Skipping Jupiter token list (use_jupiter_token_list=false)");
-        HashMap::new()
-    };
-
-    // Load or filter/enrich swaps
-    let swaps_path = format!("cache/swaps_{}.json", wallet);
-    let swaps: Vec<Swap> = if use_cached_swaps && Path::new(&swaps_path).exists() {
+    let swaps: Vec<SwapWithTokenNames> = if use_cached_swaps && Path::new(&swaps_path).exists() {
         println!("♻️  Using cached swaps from {}", swaps_path);
         let file = fs::read_to_string(&swaps_path)?;
         serde_json::from_str(&file)?
     } else {
-        // Step 1: Extract swap-like token transfers from raw txs
-        println!("Filtering swaps from transactions...");
-        let mut swaps = vec![];
-        for tx in transactions {
-            let wallet_lower = wallet.to_lowercase();
-            if let Some(transfers) = tx.get("tokenTransfers").and_then(|v| v.as_array()) {
-                let sold = transfers.iter().find(|tt| {
-                    tt.get("fromUserAccount")
-                        .and_then(|v| v.as_str())
-                        .map(|s| s.eq_ignore_ascii_case(&wallet_lower))
-                        .unwrap_or(false)
-                });
+        println!("🔍 Filtering swaps from {} transactions...", transactions.len());
+        let mut raw_swaps = vec![];
 
-                let bought = transfers.iter().find(|tt| {
-                    tt.get("toUserAccount")
-                        .and_then(|v| v.as_str())
-                        .map(|s| s.eq_ignore_ascii_case(&wallet_lower))
-                        .unwrap_or(false)
-                });
+        for (i, tx) in transactions.iter().enumerate() {
+            println!("🔎 [{}] Checking transaction: {}", i, tx.signature);
 
-                if let (Some(s), Some(b)) = (sold, bought) {
-                    let sold_amt = extract_token_amount(s);
-                    let bought_amt = extract_token_amount(b);
+            if tx.token_transfers.is_empty() {
+                println!("   ⚠️ No token transfers in this transaction.");
+                continue;
+            }
 
-                    swaps.push(Swap {
-                        timestamp: tx.get("timestamp").and_then(|v| v.as_u64()).unwrap_or(0),
-                        signature: tx.get("signature").and_then(|v| v.as_str()).unwrap_or("").to_string(),
-                        sold_mint: s.get("mint").and_then(|v| v.as_str()).unwrap_or("").to_string(),
-                        sold_amount: sold_amt,
-                        bought_mint: b.get("mint").and_then(|v| v.as_str()).unwrap_or("").to_string(),
-                        bought_amount: bought_amt,
+            for (j, t) in tx.token_transfers.iter().enumerate() {
+                println!(
+                    "     [{}] from_user_account: {:?}, to_user_account: {:?}, mint: {:?}, amount: {:?}",
+                    j,
+                    t.from_user_account,
+                    t.to_user_account,
+                    t.mint,
+                    t.token_amount
+                );
+            }
+
+            let sold = tx.token_transfers.iter()
+                .find(|t| t.from_user_account.eq_ignore_ascii_case(&wallet_lower));
+
+            let bought = tx.token_transfers.iter()
+                .find(|t| t.to_user_account.eq_ignore_ascii_case(&wallet_lower));
+
+            match (sold, bought) {
+                (Some(s), Some(b)) => {
+                    println!("   ✅ Match found: sold={} bought={}", s.mint, b.mint);
+                    raw_swaps.push(Swap {
+                        timestamp: tx.timestamp.unwrap_or(0),
+                        signature: tx.signature.clone(),
+                        sold_mint: s.mint.clone(),
+                        sold_amount: s.token_amount,
+                        bought_mint: b.mint.clone(),
+                        bought_amount: b.token_amount,
                     });
-
                 }
-
+                _ => {
+                    println!("   ❌ No matching sold/bought pair for wallet.");
+                }
             }
         }
 
-        println!("🔎 Found {} swaps", swaps.len());
+
+
+        println!("🔎 Found {} swaps", raw_swaps.len());
         println!("🧠 Resolving token names for swaps...");
 
-        // Step 2: Resolve mint names using Jupiter, cache, and Helius fallback
+        let jupiter_token_map = if use_jupiter_token_list {
+            load_jupiter_token_map()
+        } else {
+            println!("Skipping Jupiter token list (use_jupiter_token_list=false)");
+            HashMap::new()
+        };
+
         let cached_map = if use_token_cache {
             println!("Using cached token names...");
             load_cached_token_names()
@@ -144,15 +138,14 @@ pub fn load_or_filter_and_enrich_swaps (transactions:&Vec<Value>) -> Result<Vec<
             HashMap::new()
         };
 
-        let mut all_mints: HashSet<String> = HashSet::new();
-        for swap in &swaps {
-            all_mints.insert(swap.sold_mint.clone());
-            all_mints.insert(swap.bought_mint.clone());
+        let mut all_mints = HashSet::new();
+        for s in &raw_swaps {
+            all_mints.insert(s.sold_mint.clone());
+            all_mints.insert(s.bought_mint.clone());
         }
 
         let mut mint_name_map: HashMap<String, String> = HashMap::new();
-        let mut unknown_mints: Vec<String> = vec![];
-
+        let mut unknown_mints = vec![];
         for mint in &all_mints {
             if let Some(name) = jupiter_token_map.get(mint) {
                 mint_name_map.insert(mint.clone(), name.clone());
@@ -163,7 +156,6 @@ pub fn load_or_filter_and_enrich_swaps (transactions:&Vec<Value>) -> Result<Vec<
             }
         }
 
-        // Step 3: Call Helius to resolve remaining unknown mints
         if !unknown_mints.is_empty() {
             println!("Querying {} unknown mints via Helius...", unknown_mints.len());
             let payload = json!({ "mintAccounts": unknown_mints });
@@ -174,13 +166,14 @@ pub fn load_or_filter_and_enrich_swaps (transactions:&Vec<Value>) -> Result<Vec<
             match res {
                 Ok(response) => {
                     if response.status().is_success() {
-                        let token_data: Vec<Value> = response.json()?;
+                        let token_data: Vec<serde_json::Value> = response.json()?;
                         for entry in &token_data {
                             let mint = entry.get("account").and_then(|v| v.as_str()).unwrap_or("").to_string();
                             let name = entry
                                 .get("onChainMetadata")
                                 .and_then(|m| m.get("metadata"))
-                                .and_then(|m| m.get("name"))
+                                .and_then(|m| m.get("data"))
+                                .and_then(|d| d.get("name"))
                                 .or_else(|| entry.get("tokenInfo").and_then(|t| t.get("name")))
                                 .and_then(|n| n.as_str())
                                 .unwrap_or("UNKNOWN")
@@ -189,31 +182,20 @@ pub fn load_or_filter_and_enrich_swaps (transactions:&Vec<Value>) -> Result<Vec<
                         }
                         let mut file = File::create("cache/token_names.json")?;
                         write!(file, "{}", serde_json::to_string_pretty(&token_data)?)?;
-                        println!("Token names written to cache/token_names.json");
+                        println!("✅ Token names written to cache/token_names.json");
                     } else {
-                        println!("Helius error: {}", response.status());
+                        println!("⚠️ Helius error: {}", response.status());
                     }
                 }
-                Err(e) => println!("Error calling Helius: {}", e),
+                Err(e) => println!("⚠️ Error calling Helius: {}", e),
             }
         }
 
-        // Step 4: Enrich swaps with token names
-        let enriched_swaps: Vec<SwapWithTokenNames> = swaps
+        let enriched: Vec<SwapWithTokenNames> = raw_swaps
             .into_iter()
             .map(|s| {
-                let sold_token_name = jupiter_token_map
-                    .get(&s.sold_mint)
-                    .cloned()
-                    .or_else(|| mint_name_map.get(&s.sold_mint).cloned())
-                    .unwrap_or_else(|| "UNKNOWN".to_string());
-
-                let bought_token_name = jupiter_token_map
-                    .get(&s.bought_mint)
-                    .cloned()
-                    .or_else(|| mint_name_map.get(&s.bought_mint).cloned())
-                    .unwrap_or_else(|| "UNKNOWN".to_string());
-
+                let sold_token_name = mint_name_map.get(&s.sold_mint).cloned().unwrap_or_else(|| "UNKNOWN".to_string());
+                let bought_token_name = mint_name_map.get(&s.bought_mint).cloned().unwrap_or_else(|| "UNKNOWN".to_string());
                 SwapWithTokenNames {
                     timestamp: s.timestamp,
                     signature: s.signature,
@@ -227,20 +209,11 @@ pub fn load_or_filter_and_enrich_swaps (transactions:&Vec<Value>) -> Result<Vec<
             })
             .collect();
 
-        // Step 5: Write enriched swaps to cache
         let mut file = File::create(&swaps_path)?;
-        write!(file, "{}", serde_json::to_string_pretty(&enriched_swaps)?)?;
+        write!(file, "{}", serde_json::to_string_pretty(&enriched)?)?;
         println!("✅ Enriched swaps written to {}", swaps_path);
-
-        // Return simplified struct so rest of program can use it uniformly
-        enriched_swaps.iter().map(|e| Swap {
-            timestamp: e.timestamp,
-            signature: e.signature.clone(),
-            sold_mint: e.sold_mint.clone(),
-            sold_amount: e.sold_amount,
-            bought_mint: e.bought_mint.clone(),
-            bought_amount: e.bought_amount,
-        }).collect()
+        enriched
     };
+
     Ok(swaps)
 }

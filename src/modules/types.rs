@@ -49,3 +49,43 @@ pub struct PricedSwap {
     pub usd_value: f64,
     pub pricing_method: String,
 }
+
+
+
+#[derive(Debug, Deserialize, Serialize, Clone)]
+pub struct RawTxn {
+    pub signature: String,
+    pub slot: u64,
+    pub timestamp: Option<u64>,
+    pub fee: u64,
+    #[serde(rename = "feePayer")]
+    pub fee_payer: String,
+    pub description: String,
+    #[serde(rename = "type")]
+    pub txn_type: String,
+    #[serde(rename = "nativeTransfers")]
+    pub native_transfers: Vec<NativeTransfer>,
+    #[serde(rename = "tokenTransfers")]
+    pub token_transfers: Vec<TokenTransfer>,
+}
+
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct NativeTransfer {
+    pub amount: i64,
+    #[serde(rename = "fromUserAccount")]
+    pub from_user_account: String,
+    #[serde(rename = "toUserAccount")]
+    pub to_user_account: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct TokenTransfer {
+    #[serde(rename = "fromUserAccount")]
+    pub from_user_account: String,
+    #[serde(rename = "toUserAccount")]
+    pub to_user_account: String,
+    pub mint: String,
+    #[serde(rename = "tokenAmount")]
+    pub token_amount: f64,
+}
