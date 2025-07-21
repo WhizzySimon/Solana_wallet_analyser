@@ -375,57 +375,5 @@
     "sold_token_name": "Wrapped SOL",
     "timestamp": 1748354729,
     "usd_value": 1.6714937487400001
-  },
-  {
-    "binance_sol_usd_price": 0.00008100051840331778,
-    "bought_amount": 123456.0,
-    "bought_mint": "ABC123xyzMint",
-    "bought_token_name": "Meme Coin",
-    "pricing_method": "usd_direct",
-    "signature": "usd1tokentrade",
-    "sold_amount": 10.0,
-    "sold_mint": "EPjFWdd5AufqSSqeM2q9AEBHk3xkEAYkU4oQpK5rhq9b",
-    "sold_token_name": "USDC",
-    "timestamp": 1749500000,
-    "usd_value": 0.0
-  },
-  {
-    "binance_sol_usd_price": 1.0,
-    "bought_amount": 25.0,
-    "bought_mint": "Es9vMFrzaCERCLdXxBtiKjUMnYrxqPfmafkDT3HjWc1",
-    "bought_token_name": "USDT",
-    "pricing_method": "usd_direct",
-    "signature": "token2usdtrade",
-    "sold_amount": 500000.0,
-    "sold_mint": "DEF456abcMint",
-    "sold_token_name": "RugCoin",
-    "timestamp": 1749500005,
-    "usd_value": 0.0
-  },
-  {
-    "binance_sol_usd_price": 180.0,
-    "bought_amount": 3.6,
-    "bought_mint": "EPjFWdd5AufqSSqeM2q9AEBHk3xkEAYkU4oQpK5rhq9b",
-    "bought_token_name": "USDC",
-    "pricing_method": "usd_direct",
-    "signature": "sol2usdc",
-    "sold_amount": 0.02,
-    "sold_mint": "So11111111111111111111111111111111111111112",
-    "sold_token_name": "Wrapped SOL",
-    "timestamp": 1749500010,
-    "usd_value": 3.6
-  },
-  {
-    "binance_sol_usd_price": 190.47619047619045,
-    "bought_amount": 0.021,
-    "bought_mint": "So11111111111111111111111111111111111111112",
-    "bought_token_name": "Wrapped SOL",
-    "pricing_method": "usd_direct",
-    "signature": "usdt2sol",
-    "sold_amount": 4.0,
-    "sold_mint": "Es9vMFrzaCERCLdXxBtiKjUMnYrxqPfmafkDT3HjWc1",
-    "sold_token_name": "USDT",
-    "timestamp": 1749500015,
-    "usd_value": 3.9999999999999996
   }
 ]

@@ -3,13 +3,8 @@ use serde_json::Value;
 use std::collections::{HashMap};
 use std::fs;
 use std::time::Duration;
-use config::Config;
-//use chrono::{Utc, TimeZone};
-use crate::modules::utils::{get_project_root, get_swaps_path};
+use crate::modules::utils::{get_swaps_path};
 use crate::modules::types::{SwapWithTokenNames, PricedSwap};
-
-
-
 
 const SOLANA_MINT: &str = "So11111111111111111111111111111111111111112";
 const BINANCE_SYMBOL: &str = "SOLUSDT";
@@ -21,30 +16,6 @@ fn is_usd_token(token_name: &str) -> bool {
     )
 }
 
-/* fn load_sol_swaps(path: &str) -> Vec<SwapWithTokenNames> {
-    let content = fs::read_to_string(path).expect("failed to read file");
-    let all: Vec<SwapWithTokenNames> = serde_json::from_str(&content).expect("failed to parse JSON");
-
-    let mut filtered = vec![];
-    let mut skipped_usd_sol = 0;
-
-    for s in all.into_iter() {
-        let has_sol = s.sold_mint == SOLANA_MINT || s.bought_mint == SOLANA_MINT;
-        let sold_name = s.sold_token_name.as_str();
-        let bought_name = s.bought_token_name.as_str();
-        let is_usd_pair = is_usd_token(sold_name) || is_usd_token(bought_name);
-
-        if has_sol && is_usd_pair {
-            skipped_usd_sol += 1;
-        } else if has_sol {
-            filtered.push(s);
-        }
-    }
-
-    println!("Skipped {} SOL-USD swaps (handled separately)", skipped_usd_sol);
-    filtered
-}
- */
 fn group_by_time(swaps_with_token_names: &[SwapWithTokenNames]) -> Vec<Vec<&SwapWithTokenNames>> {
     const MAX_GROUP_SPAN: u64 = 6 * 3600; // 6 hours in seconds
 
@@ -236,23 +207,20 @@ pub fn enrich_swaps_with_pricing(
     enriched
 }
 
-pub fn run_prices(swaps_with_token_names:&Vec<SwapWithTokenNames>) -> Result<(), Box<dyn std::error::Error>> {
-    let root = get_project_root();
+pub fn run_prices(swaps_with_token_names:&Vec<SwapWithTokenNames>) -> Result<Vec<PricedSwap>, Box<dyn std::error::Error>> {
 
-    let settings = Config::builder()
-        .add_source(config::File::with_name(root.join("config/config").to_str().unwrap()))
-        .build()?;
+    let settings = crate::modules::utils::load_config()?;
 
-    let wallet_address: String = settings.get("wallet_address")?;
+    let wallet = settings.wallet_address;
+    let wallet_address = wallet.to_lowercase();
     let swaps_path = get_swaps_path(&wallet_address);
-    //let use_cached_swaps = settings.use_cached_swaps.unwrap_or(true);
+    let use_cached_swaps = settings.use_cached_swaps.unwrap_or(true);
 
-    //let swaps = load_sol_swaps(&swaps_path);
-/*     let swaps: Vec<SwapWithTokenNames> = if use_cached_swaps && Path::new(&swaps_path).exists() {
-        println!("♻️  Using cached swaps from {}", swaps_path);
-        let file = fs::read_to_string(&swaps_path)?;
-        serde_json::from_str(&file)?
-    } else { */
+    let priced_swaps: Vec<PricedSwap> = if use_cached_swaps {
+        println!("♻️  Using cached enriched swaps from {}", swaps_path);
+        let content = fs::read_to_string(&swaps_path).expect("Failed to read cached enriched swaps");
+        serde_json::from_str(&content).expect("Failed to parse cached enriched swaps as PricedSwap")
+    } else {
         let groups = group_by_time(swaps_with_token_names);
 
         println!("{:<6} | {:<20} | {:<20} | {}", "Group", "Start Time", "End Time", "Swaps");
@@ -360,7 +328,7 @@ pub fn run_prices(swaps_with_token_names:&Vec<SwapWithTokenNames>) -> Result<(),
 
         println!("✅ Overwrote {} with enriched swaps.", swaps_path);
 
-        enrich_swaps_with_pricing(&swaps_path, &results);
-    //}
-    Ok(())
+        enrich_swaps_with_pricing(&swaps_path, &results)
+    };
+    Ok(priced_swaps)
 }
