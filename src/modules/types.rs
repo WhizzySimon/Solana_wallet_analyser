@@ -46,8 +46,9 @@ pub struct PricedSwap {
     pub bought_mint: String,
     pub bought_token_name: String,
     pub bought_amount: f64,
-    pub usd_value: f64,
     pub pricing_method: String,
+    pub binance_sol_usd_price: Option<f64>,
+    pub usd_value: Option<f64>,
 }
 
 

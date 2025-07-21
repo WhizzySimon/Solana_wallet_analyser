@@ -109,7 +109,10 @@ fn fetch_price_map_for_range(client: &Client, start_ts: u64, end_ts: u64) -> Has
 
 }
 
-fn enrich_swaps_with_pricing(swaps_path: &str, priced_swaps: &[PricedSwap]) {
+pub fn enrich_swaps_with_pricing(
+    swaps_path: &str,
+    priced_swaps: &[PricedSwap],
+) -> Vec<PricedSwap> {
     let content = fs::read_to_string(swaps_path).expect("failed to read raw swap file");
     let mut swaps: Vec<Value> = serde_json::from_str(&content).expect("failed to parse JSON");
 
@@ -119,57 +122,74 @@ fn enrich_swaps_with_pricing(swaps_path: &str, priced_swaps: &[PricedSwap]) {
         .collect();
 
     for swap in swaps.iter_mut() {
-        let sig = swap.get("signature").and_then(|s| s.as_str());
-        let sold_name = swap.get("sold_token_name").and_then(|s| s.as_str()).unwrap_or("");
-        let bought_name = swap.get("bought_token_name").and_then(|s| s.as_str()).unwrap_or("");
-        let sold_mint = swap.get("sold_mint").and_then(|s| s.as_str()).unwrap_or("");
-        let bought_mint = swap.get("bought_mint").and_then(|s| s.as_str()).unwrap_or("");
-        let sold_amount = swap.get("sold_amount").and_then(|v| v.as_f64()).unwrap_or(0.0);
-        let bought_amount = swap.get("bought_amount").and_then(|v| v.as_f64()).unwrap_or(0.0);
+        let sig_val = swap.get("signature").and_then(|s| s.as_str()).unwrap_or("").to_string();
+        let sold_name_val = swap.get("sold_token_name").and_then(|s| s.as_str()).unwrap_or("").to_string();
+        let bought_name_val = swap.get("bought_token_name").and_then(|s| s.as_str()).unwrap_or("").to_string();
+        let sold_mint_val = swap.get("sold_mint").and_then(|s| s.as_str()).unwrap_or("").to_string();
+        let bought_mint_val = swap.get("bought_mint").and_then(|s| s.as_str()).unwrap_or("").to_string();
+        let sold_amount_val = swap.get("sold_amount").and_then(|v| v.as_f64()).unwrap_or(0.0);
+        let bought_amount_val = swap.get("bought_amount").and_then(|v| v.as_f64()).unwrap_or(0.0);
 
-        let has_sol = sold_mint == SOLANA_MINT || bought_mint == SOLANA_MINT;
-        let is_usd = is_usd_token(sold_name) || is_usd_token(bought_name);
+        let has_sol = sold_mint_val == SOLANA_MINT || bought_mint_val == SOLANA_MINT;
+        let is_usd = is_usd_token(&sold_name_val) || is_usd_token(&bought_name_val);
 
-        if let Some(sig) = sig {
-            if let Some(p) = price_map.get(sig) {
+        if let Some(p) = price_map.get(&sig_val) {
+            if let Some(usd_val) = p.usd_value {
                 let sol_amount = if p.sold_mint == SOLANA_MINT {
                     p.sold_amount
                 } else {
                     p.bought_amount
                 };
-                let sol_price = p.usd_value / sol_amount;
+                let sol_price = usd_val / sol_amount;
 
                 swap["binance_sol_usd_price"] = serde_json::json!(sol_price);
                 swap["pricing_method"] = serde_json::json!(p.pricing_method);
-                continue;
-            }
 
-            if has_sol && is_usd {
-                let (sol_amount, usd_amount) = if sold_mint == SOLANA_MINT {
-                    (sold_amount, bought_amount)
+                let usd_value = if sold_mint_val == SOLANA_MINT {
+                    sold_amount_val * sol_price
+                } else if bought_mint_val == SOLANA_MINT {
+                    bought_amount_val * sol_price
                 } else {
-                    (bought_amount, sold_amount)
+                    0.0
                 };
-
-                if sol_amount > 0.0 {
-                    let price = usd_amount / sol_amount;
-                    swap["binance_sol_usd_price"] = serde_json::json!(price);
-                    swap["pricing_method"] = serde_json::json!("usd_direct");
-                } else {
-                    swap["pricing_method"] = serde_json::json!("unverified");
-                }
+                swap["usd_value"] = serde_json::json!(usd_value);
                 continue;
             }
-
-            if !has_sol && is_usd {
-                swap["pricing_method"] = serde_json::json!("usd_direct");
-                continue;
-            }
-
-            swap["pricing_method"] = serde_json::json!("unverified");
-        } else {
-            swap["pricing_method"] = serde_json::json!("unverified");
         }
+
+        if has_sol && is_usd {
+            let (sol_amount, usd_amount) = if sold_mint_val == SOLANA_MINT {
+                (sold_amount_val, bought_amount_val)
+            } else {
+                (bought_amount_val, sold_amount_val)
+            };
+
+            if sol_amount > 0.0 {
+                let price = usd_amount / sol_amount;
+                swap["binance_sol_usd_price"] = serde_json::json!(price);
+                swap["pricing_method"] = serde_json::json!("usd_direct");
+
+                let usd_value = if sold_mint_val == SOLANA_MINT {
+                    sold_amount_val * price
+                } else if bought_mint_val == SOLANA_MINT {
+                    bought_amount_val * price
+                } else {
+                    usd_amount
+                };
+                swap["usd_value"] = serde_json::json!(usd_value);
+            } else {
+                swap["pricing_method"] = serde_json::json!("unverified");
+            }
+            continue;
+        }
+
+        if !has_sol && is_usd {
+            swap["pricing_method"] = serde_json::json!("usd_direct");
+            swap["usd_value"] = serde_json::json!(sold_amount_val.max(bought_amount_val));
+            continue;
+        }
+
+        swap["pricing_method"] = serde_json::json!("unverified");
     }
 
     let mut count_binance = 0;
@@ -189,10 +209,31 @@ fn enrich_swaps_with_pricing(swaps_path: &str, priced_swaps: &[PricedSwap]) {
         "Pricing summary: binance_1m: {}, usd_direct: {}, unverified: {}",
         count_binance, count_usd_direct, count_unverified
     );
+
     let json = serde_json::to_string_pretty(&swaps).unwrap();
     fs::write(swaps_path, json).unwrap();
     println!("✅ Overwrote {} with enriched pricing fields", swaps_path);
 
+    let enriched: Vec<PricedSwap> = swaps
+        .into_iter()
+        .filter_map(|swap| {
+            Some(PricedSwap {
+                timestamp: swap.get("timestamp")?.as_u64().unwrap_or(0),
+                signature: swap.get("signature")?.as_str()?.to_string(),
+                sold_mint: swap.get("sold_mint")?.as_str()?.to_string(),
+                sold_token_name: swap.get("sold_token_name")?.as_str()?.to_string(),
+                sold_amount: swap.get("sold_amount")?.as_f64()?,
+                bought_mint: swap.get("bought_mint")?.as_str()?.to_string(),
+                bought_token_name: swap.get("bought_token_name")?.as_str()?.to_string(),
+                bought_amount: swap.get("bought_amount")?.as_f64()?,
+                pricing_method: swap.get("pricing_method")?.as_str()?.to_string(),
+                binance_sol_usd_price: swap.get("binance_sol_usd_price").and_then(|v| v.as_f64()),
+                usd_value: swap.get("usd_value").and_then(|v| v.as_f64()),
+            })
+        })
+        .collect();
+
+    enriched
 }
 
 pub fn run_prices(swaps_with_token_names:&Vec<SwapWithTokenNames>) -> Result<(), Box<dyn std::error::Error>> {
@@ -204,112 +245,122 @@ pub fn run_prices(swaps_with_token_names:&Vec<SwapWithTokenNames>) -> Result<(),
 
     let wallet_address: String = settings.get("wallet_address")?;
     let swaps_path = get_swaps_path(&wallet_address);
+    //let use_cached_swaps = settings.use_cached_swaps.unwrap_or(true);
 
     //let swaps = load_sol_swaps(&swaps_path);
+/*     let swaps: Vec<SwapWithTokenNames> = if use_cached_swaps && Path::new(&swaps_path).exists() {
+        println!("♻️  Using cached swaps from {}", swaps_path);
+        let file = fs::read_to_string(&swaps_path)?;
+        serde_json::from_str(&file)?
+    } else { */
+        let groups = group_by_time(swaps_with_token_names);
+
+        println!("{:<6} | {:<20} | {:<20} | {}", "Group", "Start Time", "End Time", "Swaps");
+        println!("{}", "-".repeat(65));
     
-    let groups = group_by_time(swaps_with_token_names);
+        for (i, group) in groups.iter().enumerate() {
+            let start_ts = group.first().unwrap().timestamp.saturating_sub(120);
+            let end_ts = group.last().unwrap().timestamp + 60;
+            println!("{:<6} | {:<20} | {:<20} | {}", i + 1, start_ts, end_ts, group.len());
+        }
 
-    println!("{:<6} | {:<20} | {:<20} | {}", "Group", "Start Time", "End Time", "Swaps");
-    println!("{}", "-".repeat(65));
-/* 
-    for (i, group) in groups.iter().enumerate() {
-        let start_ts = group.first().unwrap().timestamp.saturating_sub(300);
-        let end_ts = group.last().unwrap().timestamp + 300;
-    } */
-    let client = Client::new();
-    let mut results = vec![];
+        let client = Client::new();
+        let mut results = vec![];
 
-    for group in groups {
-        let start_ts = group.first().unwrap().timestamp.saturating_sub(120);
-        let end_ts = group.last().unwrap().timestamp + 60;
-        let price_map = fetch_price_map_for_range(&client, start_ts, end_ts);
+        for group in groups {
+            let start_ts = group.first().unwrap().timestamp.saturating_sub(120);
+            let end_ts = group.last().unwrap().timestamp + 60;
+            let price_map = fetch_price_map_for_range(&client, start_ts, end_ts);
 
-        for swap in group {
-            // USD direct pricing logic
-            if swap.sold_token_name.contains("USD") {
-                results.push(PricedSwap {
-                    timestamp: swap.timestamp,
-                    signature: swap.signature.clone(),
-                    sold_mint: swap.sold_mint.clone(),
-                    sold_token_name: swap.sold_token_name.clone(),
-                    sold_amount: swap.sold_amount,
-                    bought_mint: swap.bought_mint.clone(),
-                    bought_token_name: swap.bought_token_name.clone(),
-                    bought_amount: swap.bought_amount,
-                    usd_value: swap.sold_amount,
-                    pricing_method: "usd_direct".to_string(),
-                });
-                continue;
-            } else if swap.bought_token_name.contains("USD") {
-                results.push(PricedSwap {
-                    timestamp: swap.timestamp,
-                    signature: swap.signature.clone(),
-                    sold_mint: swap.sold_mint.clone(),
-                    sold_token_name: swap.sold_token_name.clone(),
-                    sold_amount: swap.sold_amount,
-                    bought_mint: swap.bought_mint.clone(),
-                    bought_token_name: swap.bought_token_name.clone(),
-                    bought_amount: swap.bought_amount,
-                    usd_value: swap.bought_amount,
-                    pricing_method: "usd_direct".to_string(),
-                });
-                continue;
-            }
-
-            // fall back to binance pricing
-            let mut matched_price = None;
-
-            let mut timestamps: Vec<_> = price_map.keys().cloned().collect();
-            timestamps.sort_unstable();
-
-            let mut min_diff = u64::MAX;
-            let mut best_ts = None;
-
-            for ts in &timestamps {
-                let diff = swap.timestamp.abs_diff(*ts);
-                if diff < min_diff {
-                    min_diff = diff;
-                    best_ts = Some(*ts);
+            for swap in group {
+                // USD direct pricing logic
+                if swap.sold_token_name.contains("USD") {
+                    results.push(PricedSwap {
+                        timestamp: swap.timestamp,
+                        signature: swap.signature.clone(),
+                        sold_mint: swap.sold_mint.clone(),
+                        sold_token_name: swap.sold_token_name.clone(),
+                        sold_amount: swap.sold_amount,
+                        bought_mint: swap.bought_mint.clone(),
+                        bought_token_name: swap.bought_token_name.clone(),
+                        bought_amount: swap.bought_amount,
+                        usd_value: Some(swap.sold_amount),
+                        pricing_method: "usd_direct".to_string(),
+                        binance_sol_usd_price: None,
+                    });
+                    continue;
+                } else if swap.bought_token_name.contains("USD") {
+                    results.push(PricedSwap {
+                        timestamp: swap.timestamp,
+                        signature: swap.signature.clone(),
+                        sold_mint: swap.sold_mint.clone(),
+                        sold_token_name: swap.sold_token_name.clone(),
+                        sold_amount: swap.sold_amount,
+                        bought_mint: swap.bought_mint.clone(),
+                        bought_token_name: swap.bought_token_name.clone(),
+                        bought_amount: swap.bought_amount,
+                        usd_value: Some(swap.bought_amount),
+                        pricing_method: "usd_direct".to_string(),
+                        binance_sol_usd_price: None,
+                    });
+                    continue;
                 }
-            }
 
-            if let Some(ts) = best_ts {
-                if min_diff <= 90 {
-                    matched_price = price_map.get(&ts).cloned();
+                // fall back to binance pricing
+                let mut matched_price = None;
+
+                let mut timestamps: Vec<_> = price_map.keys().cloned().collect();
+                timestamps.sort_unstable();
+
+                let mut min_diff = u64::MAX;
+                let mut best_ts = None;
+
+                for ts in &timestamps {
+                    let diff = swap.timestamp.abs_diff(*ts);
+                    if diff < min_diff {
+                        min_diff = diff;
+                        best_ts = Some(*ts);
+                    }
                 }
-            }
 
-            if let Some(price) = matched_price {
-                let usd_value = if swap.sold_mint == SOLANA_MINT {
-                    swap.sold_amount * price
+                if let Some(ts) = best_ts {
+                    if min_diff <= 90 {
+                        matched_price = price_map.get(&ts).cloned();
+                    }
+                }
+
+                if let Some(price) = matched_price {
+                    let usd_value = if swap.sold_mint == SOLANA_MINT {
+                        swap.sold_amount * price
+                    } else {
+                        swap.bought_amount * price
+                    };
+
+                    results.push(PricedSwap {
+                        timestamp: swap.timestamp,
+                        signature: swap.signature.clone(),
+                        sold_mint: swap.sold_mint.clone(),
+                        sold_token_name: swap.sold_token_name.clone(),
+                        sold_amount: swap.sold_amount,
+                        bought_mint: swap.bought_mint.clone(),
+                        bought_token_name: swap.bought_token_name.clone(),
+                        bought_amount: swap.bought_amount,
+                        usd_value: Some(usd_value),
+                        pricing_method: "binance_1m".to_string(),
+                        binance_sol_usd_price: Some(price),
+                    });
                 } else {
-                    swap.bought_amount * price
-                };
-
-                results.push(PricedSwap {
-                    timestamp: swap.timestamp,
-                    signature: swap.signature.clone(),
-                    sold_mint: swap.sold_mint.clone(),
-                    sold_token_name: swap.sold_token_name.clone(),
-                    sold_amount: swap.sold_amount,
-                    bought_mint: swap.bought_mint.clone(),
-                    bought_token_name: swap.bought_token_name.clone(),
-                    bought_amount: swap.bought_amount,
-                    usd_value,
-                    pricing_method: "binance_1m".to_string(),
-                });
-            } else {
-                println!(
-                    "No price found for swap at ts={} (sig={})",
-                    swap.timestamp, swap.signature
-                );
+                    println!(
+                        "No price found for swap at ts={} (sig={})",
+                        swap.timestamp, swap.signature
+                    );
+                }
             }
         }
-    }
 
-    println!("✅ Overwrote {} with enriched swaps.", swaps_path);
+        println!("✅ Overwrote {} with enriched swaps.", swaps_path);
 
-    enrich_swaps_with_pricing(&swaps_path, &results);
-
+        enrich_swaps_with_pricing(&swaps_path, &results);
+    //}
     Ok(())
 }
