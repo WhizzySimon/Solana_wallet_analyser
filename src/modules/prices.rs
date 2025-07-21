@@ -4,7 +4,7 @@ use std::collections::{HashMap};
 use std::fs;
 use std::time::Duration;
 use config::Config;
-use chrono::{Utc, TimeZone};
+//use chrono::{Utc, TimeZone};
 use crate::modules::utils::{get_project_root, get_swaps_path};
 use crate::modules::types::{SwapWithTokenNames, PricedSwap};
 
@@ -21,7 +21,7 @@ fn is_usd_token(token_name: &str) -> bool {
     )
 }
 
-fn load_sol_swaps(path: &str) -> Vec<SwapWithTokenNames> {
+/* fn load_sol_swaps(path: &str) -> Vec<SwapWithTokenNames> {
     let content = fs::read_to_string(path).expect("failed to read file");
     let all: Vec<SwapWithTokenNames> = serde_json::from_str(&content).expect("failed to parse JSON");
 
@@ -44,11 +44,11 @@ fn load_sol_swaps(path: &str) -> Vec<SwapWithTokenNames> {
     println!("Skipped {} SOL-USD swaps (handled separately)", skipped_usd_sol);
     filtered
 }
-
-fn group_by_time(swaps: &[SwapWithTokenNames]) -> Vec<Vec<&SwapWithTokenNames>> {
+ */
+fn group_by_time(swaps_with_token_names: &[SwapWithTokenNames]) -> Vec<Vec<&SwapWithTokenNames>> {
     const MAX_GROUP_SPAN: u64 = 6 * 3600; // 6 hours in seconds
 
-    let mut sorted = swaps.iter().collect::<Vec<_>>();
+    let mut sorted = swaps_with_token_names.iter().collect::<Vec<_>>();
     if sorted.is_empty() {
         return vec![];
     }
@@ -86,7 +86,7 @@ fn fetch_price_map_for_range(client: &Client, start_ts: u64, end_ts: u64) -> Has
         end_ts * 1000
     );
 
-    println!("Requesting Binance Klines: {}", url);
+    //println!("Requesting Binance Klines: {}", url);
     let resp = client
         .get(&url)
         .timeout(Duration::from_secs(10))
@@ -195,7 +195,7 @@ fn enrich_swaps_with_pricing(swaps_path: &str, priced_swaps: &[PricedSwap]) {
 
 }
 
-pub fn run_prices() -> Result<(), Box<dyn std::error::Error>> {
+pub fn run_prices(swaps_with_token_names:&Vec<SwapWithTokenNames>) -> Result<(), Box<dyn std::error::Error>> {
     let root = get_project_root();
 
     let settings = Config::builder()
@@ -205,26 +205,17 @@ pub fn run_prices() -> Result<(), Box<dyn std::error::Error>> {
     let wallet_address: String = settings.get("wallet_address")?;
     let swaps_path = get_swaps_path(&wallet_address);
 
-    let swaps = load_sol_swaps(&swaps_path);
-    let groups = group_by_time(&swaps);
+    //let swaps = load_sol_swaps(&swaps_path);
+    
+    let groups = group_by_time(swaps_with_token_names);
 
     println!("{:<6} | {:<20} | {:<20} | {}", "Group", "Start Time", "End Time", "Swaps");
     println!("{}", "-".repeat(65));
-
+/* 
     for (i, group) in groups.iter().enumerate() {
         let start_ts = group.first().unwrap().timestamp.saturating_sub(300);
         let end_ts = group.last().unwrap().timestamp + 300;
-        let start_dt = Utc.timestamp_opt(start_ts as i64, 0).unwrap();
-        let end_dt = Utc.timestamp_opt(end_ts as i64, 0).unwrap();
-        println!(
-            "{:<6} | {:<20} | {:<20} | {}",
-            i + 1,
-            start_dt.format("%Y-%m-%d %H:%M:%S"),
-            end_dt.format("%Y-%m-%d %H:%M:%S"),
-            group.len()
-        );
-    }
-
+    } */
     let client = Client::new();
     let mut results = vec![];
 

@@ -76,23 +76,10 @@ pub fn filter_and_enrich_swaps(
         println!("🔍 Filtering swaps from {} transactions...", transactions.len());
         let mut raw_swaps = vec![];
 
-        for (i, tx) in transactions.iter().enumerate() {
-            println!("🔎 [{}] Checking transaction: {}", i, tx.signature);
+        for tx in transactions.iter() {
 
             if tx.token_transfers.is_empty() {
-                println!("   ⚠️ No token transfers in this transaction.");
                 continue;
-            }
-
-            for (j, t) in tx.token_transfers.iter().enumerate() {
-                println!(
-                    "     [{}] from_user_account: {:?}, to_user_account: {:?}, mint: {:?}, amount: {:?}",
-                    j,
-                    t.from_user_account,
-                    t.to_user_account,
-                    t.mint,
-                    t.token_amount
-                );
             }
 
             let sold = tx.token_transfers.iter()
@@ -101,22 +88,17 @@ pub fn filter_and_enrich_swaps(
             let bought = tx.token_transfers.iter()
                 .find(|t| t.to_user_account.eq_ignore_ascii_case(&wallet_lower));
 
-            match (sold, bought) {
-                (Some(s), Some(b)) => {
-                    println!("   ✅ Match found: sold={} bought={}", s.mint, b.mint);
-                    raw_swaps.push(Swap {
-                        timestamp: tx.timestamp.unwrap_or(0),
-                        signature: tx.signature.clone(),
-                        sold_mint: s.mint.clone(),
-                        sold_amount: s.token_amount,
-                        bought_mint: b.mint.clone(),
-                        bought_amount: b.token_amount,
-                    });
-                }
-                _ => {
-                    println!("   ❌ No matching sold/bought pair for wallet.");
-                }
+            if let (Some(s), Some(b)) = (sold, bought) {
+                raw_swaps.push(Swap {
+                    timestamp: tx.timestamp.unwrap_or(0),
+                    signature: tx.signature.clone(),
+                    sold_mint: s.mint.clone(),
+                    sold_amount: s.token_amount,
+                    bought_mint: b.mint.clone(),
+                    bought_amount: b.token_amount,
+                });
             }
+
         }
 
 
