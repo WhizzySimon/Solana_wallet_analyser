@@ -10,6 +10,7 @@ pub struct Settings {
     pub use_cached_priced_swaps: Option<bool>,
     pub use_token_cache: Option<bool>,
     pub use_jupiter_token_list: Option<bool>,
+    pub fifo: Option<bool>,
 }
 
 /// Minimal raw swap structure parsed from transactions
@@ -37,7 +38,7 @@ pub struct NamedSwap {
 }
 
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct PricedSwap {
     pub timestamp: u64,
     pub signature: String,
@@ -90,4 +91,19 @@ pub struct TokenTransfer {
     pub mint: String,
     #[serde(rename = "tokenAmount")]
     pub token_amount: f64,
+}
+
+#[derive(Serialize)]
+pub struct Trade {
+    pub token_mint: String,
+    pub token_name: String,
+    pub buy_signature: String,
+    pub sell_signature: String,
+    pub buy_timestamp: u64,
+    pub sell_timestamp: u64,
+    pub amount: f64,
+    pub cost_usd: f64,
+    pub proceeds_usd: f64,
+    pub pnl_usd: f64,
+    pub holding_period_secs: u64,
 }

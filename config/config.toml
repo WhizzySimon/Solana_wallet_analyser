@@ -6,3 +6,4 @@ use_cached_named_swaps = true
 use_cached_priced_swaps = true
 use_token_cache = true
 use_jupiter_token_list = true
+fifo = true
