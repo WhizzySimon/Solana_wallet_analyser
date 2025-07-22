@@ -1,6 +1,6 @@
 
-use crate::modules::types::{RawTxn, Swap, SwapWithTokenNames};
-use crate::modules::utils::get_swaps_path;
+use crate::modules::types::{RawTxn, Swap, NamedSwap};
+use crate::modules::utils::get_named_swaps_path;
 use std::collections::{HashMap, HashSet};
 use std::fs::{self, File};
 use std::io::Write;
@@ -55,22 +55,22 @@ fn load_cached_token_names() -> HashMap<String, String> {
 }
 
 
-pub fn filter_and_enrich_swaps(
+pub fn filter_and_name_swaps(
     transactions: &Vec<RawTxn>,
-) -> Result<Vec<SwapWithTokenNames>, Box<dyn std::error::Error>> {
+) -> Result<Vec<NamedSwap>, Box<dyn std::error::Error>> {
 
     let settings = crate::modules::utils::load_config()?;
-    let use_cached_swaps = settings.use_cached_swaps.unwrap_or(true);
+    let use_cached_swaps_raw = settings.use_cached_named_swaps.unwrap_or(true);
     let use_token_cache = settings.use_token_cache.unwrap_or(true);
     let use_jupiter_token_list = settings.use_jupiter_token_list.unwrap_or(true);
     let helius_api_key = settings.helius_api_key;
     let wallet = settings.wallet_address;
     let wallet_lower = wallet.to_lowercase();
-    let swaps_path = get_swaps_path(&wallet);
+    let swaps_path_raw = get_named_swaps_path(&wallet);
 
-    let swaps: Vec<SwapWithTokenNames> = if use_cached_swaps && Path::new(&swaps_path).exists() {
-        println!("♻️  Using cached swaps from {}", swaps_path);
-        let file = fs::read_to_string(&swaps_path)?;
+    let swaps: Vec<NamedSwap> = if use_cached_swaps_raw && Path::new(&swaps_path_raw).exists() {
+        println!("♻️  Using cached swaps from {}", swaps_path_raw);
+        let file = fs::read_to_string(&swaps_path_raw)?;
         serde_json::from_str(&file)?
     } else {
         println!("🔍 Filtering swaps from {} transactions...", transactions.len());
@@ -173,12 +173,12 @@ pub fn filter_and_enrich_swaps(
             }
         }
 
-        let enriched: Vec<SwapWithTokenNames> = raw_swaps
+        let enriched: Vec<NamedSwap> = raw_swaps
             .into_iter()
             .map(|s| {
                 let sold_token_name = mint_name_map.get(&s.sold_mint).cloned().unwrap_or_else(|| "UNKNOWN".to_string());
                 let bought_token_name = mint_name_map.get(&s.bought_mint).cloned().unwrap_or_else(|| "UNKNOWN".to_string());
-                SwapWithTokenNames {
+                NamedSwap {
                     timestamp: s.timestamp,
                     signature: s.signature,
                     sold_mint: s.sold_mint,
@@ -191,9 +191,9 @@ pub fn filter_and_enrich_swaps(
             })
             .collect();
 
-        let mut file = File::create(&swaps_path)?;
+        let mut file = File::create(&swaps_path_raw)?;
         write!(file, "{}", serde_json::to_string_pretty(&enriched)?)?;
-        println!("✅ Enriched swaps written to {}", swaps_path);
+        println!("✅ Enriched swaps written to {}", swaps_path_raw);
         enriched
     };
 

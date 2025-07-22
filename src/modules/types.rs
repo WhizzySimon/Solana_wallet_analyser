@@ -6,7 +6,8 @@ pub struct Settings {
     pub helius_api_key: String,
     pub wallet_address: String,
     pub use_cached_txns: Option<bool>,
-    pub use_cached_swaps: Option<bool>,
+    pub use_cached_named_swaps: Option<bool>,
+    pub use_cached_priced_swaps: Option<bool>,
     pub use_token_cache: Option<bool>,
     pub use_jupiter_token_list: Option<bool>,
 }
@@ -24,7 +25,7 @@ pub struct Swap {
 
 /// Final swap structure including resolved token names
 #[derive(Debug, Serialize, Deserialize)]
-pub struct SwapWithTokenNames {
+pub struct NamedSwap {
     pub timestamp: u64,
     pub signature: String,
     pub sold_mint: String,

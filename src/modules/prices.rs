@@ -3,8 +3,8 @@ use serde_json::Value;
 use std::collections::{HashMap};
 use std::fs;
 use std::time::Duration;
-use crate::modules::utils::{get_swaps_path};
-use crate::modules::types::{SwapWithTokenNames, PricedSwap};
+use crate::modules::utils::{get_priced_swaps_path};
+use crate::modules::types::{NamedSwap, PricedSwap};
 
 const SOLANA_MINT: &str = "So11111111111111111111111111111111111111112";
 const BINANCE_SYMBOL: &str = "SOLUSDT";
@@ -16,7 +16,7 @@ fn is_usd_token(token_name: &str) -> bool {
     )
 }
 
-fn group_by_time(swaps_with_token_names: &[SwapWithTokenNames]) -> Vec<Vec<&SwapWithTokenNames>> {
+fn group_by_time(swaps_with_token_names: &[NamedSwap]) -> Vec<Vec<&NamedSwap>> {
     const MAX_GROUP_SPAN: u64 = 6 * 3600; // 6 hours in seconds
 
     let mut sorted = swaps_with_token_names.iter().collect::<Vec<_>>();
@@ -81,10 +81,11 @@ fn fetch_price_map_for_range(client: &Client, start_ts: u64, end_ts: u64) -> Has
 }
 
 pub fn enrich_swaps_with_pricing(
-    swaps_path: &str,
+    named_swaps_path: &str,
+    priced_swaps_path: &str,
     priced_swaps: &[PricedSwap],
 ) -> Vec<PricedSwap> {
-    let content = fs::read_to_string(swaps_path).expect("failed to read raw swap file");
+    let content = fs::read_to_string(named_swaps_path).expect("failed to read raw swap file");
     let mut swaps: Vec<Value> = serde_json::from_str(&content).expect("failed to parse JSON");
 
     let price_map: HashMap<String, &PricedSwap> = priced_swaps
@@ -92,6 +93,7 @@ pub fn enrich_swaps_with_pricing(
         .map(|p| (p.signature.clone(), p))
         .collect();
 
+    // enrich each named swap with pricing
     for swap in swaps.iter_mut() {
         let sig_val = swap.get("signature").and_then(|s| s.as_str()).unwrap_or("").to_string();
         let sold_name_val = swap.get("sold_token_name").and_then(|s| s.as_str()).unwrap_or("").to_string();
@@ -181,11 +183,8 @@ pub fn enrich_swaps_with_pricing(
         count_binance, count_usd_direct, count_unverified
     );
 
-    let json = serde_json::to_string_pretty(&swaps).unwrap();
-    fs::write(swaps_path, json).unwrap();
-    println!("✅ Overwrote {} with enriched pricing fields", swaps_path);
-
-    let enriched: Vec<PricedSwap> = swaps
+    // transform priced swaps from type Value to PricedSwap
+    let priced_swaps: Vec<PricedSwap> = swaps
         .into_iter()
         .filter_map(|swap| {
             Some(PricedSwap {
@@ -204,21 +203,26 @@ pub fn enrich_swaps_with_pricing(
         })
         .collect();
 
-    enriched
+    // write priced swaps to cache file
+    let json = serde_json::to_string_pretty(&priced_swaps).unwrap();
+    fs::write(priced_swaps_path, json).unwrap();
+    println!("✅ Overwrote {} with enriched pricing fields", priced_swaps_path);
+
+    priced_swaps
 }
 
-pub fn run_prices(swaps_with_token_names:&Vec<SwapWithTokenNames>) -> Result<Vec<PricedSwap>, Box<dyn std::error::Error>> {
+pub fn get_or_load_swaps_with_prices(swaps_with_token_names:&Vec<NamedSwap>) -> Result<Vec<PricedSwap>, Box<dyn std::error::Error>> {
 
     let settings = crate::modules::utils::load_config()?;
 
     let wallet = settings.wallet_address;
     let wallet_address = wallet.to_lowercase();
-    let swaps_path = get_swaps_path(&wallet_address);
-    let use_cached_swaps = settings.use_cached_swaps.unwrap_or(true);
+    let priced_swaps_path = get_priced_swaps_path(&wallet_address);
+    let use_cached_priced_swaps = settings.use_cached_priced_swaps.unwrap_or(true);
 
-    let priced_swaps: Vec<PricedSwap> = if use_cached_swaps {
-        println!("♻️  Using cached enriched swaps from {}", swaps_path);
-        let content = fs::read_to_string(&swaps_path).expect("Failed to read cached enriched swaps");
+    let priced_swaps: Vec<PricedSwap> = if use_cached_priced_swaps {
+        println!("♻️  Using cached enriched swaps from {}", priced_swaps_path);
+        let content = fs::read_to_string(&priced_swaps_path).expect("Failed to read cached enriched swaps");
         serde_json::from_str(&content).expect("Failed to parse cached enriched swaps as PricedSwap")
     } else {
         let groups = group_by_time(swaps_with_token_names);
@@ -326,9 +330,31 @@ pub fn run_prices(swaps_with_token_names:&Vec<SwapWithTokenNames>) -> Result<Vec
             }
         }
 
-        println!("✅ Overwrote {} with enriched swaps.", swaps_path);
+        //enrich_swaps_with_pricing(&named_swaps_path, &priced_swaps_path, &results)
+        let mut count_binance = 0;
+        let mut count_usd_direct = 0;
+        let mut count_unverified = 0;
 
-        enrich_swaps_with_pricing(&swaps_path, &results)
+        for swap in &results {
+            match swap.pricing_method.as_str() {
+                "binance_1m" => count_binance += 1,
+                "usd_direct" => count_usd_direct += 1,
+                "unverified" => count_unverified += 1,
+                _ => {}
+            }
+        }
+
+        println!(
+            "Pricing summary: binance_1m: {}, usd_direct: {}, unverified: {}",
+            count_binance, count_usd_direct, count_unverified
+        );
+
+        let json = serde_json::to_string_pretty(&results)?;
+        fs::write(&priced_swaps_path, json)?;
+        println!("✅ Saved enriched swaps to {}", priced_swaps_path);
+
+        results
     };
     Ok(priced_swaps)
+
 }

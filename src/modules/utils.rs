@@ -12,8 +12,11 @@ pub fn get_project_root() -> PathBuf {
     path
 }
 
-pub fn get_swaps_path(wallet: &str) -> String {
-    format!("cache/swaps_{}.json", wallet)
+pub fn get_named_swaps_path(wallet: &str) -> String {
+    format!("cache/swaps_named_{}.json", wallet)
+}
+pub fn get_priced_swaps_path(wallet: &str) -> String {
+    format!("cache/swaps_priced_{}.json", wallet)
 }
 
 pub fn load_config () -> Result<Settings, Box<dyn std::error::Error>> {
