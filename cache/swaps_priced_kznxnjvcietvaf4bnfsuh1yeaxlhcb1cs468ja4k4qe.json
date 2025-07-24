@@ -403,6 +403,19 @@
     "usd_value": 25.0
   },
   {
+    "timestamp": 1749500008,
+    "signature": "usdt2sol",
+    "sold_mint": "Es9vMFrzaCERCLdXxBtiKjUMnYrxqPfmafkDT3HjWc1",
+    "sold_token_name": "USDT",
+    "sold_amount": 4.0,
+    "bought_mint": "So11111111111111111111111111111111111111112",
+    "bought_token_name": "Wrapped SOL",
+    "bought_amount": 0.021,
+    "pricing_method": "usd_direct",
+    "binance_sol_usd_price": null,
+    "usd_value": 4.0
+  },
+  {
     "timestamp": 1749500010,
     "signature": "sol2usdc",
     "sold_mint": "So11111111111111111111111111111111111111112",
@@ -414,18 +427,5 @@
     "pricing_method": "usd_direct",
     "binance_sol_usd_price": null,
     "usd_value": 3.6
-  },
-  {
-    "timestamp": 1749500015,
-    "signature": "usdt2sol",
-    "sold_mint": "Es9vMFrzaCERCLdXxBtiKjUMnYrxqPfmafkDT3HjWc1",
-    "sold_token_name": "USDT",
-    "sold_amount": 4.0,
-    "bought_mint": "So11111111111111111111111111111111111111112",
-    "bought_token_name": "Wrapped SOL",
-    "bought_amount": 0.021,
-    "pricing_method": "usd_direct",
-    "binance_sol_usd_price": null,
-    "usd_value": 4.0
   }
 ]

@@ -1,99 +1,200 @@
 use std::collections::HashMap;
-use std::fs;
-use crate::modules::types::{Trade, PricedSwap};
 
+use crate::modules::types::{InventoryEntry, TradeWithPnl, PricedSwap};
+use std::fs::File;
+use std::io::Write;
 
-pub fn calculate_pnl(priced_swaps: Vec<PricedSwap>) ->Result<Vec<Trade>, Box<dyn std::error::Error>> {
-    let mut trades: Vec<Trade> = Vec::new();
-    let mut inventory: HashMap<String, Vec<PricedSwap>> = HashMap::new();
+fn match_and_consume_inventory(
+    inventory: &mut HashMap<String, Vec<InventoryEntry>>,
+    mint: &str,
+    amount_to_sell: f64,
+    use_fifo: bool,
+) -> (f64, bool) {
+    let mut entries = inventory.get(mint).cloned().unwrap_or_default();
+    if !use_fifo {
+        entries.reverse();
+    }
 
-    let settings = crate::modules::utils::load_config()?;
-    let fifo = settings.fifo.unwrap_or(true);
+    let mut remaining = amount_to_sell;
+    let mut cost_basis = 0.0;
 
-    for swap in priced_swaps {
-        let (token_mint, token_name, is_buy, amount, usd_value) = if is_stablecoin(&swap.bought_token_name) {
-            // Selling token_mint for stablecoin
-            (
-                swap.sold_mint.clone(),
-                swap.sold_token_name.clone(),
-                false,
-                swap.sold_amount,
-                swap.usd_value.unwrap_or(0.0),
-            )
-        } else if is_stablecoin(&swap.sold_token_name) {
-            // Buying token_mint with stablecoin
-            (
-                swap.bought_mint.clone(),
-                swap.bought_token_name.clone(),
-                true,
-                swap.bought_amount,
-                swap.usd_value.unwrap_or(0.0),
-            )
+    while remaining > 0.0 && !entries.is_empty() {
+        let mut entry = entries[0].clone();
+        let used = remaining.min(entry.amount);
+        cost_basis += used * entry.price_per_token;
+        entry.amount -= used;
+        remaining -= used;
+
+        if entry.amount > 0.0 {
+            entries[0] = entry;
         } else {
-            continue;
-        };
-
-
-        if is_buy {
-            inventory.entry(token_mint.clone()).or_default().push(swap.clone());
-        } else {
-            let mut remaining = amount;
-            let queue = inventory.entry(token_mint.clone()).or_default();
-
-            while remaining > 0.0 && !queue.is_empty() {
-                let idx = if fifo { 0 } else { queue.len() - 1 };
-                let buy = &mut queue[idx];
-
-                let available = if is_stablecoin(&buy.sold_token_name) {
-                    buy.bought_amount
-                } else {
-                    buy.sold_amount
-                };
-
-                let matched_amount = remaining.min(available);
-
-                let cost_usd = matched_amount / amount * usd_value;
-                let pnl = usd_value - cost_usd;
-
-                trades.push(Trade {
-                    token_mint: token_mint.clone(),
-                    token_name: token_name.clone(),
-                    buy_signature: buy.signature.clone(),
-                    sell_signature: swap.signature.clone(),
-                    buy_timestamp: buy.timestamp,
-                    sell_timestamp: swap.timestamp,
-                    amount: matched_amount,
-                    cost_usd,
-                    proceeds_usd: usd_value,
-                    pnl_usd: pnl,
-                    holding_period_secs: swap.timestamp.saturating_sub(buy.timestamp),
-                });
-
-                remaining -= matched_amount;
-
-                if available <= matched_amount {
-                    queue.remove(idx);
-                } else {
-                    if is_stablecoin(&buy.sold_token_name) {
-                        buy.bought_amount -= matched_amount;
-                    } else {
-                        buy.sold_amount -= matched_amount;
-                    }
-                }
-            }
+            entries.remove(0);
         }
     }
 
-    let json = serde_json::to_string_pretty(&trades).unwrap();
-    fs::create_dir_all("output").unwrap();
-    fs::write("output/trades.json", json).unwrap();
-    println!("✅ Wrote {} trades to output/trades.json", trades.len());
-    Ok(trades)
+    // Write back updated entries
+    inventory.insert(mint.to_string(), if use_fifo { entries } else { entries.into_iter().rev().collect() });
+
+    (cost_basis, remaining == amount_to_sell)
 }
 
-fn is_stablecoin(token_name: &str) -> bool {
-    matches!(
-        token_name.to_lowercase().as_str(),
-        "usdc" | "usdt" | "usd coin" | "tether"
-    )
+
+pub fn calculate_direct_usd_pnl(
+    swaps: &[PricedSwap],
+    use_fifo: bool,
+    inventory: &mut HashMap<String, Vec<InventoryEntry>>,
+) -> Vec<TradeWithPnl> {
+    let mut trades: Vec<TradeWithPnl> = Vec::new();
+
+    for swap in swaps {
+        if swap.pricing_method != "usd_direct" {
+            continue;
+        }
+
+        let usd_value = match swap.usd_value {
+            Some(v) => v,
+            None => continue,
+        };
+
+        // Add to inventory (buy)
+        if swap.bought_amount > 0.0 {
+            let entry = InventoryEntry {
+                amount: swap.bought_amount,
+                price_per_token: usd_value / swap.bought_amount,
+                total_usd: usd_value,
+                timestamp: swap.timestamp,
+                signature: swap.signature.clone(),
+            };
+            inventory.entry(swap.bought_mint.clone()).or_default().push(entry);
+        }
+
+        let (cost_basis, no_inventory) =
+            match_and_consume_inventory(inventory, &swap.sold_mint, swap.sold_amount, use_fifo);
+
+        if no_inventory {
+            eprintln!(
+                "⚠️  No inventory for {}, treating as full profit: {}",
+                swap.sold_token_name, usd_value
+            );
+        }
+
+        if swap.sold_amount == 0.0 {
+            continue;
+        }
+
+        let trade = TradeWithPnl {
+            sold_token: swap.sold_token_name.clone(),
+            sold_amount: swap.sold_amount,
+            received_usd: usd_value,
+            cost_basis_usd: cost_basis,
+            profit_loss: usd_value - cost_basis,
+            timestamp: swap.timestamp,
+            signature: swap.signature.clone(),
+        };
+
+        trades.push(trade);
+
+        println!(
+            "🧾 {} | {}: sold {} for ${} (cost: {}, pnl: {})",
+            swap.signature,
+            swap.sold_token_name,
+            swap.sold_amount,
+            usd_value,
+            cost_basis,
+            usd_value - cost_basis
+        );
+
+    }
+
+    trades
+}
+
+pub fn calculate_sol_indirect_pnl(
+    swaps: &[PricedSwap],
+    use_fifo: bool,
+    inventory: &mut HashMap<String, Vec<InventoryEntry>>,
+) -> Vec<TradeWithPnl> {
+    let mut trades: Vec<TradeWithPnl> = Vec::new();
+
+    for swap in swaps {
+        if swap.pricing_method != "binance_1m" {
+            continue;
+        }
+
+        let sol_usd_price = match swap.binance_sol_usd_price {
+            Some(v) => v,
+            None => continue,
+        };
+
+        let usd_value = swap.usd_value.unwrap_or(swap.sold_amount * sol_usd_price);
+
+        // Add to inventory (buy)
+        if swap.bought_amount > 0.0 {
+            let entry = InventoryEntry {
+                amount: swap.bought_amount,
+                price_per_token: usd_value / swap.bought_amount,
+                total_usd: usd_value,
+                timestamp: swap.timestamp,
+                signature: swap.signature.clone(),
+            };
+            inventory.entry(swap.bought_mint.clone()).or_default().push(entry);
+        }
+
+        
+        let (cost_basis, no_inventory) =
+            match_and_consume_inventory(inventory, &swap.sold_mint, swap.sold_amount, use_fifo);
+
+        if no_inventory {
+            eprintln!(
+                "⚠️  No inventory for {}, treating as full profit: {}",
+                swap.sold_token_name, usd_value
+            );
+        }
+
+
+        if swap.sold_amount == 0.0 {
+            continue;
+        }
+
+        let trade = TradeWithPnl {
+            sold_token: swap.sold_token_name.clone(),
+            sold_amount: swap.sold_amount,
+            received_usd: usd_value,
+            cost_basis_usd: cost_basis,
+            profit_loss: usd_value - cost_basis,
+            timestamp: swap.timestamp,
+            signature: swap.signature.clone(),
+        };
+
+        trades.push(trade);
+    }
+
+    trades
+}
+
+pub fn calc_pnl(priced_swaps: &[PricedSwap]) -> anyhow::Result<()> {
+    let settings = crate::modules::utils::load_config().unwrap();
+    let wallet = settings.wallet_address;
+    let use_fifo = settings.fifo.unwrap();
+
+    let mut inventory: HashMap<String, Vec<InventoryEntry>> = HashMap::new();
+    let mut swaps_sorted = priced_swaps.to_vec();
+    swaps_sorted.sort_by(|a, b| {
+        a.timestamp.cmp(&b.timestamp)
+            .then(a.signature.cmp(&b.signature))
+    });
+
+
+    let mut trades = calculate_direct_usd_pnl(&swaps_sorted, use_fifo, &mut inventory);
+    let mut sol_trades = calculate_sol_indirect_pnl(&swaps_sorted, use_fifo, &mut inventory);
+
+    trades.append(&mut sol_trades);
+
+    let out_path = format!("cache/trades_{}.json", wallet);
+    let json = serde_json::to_string_pretty(&trades)?;
+    let mut file = File::create(&out_path)?;
+    file.write_all(json.as_bytes())?;
+
+    println!("💰 Wrote {} trades to {}", trades.len(), out_path);
+    Ok(())
 }

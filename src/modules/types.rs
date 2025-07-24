@@ -107,3 +107,23 @@ pub struct Trade {
     pub pnl_usd: f64,
     pub holding_period_secs: u64,
 }
+
+#[derive(Debug, Clone)]
+pub struct InventoryEntry {
+    pub amount: f64,
+    pub price_per_token: f64,
+    pub total_usd: f64,
+    pub timestamp: u64,
+    pub signature: String,
+}
+
+#[derive(Debug, Serialize)]
+pub struct TradeWithPnl {
+    pub sold_token: String,
+    pub sold_amount: f64,
+    pub received_usd: f64,
+    pub cost_basis_usd: f64,
+    pub profit_loss: f64,
+    pub timestamp: u64,
+    pub signature: String,
+}
