@@ -4,7 +4,6 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Deserialize)]
 pub struct Settings {
     pub helius_api_key: String,
-    pub wallet_address: String,
     pub use_cached_txns: Option<bool>,
     pub use_cached_named_swaps: Option<bool>,
     pub use_cached_priced_swaps: Option<bool>,

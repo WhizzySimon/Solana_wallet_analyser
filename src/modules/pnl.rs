@@ -43,6 +43,7 @@ pub fn calculate_direct_usd_pnl(
     swaps: &[PricedSwap],
     use_fifo: bool,
     inventory: &mut HashMap<String, Vec<InventoryEntry>>,
+
 ) -> Vec<TradeWithPnl> {
     let mut trades: Vec<TradeWithPnl> = Vec::new();
 
@@ -172,9 +173,10 @@ pub fn calculate_sol_indirect_pnl(
     trades
 }
 
-pub fn calc_pnl(priced_swaps: &[PricedSwap]) -> Result<Vec<TradeWithPnl>, Box<dyn std::error::Error>> {
+pub fn calc_pnl(priced_swaps: &[PricedSwap], wallet_address: &str) 
+    -> Result<Vec<TradeWithPnl>, Box<dyn std::error::Error>> {
+    
     let settings = crate::modules::utils::load_config()?;
-    let wallet = settings.wallet_address;
     let use_fifo = settings.fifo.unwrap_or(true);
     let write_cache_files = settings.write_cache_files.unwrap_or(false);
 
@@ -192,7 +194,7 @@ pub fn calc_pnl(priced_swaps: &[PricedSwap]) -> Result<Vec<TradeWithPnl>, Box<dy
     trades.append(&mut sol_trades);
     
     if write_cache_files {
-        let out_path = format!("cache/trades_{}.json", wallet);
+        let out_path = format!("cache/trades_{}.json", wallet_address);
         let json = serde_json::to_string_pretty(&trades)?;
         let mut file = File::create(&out_path)?;
         file.write_all(json.as_bytes())?;

@@ -1,4 +1,4 @@
-use reqwest::blocking::Client;
+use reqwest::Client;
 use std::collections::{HashMap};
 use std::fs;
 use std::time::Duration;
@@ -41,7 +41,7 @@ fn group_by_time(swaps_with_token_names: &[NamedSwap]) -> Vec<Vec<&NamedSwap>> {
     groups
 }
 
-fn fetch_price_map_for_range(client: &Client, start_ts: u64, end_ts: u64) -> HashMap<u64, f64> {
+async fn fetch_price_map_for_range(client: &Client, start_ts: u64, end_ts: u64) -> Result<HashMap<u64, f64>, Box<dyn std::error::Error>> {
     let url = format!(
         "https://api.binance.com/api/v3/klines?symbol={}&interval=1m&startTime={}&endTime={}",
         BINANCE_SYMBOL,
@@ -52,10 +52,8 @@ fn fetch_price_map_for_range(client: &Client, start_ts: u64, end_ts: u64) -> Has
     let resp = client
         .get(&url)
         .timeout(Duration::from_secs(10))
-        .send()
-        .expect("failed to send request")
-        .json::<Vec<Vec<serde_json::Value>>>()
-        .expect("failed to parse response");
+        .send().await?
+        .json::<Vec<Vec<serde_json::Value>>>().await?;
 
     let mut map = HashMap::new();
     for entry in resp {
@@ -67,16 +65,15 @@ fn fetch_price_map_for_range(client: &Client, start_ts: u64, end_ts: u64) -> Has
         }
     }
 
-    map
+    Ok(map)
 
 }
 
-pub fn get_or_load_swaps_with_prices(swaps_with_token_names:&Vec<NamedSwap>) -> Result<Vec<PricedSwap>, Box<dyn std::error::Error>> {
+pub async fn get_or_load_swaps_with_prices(swaps_with_token_names:&Vec<NamedSwap>, wallet_address: &str) 
+    -> Result<Vec<PricedSwap>, Box<dyn std::error::Error>> {
 
     let settings = crate::modules::utils::load_config()?;
-
-    let wallet = settings.wallet_address;
-    let wallet_address = wallet.to_lowercase();
+    let wallet_address = wallet_address.to_lowercase();
     let priced_swaps_path = get_priced_swaps_path(&wallet_address);
     let use_cached_priced_swaps = settings.use_cached_priced_swaps.unwrap_or(true);
     let write_cache_files = settings.write_cache_files.unwrap_or(false);
@@ -103,7 +100,7 @@ pub fn get_or_load_swaps_with_prices(swaps_with_token_names:&Vec<NamedSwap>) -> 
         for group in groups {
             let start_ts = group.first().unwrap().timestamp.saturating_sub(120);
             let end_ts = group.last().unwrap().timestamp + 60;
-            let price_map = fetch_price_map_for_range(&client, start_ts, end_ts);
+            let price_map = fetch_price_map_for_range(&client, start_ts, end_ts).await?;
 
             for swap in group {
                 // USD direct pricing logic
