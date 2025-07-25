@@ -16,6 +16,7 @@ toml = "0.9.2"
 chrono = { version = "0.4", features = ["serde"] }
 axum = "0.6"
 hyper = { version = "0.14", features = ["full"] }
+tower = "0.4"
 
 
 [[bin]]

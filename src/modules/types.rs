@@ -127,3 +127,8 @@ pub struct TradeWithPnl {
     pub timestamp: u64,
     pub signature: String,
 }
+
+#[derive(Deserialize)]
+pub struct PnlRequest {
+    pub wallet_address: String,
+}

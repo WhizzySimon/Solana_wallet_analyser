@@ -1,56 +1,50 @@
 use axum::{
-    routing::get,
-    Router,
-    Json,
-    Extension,
+    routing::post,
+    Json, Router,
 };
-use std::{net::SocketAddr, sync::Arc};
-use serde_json::Value;
+use serde_json::{json, Value};
+use std::net::SocketAddr;
 
 use wallet_analyzer::modules::transactions::get_transactions;
 use wallet_analyzer::modules::swaps::filter_and_name_swaps;
 use wallet_analyzer::modules::prices::get_or_load_swaps_with_prices;
 use wallet_analyzer::modules::pnl::calc_pnl;
+use wallet_analyzer::modules::types::{PnlRequest, TradeWithPnl};
 
-use wallet_analyzer::modules::types::TradeWithPnl;
+/// Run the entire pipeline for a wallet and return enriched PnL trades
+pub async fn run_pipeline(wallet_address: &str) -> Result<Vec<TradeWithPnl>, Box<dyn std::error::Error>> {
+    let transactions = get_transactions(wallet_address).await.unwrap();
+    println!("Total transactions fetched/loaded: {}", transactions.len());
 
-async fn get_trades(
-    Extension(trades): Extension<Arc<Vec<TradeWithPnl>>>,
-) -> Json<Value> {
-    let value = serde_json::to_value(trades.as_ref()).unwrap_or(Value::Null);
-    Json(value)
+    let named_swaps = filter_and_name_swaps(&transactions, wallet_address)?;
+    println!("Total swaps with token names: {}", named_swaps.len());
+
+    let priced_swaps = get_or_load_swaps_with_prices(&named_swaps, wallet_address).await?;
+    let trades_with_pnl = calc_pnl(&priced_swaps, wallet_address)?;
+
+    Ok(trades_with_pnl)
+}
+
+/// POST /api/pnl { "wallet": "..." } → returns { trades: [...] } or { error: ... }
+async fn handle_pnl(Json(payload): Json<PnlRequest>) -> Json<Value> {
+    let wallet_address = payload.wallet_address;
+    match run_pipeline(&wallet_address).await {
+        Ok(trades) => Json(json!({ "trades": trades })),
+        Err(e) => {
+            eprintln!("❌ Error: {e}");
+            Json(json!({ "error": e.to_string() }))
+        }
+    }
 }
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    
-    let wallet_address = "KzNxNJvcieTvAF4bnfsuH1YEAXLHcB1cs468JA4K4QE";
-
-    // 1. Fetch all transactions
-    let transactions = get_transactions(&wallet_address).await.unwrap();
-    println!("Total transactions fetched/loaded: {}", transactions.len());
-
-    // 2. Filter and name swaps
-    let named_swaps = filter_and_name_swaps(&transactions, &wallet_address)?;
-    println!(
-        "Total swaps with token names filtered/loaded: {}",
-        named_swaps.len()
-    );
-
-    // 3. Get prices
-    let priced_swaps = get_or_load_swaps_with_prices(&named_swaps, &wallet_address).await?;
-
-    // 4. Calculate PnL
-    let trades_with_pnl = Arc::new(calc_pnl(&priced_swaps, &wallet_address)?);
-
-    // 5. Create Axum app
-    let app = Router::new()
-        .route("/api/trades", get(get_trades))
-        .layer(Extension(trades_with_pnl));
+    let app = Router::new().route("/api/pnl", post(handle_pnl));
 
     let addr = SocketAddr::from(([127, 0, 0, 1], 8080));
     println!("📡 Listening on http://{}", addr);
-    hyper::Server::bind(&addr)
+
+    axum::Server::bind(&addr)
         .serve(app.into_make_service())
         .await?;
 
