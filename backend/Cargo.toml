@@ -17,7 +17,8 @@ chrono = { version = "0.4", features = ["serde"] }
 axum = "0.6"
 hyper = { version = "0.14", features = ["full"] }
 tower = "0.4"
-
+tower-http = { version = "0.5", features = ["cors"] }
+http = "0.2"
 
 [[bin]]
 name = "fetch_prices"

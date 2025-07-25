@@ -4,7 +4,6 @@ use axum::{
 };
 use serde_json::{json, Value};
 use std::net::SocketAddr;
-
 use wallet_analyzer::modules::transactions::get_transactions;
 use wallet_analyzer::modules::swaps::filter_and_name_swaps;
 use wallet_analyzer::modules::prices::get_or_load_swaps_with_prices;
