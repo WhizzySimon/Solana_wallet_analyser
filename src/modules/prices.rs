@@ -79,6 +79,7 @@ pub fn get_or_load_swaps_with_prices(swaps_with_token_names:&Vec<NamedSwap>) -> 
     let wallet_address = wallet.to_lowercase();
     let priced_swaps_path = get_priced_swaps_path(&wallet_address);
     let use_cached_priced_swaps = settings.use_cached_priced_swaps.unwrap_or(true);
+    let write_cache_files = settings.write_cache_files.unwrap_or(false);
 
     let priced_swaps: Vec<PricedSwap> = if use_cached_priced_swaps {
         println!("♻️  Using cached enriched swaps from {}", priced_swaps_path);
@@ -208,10 +209,14 @@ pub fn get_or_load_swaps_with_prices(swaps_with_token_names:&Vec<NamedSwap>) -> 
             count_binance, count_usd_direct, count_unverified
         );
 
-        let json = serde_json::to_string_pretty(&results)?;
-        fs::write(&priced_swaps_path, json)?;
-        println!("✅ Saved enriched swaps to {}", priced_swaps_path);
-
+        if write_cache_files {
+            let json = serde_json::to_string_pretty(&results)?;
+            fs::write(&priced_swaps_path, json)?;
+            println!("✅ Saved enriched swaps to {}", priced_swaps_path);
+        }
+        else {
+            println!("Priced {} swaps.", results.len());
+        }
         results
     };
     Ok(priced_swaps)

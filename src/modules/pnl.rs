@@ -93,7 +93,7 @@ pub fn calculate_direct_usd_pnl(
         };
 
         trades.push(trade);
-
+        /* 
         println!(
             "🧾 {} | {}: sold {} for ${} (cost: {}, pnl: {})",
             swap.signature,
@@ -102,7 +102,7 @@ pub fn calculate_direct_usd_pnl(
             usd_value,
             cost_basis,
             usd_value - cost_basis
-        );
+        ); */
 
     }
 
@@ -172,10 +172,11 @@ pub fn calculate_sol_indirect_pnl(
     trades
 }
 
-pub fn calc_pnl(priced_swaps: &[PricedSwap]) -> anyhow::Result<()> {
-    let settings = crate::modules::utils::load_config().unwrap();
+pub fn calc_pnl(priced_swaps: &[PricedSwap]) -> Result<Vec<TradeWithPnl>, Box<dyn std::error::Error>> {
+    let settings = crate::modules::utils::load_config()?;
     let wallet = settings.wallet_address;
-    let use_fifo = settings.fifo.unwrap();
+    let use_fifo = settings.fifo.unwrap_or(true);
+    let write_cache_files = settings.write_cache_files.unwrap_or(false);
 
     let mut inventory: HashMap<String, Vec<InventoryEntry>> = HashMap::new();
     let mut swaps_sorted = priced_swaps.to_vec();
@@ -189,12 +190,16 @@ pub fn calc_pnl(priced_swaps: &[PricedSwap]) -> anyhow::Result<()> {
     let mut sol_trades = calculate_sol_indirect_pnl(&swaps_sorted, use_fifo, &mut inventory);
 
     trades.append(&mut sol_trades);
-
-    let out_path = format!("cache/trades_{}.json", wallet);
-    let json = serde_json::to_string_pretty(&trades)?;
-    let mut file = File::create(&out_path)?;
-    file.write_all(json.as_bytes())?;
-
-    println!("💰 Wrote {} trades to {}", trades.len(), out_path);
-    Ok(())
+    
+    if write_cache_files {
+        let out_path = format!("cache/trades_{}.json", wallet);
+        let json = serde_json::to_string_pretty(&trades)?;
+        let mut file = File::create(&out_path)?;
+        file.write_all(json.as_bytes())?;
+        println!("💰 Wrote {} trades to {}", trades.len(), out_path);
+    }
+    else {
+        println!("Found {} trades.", trades.len());
+    }
+    Ok(trades)
 }

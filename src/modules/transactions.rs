@@ -15,6 +15,7 @@ pub fn get_transactions() -> Result<Vec<RawTxn>, Box<dyn std::error::Error>> {
     let helius_api_key = settings.helius_api_key;
     let wallet = settings.wallet_address;
     let use_cached_txns = settings.use_cached_txns.unwrap_or(false);
+    let write_cache_files = settings.write_cache_files.unwrap_or(false);
 
     let transactions_path = format!("cache/transactions_{}.json", wallet);
     let transactions: Vec<RawTxn> = if use_cached_txns && Path::new(&transactions_path).exists() {
@@ -54,11 +55,16 @@ pub fn get_transactions() -> Result<Vec<RawTxn>, Box<dyn std::error::Error>> {
             all.extend(batch);
             thread::sleep(Duration::from_millis(300));
         }
-
-        println!("💾 Saving transactions to cache...");
-        fs::create_dir_all("cache")?;
-        let mut file = File::create(&transactions_path)?;
-        write!(file, "{}", serde_json::to_string_pretty(&all)?)?;
+        
+        if write_cache_files {
+            println!("💾 Saving transactions to cache...");
+            fs::create_dir_all("cache")?;
+            let mut file = File::create(&transactions_path)?;
+            write!(file, "{}", serde_json::to_string_pretty(&all)?)?;
+        }
+        else {
+            println!("Fetched {} transactions.", all.len());
+        }
         all
     };
 

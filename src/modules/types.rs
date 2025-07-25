@@ -11,6 +11,7 @@ pub struct Settings {
     pub use_token_cache: Option<bool>,
     pub use_jupiter_token_list: Option<bool>,
     pub fifo: Option<bool>,
+    pub write_cache_files: Option<bool>,
 }
 
 /// Minimal raw swap structure parsed from transactions

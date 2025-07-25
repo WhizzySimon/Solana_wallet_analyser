@@ -67,6 +67,7 @@ pub fn filter_and_name_swaps(
     let wallet = settings.wallet_address;
     let wallet_lower = wallet.to_lowercase();
     let swaps_path_raw = get_named_swaps_path(&wallet);
+    let write_cache_files = settings.write_cache_files.unwrap_or(false);
 
     let swaps: Vec<NamedSwap> = if use_cached_swaps_raw && Path::new(&swaps_path_raw).exists() {
         println!("♻️  Using cached swaps from {}", swaps_path_raw);
@@ -190,10 +191,14 @@ pub fn filter_and_name_swaps(
                 }
             })
             .collect();
-
-        let mut file = File::create(&swaps_path_raw)?;
-        write!(file, "{}", serde_json::to_string_pretty(&enriched)?)?;
-        println!("✅ Enriched swaps written to {}", swaps_path_raw);
+        if write_cache_files {
+            let mut file = File::create(&swaps_path_raw)?;
+            write!(file, "{}", serde_json::to_string_pretty(&enriched)?)?;
+            println!("✅ Enriched swaps written to {}", swaps_path_raw);
+        }
+        else {
+            println!("Filtered and named {} swaps.", enriched.len());
+        }
         enriched
     };
 
