@@ -16,7 +16,7 @@ pub async fn run_pipeline(wallet_address: &str) -> Result<Vec<TokenPnl>, Box<dyn
     let transactions = get_transactions(wallet_address).await.unwrap();
     println!("Total transactions fetched/loaded: {}", transactions.len());
 
-    let named_swaps = filter_and_name_swaps(&transactions, wallet_address)?;
+    let named_swaps = filter_and_name_swaps(&transactions, wallet_address).await?;
     println!("Total swaps with token names: {}", named_swaps.len());
 
     let priced_swaps = get_or_load_swaps_with_prices(&named_swaps, wallet_address).await?;

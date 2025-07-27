@@ -55,7 +55,7 @@ fn load_cached_token_names() -> HashMap<String, String> {
 }
 
 
-pub fn filter_and_name_swaps(
+pub async fn filter_and_name_swaps(
     transactions: &Vec<RawTxn>,
     wallet_address: &str
 ) -> Result<Vec<NamedSwap>, Box<dyn std::error::Error>> {
@@ -143,13 +143,13 @@ pub fn filter_and_name_swaps(
             println!("Querying {} unknown mints via Helius...", unknown_mints.len());
             let payload = json!({ "mintAccounts": unknown_mints });
             let url = format!("https://api.helius.xyz/v0/token-metadata?api-key={}", helius_api_key);
-            let client = reqwest::blocking::Client::new();
-            let res = client.post(&url).json(&payload).send();
+            let client = reqwest::Client::new();
+            let res = client.post(&url).json(&payload).send().await;
 
             match res {
                 Ok(response) => {
                     if response.status().is_success() {
-                        let token_data: Vec<serde_json::Value> = response.json()?;
+                        let token_data: Vec<serde_json::Value> = response.json().await?;
                         for entry in &token_data {
                             let mint = entry.get("account").and_then(|v| v.as_str()).unwrap_or("").to_string();
                             let name = entry

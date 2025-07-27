@@ -24,17 +24,22 @@ pub fn calculate_direct_token_pnl(
         } else {
             &swap.sold_token_name
         };
-        let entry = token_map.entry(token.clone()).or_insert_with(|| (VecDeque::new(), Vec::new(), 0.0));
 
-        // Track the buy under the *token being sold*, for future cost basis matching
-        if token != "SOL" && token != "USDC" {
-            entry.0.push_back(BuyPart {
-                timestamp: swap.timestamp,
-                amount: swap.bought_amount,
-                cost_usd: usd_value,
-            });
+        // insert BuyPart for bought_token (must be separate borrow)
+        if !is_stable(&swap.bought_token_name) {
+            token_map
+                .entry(swap.bought_token_name.clone())
+                .or_insert_with(|| (VecDeque::new(), Vec::new(), 0.0))
+                .0
+                .push_back(BuyPart {
+                    timestamp: swap.timestamp,
+                    amount: swap.bought_amount,
+                    cost_usd: usd_value,
+                });
         }
 
+        // safe second borrow for SELL logic
+        let entry = token_map.entry(token.clone()).or_insert_with(|| (VecDeque::new(), Vec::new(), 0.0));
 
         // SELL
         let mut remaining = swap.sold_amount;

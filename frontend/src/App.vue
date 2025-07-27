@@ -7,30 +7,38 @@
 
     <div v-if="loading">⏳ Analyzing...</div>
 
-    <div v-if="trades.length > 0">
-      <h2>Trades</h2>
+    <div v-if="tokenPnls.length > 0">
+      <label><input type="checkbox" v-model="excludeAirdrops" /> Exclude airdrops</label>
+
+      <h2>Token PnL</h2>
       <table>
         <thead>
           <tr>
-            <th>Time</th>
-            <th>Sold</th>
-            <th>Amount</th>
-            <th>PNL (USD)</th>
+            <th>Token</th>
+            <th>Buys</th>
+            <th>Buy USD</th>
+            <th>Sells</th>
+            <th>Sell USD</th>
+            <th>Total PnL (USD)</th>
+            <th>Airdrop?</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(trade, i) in trades" :key="i">
-            <td>{{ formatTime(trade.timestamp) }}</td>
-            <td>{{ trade.sold_token }}</td>
-            <td>{{ trade.sold_amount }}</td>
-            <td :class="{ profit: trade.profit_loss > 0, loss: trade.profit_loss < 0 }">
-              {{ trade.profit_loss.toFixed(2) }}
+          <tr v-for="(t, i) in filteredPnls" :key="i">
+            <td>{{ t.token }}</td>
+            <td>{{ t.total_bought.toFixed(2) }}</td>
+            <td>{{ getBuyUsd(t).toFixed(2) }}</td>
+            <td>{{ t.total_sold.toFixed(2) }}</td>
+            <td>{{ getSellUsd(t).toFixed(2) }}</td>
+            <td :class="{ profit: t.realized_pnl > 0, loss: t.realized_pnl < 0 }">
+              {{ t.realized_pnl.toFixed(2) }}
             </td>
+            <td>{{ t.buys.length === 0 ? '✅' : '' }}</td>
           </tr>
         </tbody>
       </table>
 
-      <h3>Total PnL: {{ totalPnl.toFixed(2) }} USD</h3>
+      <h3>Total Realized PnL: {{ totalFilteredPnl.toFixed(2) }} USD</h3>
     </div>
   </div>
 </template>
@@ -39,8 +47,9 @@
 import { ref, computed } from 'vue'
 
 const walletAddress = ref('')
-const trades = ref([])
+const tokenPnls = ref([])
 const loading = ref(false)
+const excludeAirdrops = ref(false)
 
 const analyzeWallet = async () => {
   loading.value = true
@@ -57,8 +66,8 @@ const analyzeWallet = async () => {
     }
 
     const result = await response.json()
-    trades.value = result.trades || []
-    console.log("✅ Loaded trades:", trades.value)
+    tokenPnls.value = result.trades || []
+    console.log("✅ Loaded tokens:", tokenPnls.value)
   } catch (err) {
     console.error('Fetch failed:', err)
   } finally {
@@ -66,11 +75,21 @@ const analyzeWallet = async () => {
   }
 }
 
-const totalPnl = computed(() =>
-  trades.value.reduce((sum, t) => sum + t.profit_loss, 0)
+const filteredPnls = computed(() =>
+  excludeAirdrops.value
+    ? tokenPnls.value.filter(t => t.buys.length > 0)
+    : tokenPnls.value
 )
 
-const formatTime = (ts) => new Date(ts * 1000).toLocaleString()
+const totalFilteredPnl = computed(() =>
+  filteredPnls.value.reduce((sum, t) => sum + t.realized_pnl, 0)
+)
+
+const getBuyUsd = (t) =>
+  t.buys.reduce((sum, b) => sum + b.cost_usd, 0)
+
+const getSellUsd = (t) =>
+  t.sells.reduce((sum, s) => sum + s.proceeds_usd, 0)
 </script>
 
 <style scoped>

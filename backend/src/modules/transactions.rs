@@ -9,6 +9,7 @@ use std::{
 
 use tokio::time::{sleep, Duration};
 use reqwest::Client;
+use chrono::{Utc, Duration as ChronoDuration};
 
 /// Convenience error type alias
 pub type AnyError = Box<dyn std::error::Error + Send + Sync + 'static>;
@@ -35,6 +36,8 @@ pub async fn get_transactions(wallet_address: &str) -> Result<Vec<RawTxn>, AnyEr
         let mut all = Vec::new();
         let mut before: Option<String> = None;
 
+        let thirty_days_ago = Utc::now().timestamp() - ChronoDuration::days(30).num_seconds();
+
         loop {
             let url = format!(
                 "https://api.helius.xyz/v0/addresses/{}/transactions?api-key={}{}",
@@ -56,12 +59,20 @@ pub async fn get_transactions(wallet_address: &str) -> Result<Vec<RawTxn>, AnyEr
             let batch: Vec<RawTxn> = response.json().await
                 .map_err(|e| format!("Failed to deserialize transaction batch: {}", e))?;
 
-            if batch.is_empty() {
+            let filtered_batch: Vec<RawTxn> = batch
+                .into_iter()
+                .filter(|tx| tx.timestamp.unwrap_or(0) as i64 >= thirty_days_ago)
+                .collect();
+
+
+            if filtered_batch.is_empty() {
+                println!("⏹️  Stopped: no transactions in last 30 days.");
                 break;
             }
 
-            before = batch.last().map(|tx| tx.signature.clone());
-            all.extend(batch);
+            before = filtered_batch.last().map(|tx| tx.signature.clone());
+            all.extend(filtered_batch);
+
             sleep(Duration::from_millis(300)).await;
         }
 
