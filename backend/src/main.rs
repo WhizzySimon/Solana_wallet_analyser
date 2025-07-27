@@ -4,14 +4,15 @@ use axum::{
 };
 use serde_json::{json, Value};
 use std::net::SocketAddr;
+use tower_http::cors::{CorsLayer, Any};
 use wallet_analyzer::modules::transactions::get_transactions;
 use wallet_analyzer::modules::swaps::filter_and_name_swaps;
 use wallet_analyzer::modules::prices::get_or_load_swaps_with_prices;
 use wallet_analyzer::modules::pnl::calc_pnl;
-use wallet_analyzer::modules::types::{PnlRequest, TradeWithPnl};
+use wallet_analyzer::modules::types::{PnlRequest, TokenPnl};
 
 /// Run the entire pipeline for a wallet and return enriched PnL trades
-pub async fn run_pipeline(wallet_address: &str) -> Result<Vec<TradeWithPnl>, Box<dyn std::error::Error>> {
+pub async fn run_pipeline(wallet_address: &str) -> Result<Vec<TokenPnl>, Box<dyn std::error::Error>> {
     let transactions = get_transactions(wallet_address).await.unwrap();
     println!("Total transactions fetched/loaded: {}", transactions.len());
 
@@ -19,7 +20,7 @@ pub async fn run_pipeline(wallet_address: &str) -> Result<Vec<TradeWithPnl>, Box
     println!("Total swaps with token names: {}", named_swaps.len());
 
     let priced_swaps = get_or_load_swaps_with_prices(&named_swaps, wallet_address).await?;
-    let trades_with_pnl = calc_pnl(&priced_swaps, wallet_address)?;
+    let trades_with_pnl = calc_pnl(&priced_swaps, wallet_address).await?;
 
     Ok(trades_with_pnl)
 }
@@ -38,7 +39,15 @@ async fn handle_pnl(Json(payload): Json<PnlRequest>) -> Json<Value> {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let app = Router::new().route("/api/pnl", post(handle_pnl));
+    let app = Router::new()
+        .route("/api/pnl", post(handle_pnl))
+        .layer(
+            CorsLayer::new()
+                .allow_origin(Any)
+                .allow_methods(Any)
+                .allow_headers(Any),
+        );
+
 
     let addr = SocketAddr::from(([127, 0, 0, 1], 8080));
     println!("📡 Listening on http://{}", addr);

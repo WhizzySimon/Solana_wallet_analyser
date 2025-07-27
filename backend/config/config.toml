@@ -1,9 +1,9 @@
 helius_api_key = "807b9237-fe0d-4677-9d02-30c20228ae87"
 birdeye_api_key = "78aed522375e415e836276eee3552d34"
-use_cached_txns = false
-use_cached_named_swaps = false
+use_cached_txns = true
+use_cached_named_swaps = true
 use_cached_priced_swaps = false
 use_token_cache = true
 use_jupiter_token_list = true
 fifo = true
-write_cache_files = false
+write_cache_files = true

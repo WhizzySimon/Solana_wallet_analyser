@@ -1,0 +1,341 @@
+[
+  {
+    "token": "Meme Coin",
+    "buys": [
+      {
+        "timestamp": 1749500000,
+        "amount": 123446.0,
+        "cost_usd": 10.0
+      }
+    ],
+    "sells": [
+      {
+        "timestamp": 1749500000,
+        "amount": 10.0,
+        "proceeds_usd": 10.0
+      }
+    ],
+    "realized_pnl": 9.999189994815968,
+    "total_bought": 123446.0,
+    "total_sold": 10.0,
+    "remaining_amount": 123446.0,
+    "average_cost_usd": 0.00008100708001879364
+  },
+  {
+    "token": "RugCoin",
+    "buys": [],
+    "sells": [
+      {
+        "timestamp": 1749500005,
+        "amount": 25.0,
+        "proceeds_usd": 25.0
+      }
+    ],
+    "realized_pnl": 0.0,
+    "total_bought": -0.0,
+    "total_sold": 25.0,
+    "remaining_amount": -0.0,
+    "average_cost_usd": 0.0
+  },
+  {
+    "token": "Wrong Way",
+    "buys": [],
+    "sells": [
+      {
+        "timestamp": 1748354824,
+        "amount": 0.008081007999862777,
+        "proceeds_usd": 1.4376113232
+      }
+    ],
+    "realized_pnl": 0.0,
+    "total_bought": -0.0,
+    "total_sold": 0.008081007999862777,
+    "remaining_amount": -0.0,
+    "average_cost_usd": 0.0
+  },
+  {
+    "token": "ORANGIFY",
+    "buys": [],
+    "sells": [
+      {
+        "timestamp": 1748354733,
+        "amount": 0.008112851999612758,
+        "proceeds_usd": 1.43938220184
+      },
+      {
+        "timestamp": 1748354749,
+        "amount": 0.008574415998737095,
+        "proceeds_usd": 1.5212728867199998
+      },
+      {
+        "timestamp": 1748354851,
+        "amount": 0.009510454001429025,
+        "proceeds_usd": 1.6918146620599999
+      },
+      {
+        "timestamp": 1748354879,
+        "amount": 0.008264618001703639,
+        "proceeds_usd": 1.47019289602
+      }
+    ],
+    "realized_pnl": 0.0,
+    "total_bought": -0.0,
+    "total_sold": 0.034462340001482517,
+    "remaining_amount": -0.0,
+    "average_cost_usd": 0.0
+  },
+  {
+    "token": "point of convergence",
+    "buys": [],
+    "sells": [
+      {
+        "timestamp": 1748354910,
+        "amount": 0.009910026999932597,
+        "proceeds_usd": 1.76289470303
+      },
+      {
+        "timestamp": 1748354988,
+        "amount": 0.009251421999579179,
+        "proceeds_usd": 1.6495285426000001
+      }
+    ],
+    "realized_pnl": 0.0,
+    "total_bought": -0.0,
+    "total_sold": 0.019161448999511776,
+    "remaining_amount": -0.0,
+    "average_cost_usd": 0.0
+  },
+  {
+    "token": "TTC",
+    "buys": [],
+    "sells": [
+      {
+        "timestamp": 1748611160,
+        "amount": 86.20373138785362,
+        "proceeds_usd": 13983.10726844748
+      },
+      {
+        "timestamp": 1748611457,
+        "amount": 89.71179785998538,
+        "proceeds_usd": 14516.2660117266
+      },
+      {
+        "timestamp": 1748611490,
+        "amount": 51.15372789511457,
+        "proceeds_usd": 8272.069337900452
+      },
+      {
+        "timestamp": 1748611643,
+        "amount": 62.83877361007035,
+        "proceeds_usd": 10167.313570098
+      },
+      {
+        "timestamp": 1748686024,
+        "amount": 9.074355921009555,
+        "proceeds_usd": 1396.72486336032
+      },
+      {
+        "timestamp": 1749473433,
+        "amount": 0.21954588599965064,
+        "proceeds_usd": 34.1174306844
+      }
+    ],
+    "realized_pnl": 0.0,
+    "total_bought": -0.0,
+    "total_sold": 299.20193256003313,
+    "remaining_amount": -0.0,
+    "average_cost_usd": 0.0
+  },
+  {
+    "token": "Wrapped SOL",
+    "buys": [
+      {
+        "timestamp": 1748354729,
+        "amount": 18474.199790154,
+        "cost_usd": 1.6714937487400001
+      },
+      {
+        "timestamp": 1748354736,
+        "amount": 19631.099122,
+        "cost_usd": 1.63519905906
+      },
+      {
+        "timestamp": 1748354814,
+        "amount": 14172.679574,
+        "cost_usd": 1.612811157
+      },
+      {
+        "timestamp": 1748354849,
+        "amount": 20343.582765,
+        "cost_usd": 1.659394272
+      },
+      {
+        "timestamp": 1748354861,
+        "amount": 19154.743623,
+        "cost_usd": 1.64422001467
+      },
+      {
+        "timestamp": 1748354908,
+        "amount": 9201.920454,
+        "cost_usd": 1.64457454944
+      },
+      {
+        "timestamp": 1748354985,
+        "amount": 7771.535033,
+        "cost_usd": 1.680470368
+      },
+      {
+        "timestamp": 1748546392,
+        "amount": 104.146807,
+        "cost_usd": 17345.65070585
+      },
+      {
+        "timestamp": 1748548394,
+        "amount": 792822999.965762,
+        "cost_usd": 13453.49716671
+      },
+      {
+        "timestamp": 1749473391,
+        "amount": 2154.679834,
+        "cost_usd": 10.56176
+      },
+      {
+        "timestamp": 1749473398,
+        "amount": 2121.520916,
+        "cost_usd": 10.40644
+      },
+      {
+        "timestamp": 1749473405,
+        "amount": 1012.537502,
+        "cost_usd": 4.9702399999999995
+      },
+      {
+        "timestamp": 1749473414,
+        "amount": 1738.754415,
+        "cost_usd": 8.5426
+      },
+      {
+        "timestamp": 1749473453,
+        "amount": 2094.900507,
+        "cost_usd": 10.256400000000001
+      },
+      {
+        "timestamp": 1749473456,
+        "amount": 1650.274803,
+        "cost_usd": 8.0808
+      },
+      {
+        "timestamp": 1749473472,
+        "amount": 1141.922435,
+        "cost_usd": 5.594399999999999
+      },
+      {
+        "timestamp": 1749500008,
+        "amount": 0.021,
+        "cost_usd": 4.0
+      },
+      {
+        "timestamp": 1749500010,
+        "amount": 3.6,
+        "cost_usd": 3.6
+      }
+    ],
+    "sells": [
+      {
+        "timestamp": 1748354729,
+        "amount": 0.009411034,
+        "proceeds_usd": 1.6714937487400001
+      },
+      {
+        "timestamp": 1748354736,
+        "amount": 0.009216543,
+        "proceeds_usd": 1.63519905906
+      },
+      {
+        "timestamp": 1748354814,
+        "amount": 0.00906583,
+        "proceeds_usd": 1.612811157
+      },
+      {
+        "timestamp": 1748354849,
+        "amount": 0.00932768,
+        "proceeds_usd": 1.659394272
+      },
+      {
+        "timestamp": 1748354861,
+        "amount": 0.009242903,
+        "proceeds_usd": 1.64422001467
+      },
+      {
+        "timestamp": 1748354908,
+        "amount": 0.009244896,
+        "proceeds_usd": 1.64457454944
+      },
+      {
+        "timestamp": 1748354985,
+        "amount": 0.00942496,
+        "proceeds_usd": 1.680470368
+      },
+      {
+        "timestamp": 1748546392,
+        "amount": 104.146807,
+        "proceeds_usd": 17345.65070585
+      },
+      {
+        "timestamp": 1748548394,
+        "amount": 80.700001,
+        "proceeds_usd": 13453.49716671
+      },
+      {
+        "timestamp": 1749473391,
+        "amount": 0.068,
+        "proceeds_usd": 10.56176
+      },
+      {
+        "timestamp": 1749473398,
+        "amount": 0.067,
+        "proceeds_usd": 10.40644
+      },
+      {
+        "timestamp": 1749473405,
+        "amount": 0.032,
+        "proceeds_usd": 4.9702399999999995
+      },
+      {
+        "timestamp": 1749473414,
+        "amount": 0.055,
+        "proceeds_usd": 8.5426
+      },
+      {
+        "timestamp": 1749473453,
+        "amount": 0.066,
+        "proceeds_usd": 10.256400000000001
+      },
+      {
+        "timestamp": 1749473456,
+        "amount": 0.052,
+        "proceeds_usd": 8.0808
+      },
+      {
+        "timestamp": 1749473472,
+        "amount": 0.036,
+        "proceeds_usd": 5.594399999999999
+      },
+      {
+        "timestamp": 1749500008,
+        "amount": 4.0,
+        "proceeds_usd": 4.0
+      },
+      {
+        "timestamp": 1749500010,
+        "amount": 0.02,
+        "proceeds_usd": 3.6
+      }
+    ],
+    "realized_pnl": 30876.69167686595,
+    "total_bought": 792943772.0843424,
+    "total_sold": 189.30774184600003,
+    "remaining_amount": 792943772.0843424,
+    "average_cost_usd": 0.000038939341934127295
+  }
+]

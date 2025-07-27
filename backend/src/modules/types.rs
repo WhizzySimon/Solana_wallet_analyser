@@ -4,6 +4,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Deserialize)]
 pub struct Settings {
     pub helius_api_key: String,
+    pub birdeye_api_key: String,
     pub use_cached_txns: Option<bool>,
     pub use_cached_named_swaps: Option<bool>,
     pub use_cached_priced_swaps: Option<bool>,
@@ -118,17 +119,33 @@ pub struct InventoryEntry {
 }
 
 #[derive(Debug, Serialize)]
-pub struct TradeWithPnl {
-    pub sold_token: String,
-    pub sold_amount: f64,
-    pub received_usd: f64,
-    pub cost_basis_usd: f64,
-    pub profit_loss: f64,
+pub struct TokenPnl {
+    pub token: String,
+    pub buys: Vec<BuyPart>,
+    pub sells: Vec<SellPart>,
+    pub realized_pnl: f64,
+    pub total_bought: f64,
+    pub total_sold: f64,
+    pub remaining_amount: f64,
+    pub average_cost_usd: f64,
+}
+
+#[derive(Debug, Serialize, Clone, Copy)]
+pub struct BuyPart {
     pub timestamp: u64,
-    pub signature: String,
+    pub amount: f64,
+    pub cost_usd: f64,
+}
+
+#[derive(Debug, Serialize, Clone, Copy)]
+pub struct SellPart {
+    pub timestamp: u64,
+    pub amount: f64,
+    pub proceeds_usd: f64,
 }
 
 #[derive(Deserialize)]
 pub struct PnlRequest {
     pub wallet_address: String,
 }
+
