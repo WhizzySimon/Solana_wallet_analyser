@@ -1,5 +1,5 @@
-helius_api_key = "807b9237-fe0d-4677-9d02-30c20228ae87"
-birdeye_api_key = "78aed522375e415e836276eee3552d34"
+helius_api_key = ""
+birdeye_api_key = ""
 use_cached_txns = false
 use_cached_named_swaps = false
 use_cached_priced_swaps = false
