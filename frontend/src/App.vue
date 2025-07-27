@@ -10,7 +10,7 @@
     <div v-if="tokenPnls.length > 0">
       <label><input type="checkbox" v-model="excludeAirdrops" /> Exclude airdrops</label>
 
-      <h2>Token PnL</h2>
+      <h2>Token PnL for the last 30 days</h2>
       <table>
         <thead>
           <tr>
@@ -38,7 +38,7 @@
         </tbody>
       </table>
 
-      <h3>Total Realized PnL: {{ totalFilteredPnl.toFixed(2) }} USD</h3>
+      <h3>Total Realized PnL (30 days): {{ totalFilteredPnl.toFixed(2) }} USD</h3>
     </div>
   </div>
 </template>
