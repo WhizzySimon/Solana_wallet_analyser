@@ -2,7 +2,7 @@
 setlocal
 
 :: Set the wallet address (change if needed)
-set WALLET=KzNxNJvcieTvAF4bnfsuH1YEAXLHcB1cs468JA4K4QE
+set WALLET=8YPGtwcECVoxBrUNdP6AXvQAwDPQkuNwNnPYJBvLjbds
 
 :: Send POST request using PowerShell's Invoke-RestMethod
 powershell -Command ^

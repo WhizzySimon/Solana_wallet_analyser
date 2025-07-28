@@ -1,5 +1,5 @@
 
-use crate::modules::types::{RawTxn, Swap, NamedSwap};
+use crate::modules::types::{RawTxn, Swap, NamedSwap, Settings};
 use crate::modules::utils::get_named_swaps_path;
 use std::collections::{HashMap, HashSet};
 use std::fs::{self, File};
@@ -57,17 +57,16 @@ fn load_cached_token_names() -> HashMap<String, String> {
 
 pub async fn filter_and_name_swaps(
     transactions: &Vec<RawTxn>,
-    wallet_address: &str
+    settings: &Settings
 ) -> Result<Vec<NamedSwap>, Box<dyn std::error::Error>> {
 
-    let settings = crate::modules::utils::load_config()?;
-    let use_cached_swaps_raw = settings.use_cached_named_swaps.unwrap_or(true);
-    let use_token_cache = settings.use_token_cache.unwrap_or(true);
-    let use_jupiter_token_list = settings.use_jupiter_token_list.unwrap_or(true);
-    let helius_api_key = settings.helius_api_key;
-    let wallet_lower = wallet_address.to_lowercase();
-    let swaps_path_raw = get_named_swaps_path(wallet_address);
-    let write_cache_files = settings.write_cache_files.unwrap_or(false);
+    let use_cached_swaps_raw = settings.config.use_cached_named_swaps.unwrap_or(true);
+    let use_token_cache = settings.config.use_token_cache.unwrap_or(true);
+    let use_jupiter_token_list = settings.config.use_jupiter_token_list.unwrap_or(true);
+    let helius_api_key = &settings.helius_api_key;
+    let wallet_lower = settings.wallet_address.to_lowercase();
+    let swaps_path_raw = get_named_swaps_path(&settings.wallet_address);
+    let write_cache_files = settings.config.write_cache_files.unwrap_or(false);
 
     let swaps: Vec<NamedSwap> = if use_cached_swaps_raw && Path::new(&swaps_path_raw).exists() {
         println!("♻️  Using cached swaps from {}", swaps_path_raw);

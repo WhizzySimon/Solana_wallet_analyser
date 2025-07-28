@@ -1,5 +1,5 @@
 use std::{env, path::PathBuf};
-use crate::modules::types::Settings;
+use crate::modules::types::Config;
 
 
 pub fn get_project_root() -> PathBuf {
@@ -19,7 +19,7 @@ pub fn get_priced_swaps_path(wallet: &str) -> String {
     format!("cache/swaps_priced_{}.json", wallet)
 }
 
-pub fn load_config () -> Result<Settings, Box<dyn std::error::Error>> {
+pub fn load_config () -> Result<Config, Box<dyn std::error::Error>> {
         // Load config
     let settings = config::Config::builder()
         .add_source(config::File::with_name("config/config"))

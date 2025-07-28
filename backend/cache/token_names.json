@@ -1,6 +1,6 @@
 [
   {
-    "account": "Ba67hV6x5WQtR8MxDoAvKe43sxZrXC8zSR4XPsJ3bonk",
+    "account": "3R4WF1RzaZNe7tyJCdYcwuFbcADrfQbHTAA8Xyribonk",
     "legacyMetadata": null,
     "onChainAccountInfo": {
       "accountInfo": {
@@ -11,7 +11,7 @@
               "freezeAuthority": "",
               "isInitialized": true,
               "mintAuthority": "",
-              "supply": "999968463868460"
+              "supply": "999929872375003"
             },
             "type": "mint"
           },
@@ -21,8 +21,8 @@
         "executable": false,
         "isSigner": false,
         "isWritable": false,
-        "key": "Ba67hV6x5WQtR8MxDoAvKe43sxZrXC8zSR4XPsJ3bonk",
-        "lamports": 401461600,
+        "key": "3R4WF1RzaZNe7tyJCdYcwuFbcADrfQbHTAA8Xyribonk",
+        "lamports": 761041612,
         "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
         "rentEpoch": 18446744073709551615
       },
@@ -41,254 +41,18 @@
               "verified": true
             }
           ],
-          "name": "Curious Love",
+          "name": "COMMUNITY",
           "sellerFeeBasisPoints": 0,
-          "symbol": "CLOVE",
-          "uri": "https://ipfs.io/ipfs/bafkreicxuarnzsd7imngz7ver5khx55eklghecqztemaleohkh5e4lbt74"
+          "symbol": "COMMUNITY",
+          "uri": "https://ipfs.io/ipfs/bafkreibuksp4pktmro2n4heorxns4hekrvqsq6zqyi3sxdvtanwnpvto5e"
         },
         "editionNonce": 255,
         "isMutable": false,
         "key": "MetadataV1",
-        "mint": "Ba67hV6x5WQtR8MxDoAvKe43sxZrXC8zSR4XPsJ3bonk",
+        "mint": "3R4WF1RzaZNe7tyJCdYcwuFbcADrfQbHTAA8Xyribonk",
         "primarySaleHappened": false,
         "tokenStandard": "Fungible",
         "updateAuthority": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
-        "uses": {
-          "remaining": 0,
-          "total": 0,
-          "useMethod": ""
-        }
-      }
-    }
-  },
-  {
-    "account": "43vGXex1TCZRzMBScegbMmrcEpys3uirQyJEchmTbonk",
-    "legacyMetadata": null,
-    "onChainAccountInfo": {
-      "accountInfo": {
-        "data": {
-          "parsed": {
-            "info": {
-              "decimals": 6,
-              "freezeAuthority": "",
-              "isInitialized": true,
-              "mintAuthority": "",
-              "supply": "999999998666885"
-            },
-            "type": "mint"
-          },
-          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
-          "space": 82
-        },
-        "executable": false,
-        "isSigner": false,
-        "isWritable": false,
-        "key": "43vGXex1TCZRzMBScegbMmrcEpys3uirQyJEchmTbonk",
-        "lamports": 1461600,
-        "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
-        "rentEpoch": 18446744073709551615
-      },
-      "error": ""
-    },
-    "onChainMetadata": {
-      "error": "",
-      "metadata": {
-        "collection": null,
-        "collectionDetails": null,
-        "data": {
-          "creators": [
-            {
-              "address": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
-              "share": 100,
-              "verified": true
-            }
-          ],
-          "name": "Ya boi Toby ",
-          "sellerFeeBasisPoints": 0,
-          "symbol": "Toby",
-          "uri": "https://ipfs.io/ipfs/bafkreiejqq5wq7pcffp2kkmsat7td73qo24bdi3trlwxzgtvbzo5qqzrji"
-        },
-        "editionNonce": 252,
-        "isMutable": false,
-        "key": "MetadataV1",
-        "mint": "43vGXex1TCZRzMBScegbMmrcEpys3uirQyJEchmTbonk",
-        "primarySaleHappened": false,
-        "tokenStandard": "Fungible",
-        "updateAuthority": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
-        "uses": {
-          "remaining": 0,
-          "total": 0,
-          "useMethod": ""
-        }
-      }
-    }
-  },
-  {
-    "account": "HWbYAhX9jF2aK8XdpZSXbhx7Sk8rfe1LaP76BpkDpump",
-    "legacyMetadata": null,
-    "onChainAccountInfo": {
-      "accountInfo": {
-        "data": {
-          "parsed": {
-            "info": {
-              "decimals": 6,
-              "freezeAuthority": "",
-              "isInitialized": true,
-              "mintAuthority": "",
-              "supply": "999684624592466"
-            },
-            "type": "mint"
-          },
-          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
-          "space": 82
-        },
-        "executable": false,
-        "isSigner": false,
-        "isWritable": false,
-        "key": "HWbYAhX9jF2aK8XdpZSXbhx7Sk8rfe1LaP76BpkDpump",
-        "lamports": 1461600,
-        "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
-        "rentEpoch": 18446744073709551615
-      },
-      "error": ""
-    },
-    "onChainMetadata": {
-      "error": "",
-      "metadata": {
-        "collection": null,
-        "collectionDetails": null,
-        "data": {
-          "creators": [
-            {
-              "address": "F1iF8wubenZveTQERugUrfoXSS2M5T5mBorPQFdVciH3",
-              "share": 100,
-              "verified": false
-            }
-          ],
-          "name": "Are you this old?",
-          "sellerFeeBasisPoints": 0,
-          "symbol": "Throwback",
-          "uri": "https://ipfs.io/ipfs/bafkreiec4akarrefw32vr4sldr6w3hz4tpn7y4vx2onhkhuziy3imowmiy"
-        },
-        "editionNonce": 254,
-        "isMutable": false,
-        "key": "MetadataV1",
-        "mint": "HWbYAhX9jF2aK8XdpZSXbhx7Sk8rfe1LaP76BpkDpump",
-        "primarySaleHappened": false,
-        "tokenStandard": "Fungible",
-        "updateAuthority": "TSLvdd1pWpHVjahSpsvCXUbgwsL3JAcvokwaKt1eokM",
-        "uses": {
-          "remaining": 0,
-          "total": 0,
-          "useMethod": ""
-        }
-      }
-    }
-  },
-  {
-    "account": "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
-    "legacyMetadata": null,
-    "onChainAccountInfo": {
-      "accountInfo": {
-        "data": {
-          "parsed": {
-            "info": {
-              "decimals": 6,
-              "freezeAuthority": "",
-              "isInitialized": true,
-              "mintAuthority": "",
-              "supply": "999983307351893"
-            },
-            "type": "mint"
-          },
-          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
-          "space": 82
-        },
-        "executable": false,
-        "isSigner": false,
-        "isWritable": false,
-        "key": "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
-        "lamports": 281760964973,
-        "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
-        "rentEpoch": 18446744073709551615
-      },
-      "error": ""
-    },
-    "onChainMetadata": {
-      "error": "",
-      "metadata": {
-        "collection": null,
-        "collectionDetails": null,
-        "data": {
-          "creators": null,
-          "name": "Fartcoin ",
-          "sellerFeeBasisPoints": 0,
-          "symbol": "Fartcoin ",
-          "uri": "https://ipfs.io/ipfs/QmYfe8zVGHA1heej47AkBX3Nnetg2h2kqj5yymz1xyKeHb"
-        },
-        "editionNonce": 255,
-        "isMutable": false,
-        "key": "MetadataV1",
-        "mint": "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
-        "primarySaleHappened": false,
-        "tokenStandard": "Fungible",
-        "updateAuthority": "TSLvdd1pWpHVjahSpsvCXUbgwsL3JAcvokwaKt1eokM",
-        "uses": {
-          "remaining": 0,
-          "total": 0,
-          "useMethod": ""
-        }
-      }
-    }
-  },
-  {
-    "account": "J8rZcqDBXWCtmz9C4qhdfiRA5ZQQjasa5aeghbnxpump",
-    "legacyMetadata": null,
-    "onChainAccountInfo": {
-      "accountInfo": {
-        "data": {
-          "parsed": {
-            "info": {
-              "decimals": 6,
-              "freezeAuthority": "",
-              "isInitialized": true,
-              "mintAuthority": "",
-              "supply": "998873715629390"
-            },
-            "type": "mint"
-          },
-          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
-          "space": 82
-        },
-        "executable": false,
-        "isSigner": false,
-        "isWritable": false,
-        "key": "J8rZcqDBXWCtmz9C4qhdfiRA5ZQQjasa5aeghbnxpump",
-        "lamports": 1461600,
-        "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
-        "rentEpoch": 18446744073709551615
-      },
-      "error": ""
-    },
-    "onChainMetadata": {
-      "error": "",
-      "metadata": {
-        "collection": null,
-        "collectionDetails": null,
-        "data": {
-          "creators": null,
-          "name": "17yo Latina GF",
-          "sellerFeeBasisPoints": 0,
-          "symbol": "17yo",
-          "uri": "https://ipfs.io/ipfs/Qmf37KurwD6V2ae5NabNYJ4oo2cZgCR6GaRrbepeWxZBhk"
-        },
-        "editionNonce": 255,
-        "isMutable": false,
-        "key": "MetadataV1",
-        "mint": "J8rZcqDBXWCtmz9C4qhdfiRA5ZQQjasa5aeghbnxpump",
-        "primarySaleHappened": false,
-        "tokenStandard": "Fungible",
-        "updateAuthority": "TSLvdd1pWpHVjahSpsvCXUbgwsL3JAcvokwaKt1eokM",
         "uses": {
           "remaining": 0,
           "total": 0,

@@ -1,4 +1,4 @@
-use crate::modules::types::{TokenPnl, PricedSwap, BuyPart, SellPart};
+use crate::modules::types::{Settings, TokenPnl, PricedSwap, BuyPart, SellPart};
 use std::fs::File;
 use std::io::Write;
 
@@ -6,73 +6,71 @@ fn is_stable(token: &str) -> bool {
     matches!(token, "USDC" | "USDT" | "USD" | "USDL" | "PAI" | "UXD")
 }
 
-pub fn calculate_direct_token_pnl(
-    swaps: &[PricedSwap],
-) -> Vec<TokenPnl> {
+pub fn calculate_direct_token_pnl(swaps: &[PricedSwap]) -> Vec<TokenPnl> {
     use std::collections::{HashMap, VecDeque};
 
     let mut token_map: HashMap<String, (VecDeque<BuyPart>, Vec<SellPart>, f64)> = HashMap::new();
 
     for swap in swaps {
-        if swap.usd_value.is_none() {continue;}
-
+        if swap.usd_value.is_none() {
+            continue;
+        }
         let usd_value = swap.usd_value.unwrap();
 
-        // GROUPING BY SOLD TOKEN (the one the user is trading)
-        let token = if is_stable(&swap.sold_token_name) && !is_stable(&swap.bought_token_name) {
-            &swap.bought_token_name
-        } else {
-            &swap.sold_token_name
+        // === GROUPING LOGIC FIX ===
+        let group_token = match (
+            swap.sold_token_name.as_str(),
+            swap.bought_token_name.as_str(),
+        ) {
+            ("Wrapped SOL", other) if !is_stable(other) => Some(other.to_string()),
+            (other, "Wrapped SOL") if !is_stable(other) => Some(other.to_string()),
+            ("Wrapped SOL", other) if is_stable(other) => Some(other.to_string()),
+            (other, "Wrapped SOL") if is_stable(other) => Some(other.to_string()),
+            _ => None,
         };
 
-        // insert BuyPart for bought_token (must be separate borrow)
-        if !is_stable(&swap.bought_token_name) {
-            token_map
-                .entry(swap.bought_token_name.clone())
-                .or_insert_with(|| (VecDeque::new(), Vec::new(), 0.0))
-                .0
-                .push_back(BuyPart {
+        if let Some(token) = group_token {
+            let entry = token_map.entry(token.clone()).or_insert_with(|| (VecDeque::new(), Vec::new(), 0.0));
+
+            if !is_stable(&swap.bought_token_name) && swap.bought_token_name != "Wrapped SOL" {
+                entry.0.push_back(BuyPart {
                     timestamp: swap.timestamp,
                     amount: swap.bought_amount,
                     cost_usd: usd_value,
                 });
-        }
+            }
 
-        // safe second borrow for SELL logic
-        let entry = token_map.entry(token.clone()).or_insert_with(|| (VecDeque::new(), Vec::new(), 0.0));
+            let mut remaining = swap.sold_amount;
+            let mut cost_basis = 0.0;
 
-        // SELL
-        let mut remaining = swap.sold_amount;
-        let mut cost_basis = 0.0;
-
-        while remaining > 0.0 {
-            if let Some(mut buy) = entry.0.pop_front() {
-                let used = remaining.min(buy.amount);
-                let ratio = used / buy.amount;
-                cost_basis += buy.cost_usd * ratio;
-                remaining -= used;
-                buy.amount -= used;
-                if buy.amount > 0.0 {
-                    entry.0.push_front(buy);
+            while remaining > 0.0 {
+                if let Some(mut buy) = entry.0.pop_front() {
+                    let used = remaining.min(buy.amount);
+                    let ratio = used / buy.amount;
+                    cost_basis += buy.cost_usd * ratio;
+                    remaining -= used;
+                    buy.amount -= used;
+                    if buy.amount > 0.0 {
+                        entry.0.push_front(buy);
+                        break;
+                    }
+                } else {
                     break;
                 }
-            } else {
-                break;
             }
+
+            let sold_amount = swap.sold_amount - remaining;
+
+            entry.1.push(SellPart {
+                timestamp: swap.timestamp,
+                amount: sold_amount,
+                proceeds_usd: usd_value,
+            });
+
+            entry.2 += usd_value - cost_basis;
         }
-
-        let sold_amount = swap.sold_amount - remaining;
-
-        entry.1.push(SellPart {
-            timestamp: swap.timestamp,
-            amount: sold_amount,
-            proceeds_usd: usd_value,
-        });
-
-        entry.2 += usd_value - cost_basis;
     }
 
-    // Create TokenPnl results
     token_map
         .into_iter()
         .map(|(token, (buys, sells, realized_pnl))| {
@@ -84,24 +82,22 @@ pub fn calculate_direct_token_pnl(
             TokenPnl {
                 token,
                 buys: buys.into(),
-                sells, // now moved safely
+                sells,
                 realized_pnl,
                 total_bought,
                 total_sold,
                 remaining_amount: total_bought,
                 average_cost_usd: average_cost,
             }
-
         })
         .collect()
 }
 
-pub async fn calc_pnl(priced_swaps: &[PricedSwap], wallet_address: &str) 
+pub async fn calc_pnl(priced_swaps: &[PricedSwap], settings: &Settings) 
     -> Result<Vec<TokenPnl>, Box<dyn std::error::Error>> {
     
-    let settings = crate::modules::utils::load_config()?;
     //let use_fifo = settings.fifo.unwrap_or(true);
-    let write_cache_files = settings.write_cache_files.unwrap_or(false);
+    let write_cache_files = settings.config.write_cache_files.unwrap_or(false);
 
     // let inventory: HashMap<String, Vec<InventoryEntry>> = HashMap::new();
     let mut swaps_sorted = priced_swaps.to_vec();
@@ -117,7 +113,7 @@ pub async fn calc_pnl(priced_swaps: &[PricedSwap], wallet_address: &str)
     trades.append(&mut sol_trades); */
     
     if write_cache_files {
-        let out_path = format!("cache/trades_{}.json", wallet_address);
+        let out_path = format!("cache/trades_{}.json", settings.wallet_address);
         let json = serde_json::to_string_pretty(&trades)?;
         let mut file = File::create(&out_path)?;
         file.write_all(json.as_bytes())?;

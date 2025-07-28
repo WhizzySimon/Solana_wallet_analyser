@@ -1,5 +1,3 @@
-helius_api_key = ""
-birdeye_api_key = ""
 use_cached_txns = false
 use_cached_named_swaps = false
 use_cached_priced_swaps = false

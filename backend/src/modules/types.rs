@@ -2,9 +2,7 @@ use serde::{Deserialize, Serialize};
 
 /// Configuration loaded from `config.toml`
 #[derive(Debug, Deserialize)]
-pub struct Settings {
-    pub helius_api_key: String,
-    pub birdeye_api_key: String,
+pub struct Config {
     pub use_cached_txns: Option<bool>,
     pub use_cached_named_swaps: Option<bool>,
     pub use_cached_priced_swaps: Option<bool>,
@@ -13,6 +11,14 @@ pub struct Settings {
     pub fifo: Option<bool>,
     pub write_cache_files: Option<bool>,
 }
+
+pub struct Settings {
+    pub config: Config,
+    pub helius_api_key: String,
+    pub birdeye_api_key: String,
+    pub wallet_address: String,
+}
+
 
 /// Minimal raw swap structure parsed from transactions
 #[derive(Debug, Serialize, Deserialize)]

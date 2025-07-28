@@ -3,7 +3,7 @@ use std::collections::{HashMap};
 use std::fs;
 use std::time::Duration;
 use crate::modules::utils::{get_priced_swaps_path};
-use crate::modules::types::{NamedSwap, PricedSwap};
+use crate::modules::types::{NamedSwap, PricedSwap, Settings};
 
 const SOLANA_MINT: &str = "So11111111111111111111111111111111111111112";
 const BINANCE_SYMBOL: &str = "SOLUSDT";
@@ -69,14 +69,13 @@ async fn fetch_price_map_for_range(client: &Client, start_ts: u64, end_ts: u64) 
 
 }
 
-pub async fn get_or_load_swaps_with_prices(swaps_with_token_names:&Vec<NamedSwap>, wallet_address: &str) 
+pub async fn get_or_load_swaps_with_prices(swaps_with_token_names:&Vec<NamedSwap>, settings: &Settings) 
     -> Result<Vec<PricedSwap>, Box<dyn std::error::Error>> {
 
-    let settings = crate::modules::utils::load_config()?;
-    let wallet_address = wallet_address.to_lowercase();
+    let wallet_address = settings.wallet_address.to_lowercase();
     let priced_swaps_path = get_priced_swaps_path(&wallet_address);
-    let use_cached_priced_swaps = settings.use_cached_priced_swaps.unwrap_or(true);
-    let write_cache_files = settings.write_cache_files.unwrap_or(false);
+    let use_cached_priced_swaps = settings.config.use_cached_priced_swaps.unwrap_or(true);
+    let write_cache_files = settings.config.write_cache_files.unwrap_or(false);
 
     let priced_swaps: Vec<PricedSwap> = if use_cached_priced_swaps {
         println!("♻️  Using cached enriched swaps from {}", priced_swaps_path);

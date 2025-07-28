@@ -1,5 +1,4 @@
-use crate::modules::types::RawTxn;
-use crate::modules::utils::load_config;
+use crate::modules::types::{RawTxn, Settings};
 
 use std::{
     fs::{self, File},
@@ -14,13 +13,12 @@ use chrono::{Utc, Duration as ChronoDuration};
 /// Convenience error type alias
 pub type AnyError = Box<dyn std::error::Error + Send + Sync + 'static>;
 
-pub async fn get_transactions(wallet_address: &str) -> Result<Vec<RawTxn>, AnyError> {
-    let settings = load_config().map_err(|e| format!("Failed to load config: {}", e))?;
-    let helius_api_key = settings.helius_api_key;
-    let use_cached_txns = settings.use_cached_txns.unwrap_or(false);
-    let write_cache_files = settings.write_cache_files.unwrap_or(false);
+pub async fn get_transactions(settings: &Settings) -> Result<Vec<RawTxn>, AnyError> {
+    let helius_api_key = &settings.helius_api_key;
+    let use_cached_txns = settings.config.use_cached_txns.unwrap_or(false);
+    let write_cache_files = settings.config.write_cache_files.unwrap_or(false);
 
-    let transactions_path = format!("cache/transactions_{}.json", wallet_address);
+    let transactions_path = format!("cache/transactions_{}.json", settings.wallet_address);
 
     let transactions: Vec<RawTxn> = if use_cached_txns && Path::new(&transactions_path).exists() {
         println!("♻️  Using cached transactions from {}", transactions_path);
@@ -30,7 +28,7 @@ pub async fn get_transactions(wallet_address: &str) -> Result<Vec<RawTxn>, AnyEr
         serde_json::from_reader(reader)
             .map_err(|e| format!("Failed to parse cached JSON: {}", e))?
     } else {
-        println!("🌐 Fetching transactions for wallet: {}", wallet_address);
+        println!("🌐 Fetching transactions for wallet: {}", settings.wallet_address);
 
         let client = Client::new();
         let mut all = Vec::new();
@@ -41,7 +39,7 @@ pub async fn get_transactions(wallet_address: &str) -> Result<Vec<RawTxn>, AnyEr
         loop {
             let url = format!(
                 "https://api.helius.xyz/v0/addresses/{}/transactions?api-key={}{}",
-                wallet_address,
+                settings.wallet_address,
                 helius_api_key,
                 before
                     .as_ref()
