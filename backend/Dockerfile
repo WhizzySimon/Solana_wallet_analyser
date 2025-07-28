@@ -18,4 +18,4 @@ COPY --from=builder /app/target/release/wallet-analyzer /app/
 # Make sure .env can be passed by fly
 ENV RUST_LOG=info
 
-CMD ["./wallet-analyzer"]
+CMD ["./wallet_analyzer"]
