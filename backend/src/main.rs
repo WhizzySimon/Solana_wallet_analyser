@@ -10,15 +10,17 @@ use wallet_analyzer::modules::swaps::filter_and_name_swaps;
 use wallet_analyzer::modules::prices::get_or_load_swaps_with_prices;
 use wallet_analyzer::modules::pnl::calc_pnl;
 use wallet_analyzer::modules::types::{PnlRequest, TokenPnl, Settings};
-use wallet_analyzer::modules::utils::load_config;
+use wallet_analyzer::modules::utils::{load_config};
 
 /// Run the entire pipeline for a wallet and return enriched PnL trades
 pub async fn run_pipeline(wallet_address: String) -> Result<Vec<TokenPnl>, Box<dyn std::error::Error>> {
     let config = load_config().map_err(|e| format!("Failed to load config: {}", e))?;
     
     dotenvy::dotenv().ok(); // loads .env if available
-    let helius_api_key = std::env::var("helius_api_key")?;
-    let birdeye_api_key = std::env::var("birdeye_api_key")?;
+    let helius_api_key = std::env::var("helius_api_key").expect("Missing helius_api_key");
+    println!("🔑 Using Helius key: {}", helius_api_key);
+    let birdeye_api_key = std::env::var("birdeye_api_key").expect("Missing birdeye_api_key");
+    println!("🔑 Using birdeye key: {}", birdeye_api_key);
     let settings = Settings {
         config,
         helius_api_key,
@@ -26,13 +28,20 @@ pub async fn run_pipeline(wallet_address: String) -> Result<Vec<TokenPnl>, Box<d
         wallet_address,
     };
     
-    let transactions = get_transactions(&settings).await.unwrap();
+    let transactions = match get_transactions(&settings).await {
+        Ok(t) => t,
+        Err(e) => {
+            eprintln!("❌ Failed to get transactions: {e}");
+            return Err(e);
+        }
+    };
     println!("Total transactions fetched/loaded: {}", transactions.len());
 
     let named_swaps = filter_and_name_swaps(&transactions, &settings).await?;
     println!("Total swaps with token names: {}", named_swaps.len());
 
     let priced_swaps = get_or_load_swaps_with_prices(&named_swaps, &settings).await?;
+
     let trades_with_pnl = calc_pnl(&priced_swaps, &settings).await?;
 
     Ok(trades_with_pnl)
@@ -62,7 +71,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         );
 
 
-    let addr = SocketAddr::from(([127, 0, 0, 1], 8080));
+    let addr = SocketAddr::from(([0, 0, 0, 0], 8080));
     println!("📡 Listening on http://{}", addr);
 
     axum::Server::bind(&addr)

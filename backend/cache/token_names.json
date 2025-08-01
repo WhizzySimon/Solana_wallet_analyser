@@ -1,5 +1,701 @@
 [
   {
+    "account": "EddzqNG5SRuCknxZVNA6WDimB6guUwuDans7aLGYcLvC",
+    "legacyMetadata": null,
+    "onChainAccountInfo": {
+      "accountInfo": {
+        "data": {
+          "parsed": {
+            "info": {
+              "decimals": 6,
+              "freezeAuthority": "",
+              "isInitialized": true,
+              "mintAuthority": "",
+              "supply": "999042600791757"
+            },
+            "type": "mint"
+          },
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "space": 82
+        },
+        "executable": false,
+        "isSigner": false,
+        "isWritable": false,
+        "key": "EddzqNG5SRuCknxZVNA6WDimB6guUwuDans7aLGYcLvC",
+        "lamports": 1461600,
+        "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "rentEpoch": 18446744073709551615
+      },
+      "error": ""
+    },
+    "onChainMetadata": {
+      "error": "",
+      "metadata": {
+        "collection": null,
+        "collectionDetails": null,
+        "data": {
+          "creators": [
+            {
+              "address": "GZVSEAajExLJEvACHHQcujBw7nJq98GWUEZtood9LM9b",
+              "share": 100,
+              "verified": false
+            }
+          ],
+          "name": "さつき",
+          "sellerFeeBasisPoints": 0,
+          "symbol": "Satsuki",
+          "uri": "https://ipfs.io/ipfs/Qmduitjt5PNSQMrWDivYsM8fs3BJjk3kboMxb68R2yPAeE"
+        },
+        "editionNonce": 255,
+        "isMutable": false,
+        "key": "MetadataV1",
+        "mint": "EddzqNG5SRuCknxZVNA6WDimB6guUwuDans7aLGYcLvC",
+        "primarySaleHappened": false,
+        "tokenStandard": "Fungible",
+        "updateAuthority": "TSLvdd1pWpHVjahSpsvCXUbgwsL3JAcvokwaKt1eokM",
+        "uses": {
+          "remaining": 0,
+          "total": 0,
+          "useMethod": ""
+        }
+      }
+    }
+  },
+  {
+    "account": "Hdea1rCDiAYqZ1MDi8RAfBzvMsm1ackWdczctuzeNDUB",
+    "legacyMetadata": null,
+    "onChainAccountInfo": {
+      "accountInfo": {
+        "data": {
+          "parsed": {
+            "info": {
+              "decimals": 9,
+              "freezeAuthority": "",
+              "isInitialized": true,
+              "mintAuthority": "",
+              "supply": "999756808906358659"
+            },
+            "type": "mint"
+          },
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "space": 82
+        },
+        "executable": false,
+        "isSigner": false,
+        "isWritable": false,
+        "key": "Hdea1rCDiAYqZ1MDi8RAfBzvMsm1ackWdczctuzeNDUB",
+        "lamports": 1461600,
+        "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "rentEpoch": 18446744073709551615
+      },
+      "error": ""
+    },
+    "onChainMetadata": {
+      "error": "",
+      "metadata": {
+        "collection": null,
+        "collectionDetails": null,
+        "data": {
+          "creators": null,
+          "name": "Dubber Dub",
+          "sellerFeeBasisPoints": 0,
+          "symbol": "DUBBER",
+          "uri": "https://cdn-aibackrooms.s3.us-west-1.amazonaws.com/DUBBER/token-metadata.json"
+        },
+        "editionNonce": 255,
+        "isMutable": true,
+        "key": "MetadataV1",
+        "mint": "Hdea1rCDiAYqZ1MDi8RAfBzvMsm1ackWdczctuzeNDUB",
+        "primarySaleHappened": false,
+        "tokenStandard": "Fungible",
+        "updateAuthority": "99j8kLkUAVNhMdacAvzSbCQNTq1XDWGRZAa74muf9uwZ",
+        "uses": {
+          "remaining": 0,
+          "total": 0,
+          "useMethod": ""
+        }
+      }
+    }
+  },
+  {
+    "account": "9fQMPFrBxXAvsh38CZx8Sa6ANjd4kTN9GkhmWdbv8vY2",
+    "legacyMetadata": null,
+    "onChainAccountInfo": {
+      "accountInfo": {
+        "data": {
+          "parsed": {
+            "info": {
+              "decimals": 6,
+              "freezeAuthority": "",
+              "isInitialized": true,
+              "mintAuthority": "",
+              "supply": "1000000000000000"
+            },
+            "type": "mint"
+          },
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "space": 82
+        },
+        "executable": false,
+        "isSigner": false,
+        "isWritable": false,
+        "key": "9fQMPFrBxXAvsh38CZx8Sa6ANjd4kTN9GkhmWdbv8vY2",
+        "lamports": 1461600,
+        "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "rentEpoch": 18446744073709551615
+      },
+      "error": ""
+    },
+    "onChainMetadata": {
+      "error": "",
+      "metadata": {
+        "collection": null,
+        "collectionDetails": null,
+        "data": {
+          "creators": null,
+          "name": "CYPHER SYSTEMS",
+          "sellerFeeBasisPoints": 0,
+          "symbol": "CYPHER",
+          "uri": "https://gateway.lighthouse.storage/ipfs/bafkreibrd63cdna74bvmx4fu7463yo4yulpda2pvlyzg6jf55ikwaunmem"
+        },
+        "editionNonce": 252,
+        "isMutable": true,
+        "key": "MetadataV1",
+        "mint": "9fQMPFrBxXAvsh38CZx8Sa6ANjd4kTN9GkhmWdbv8vY2",
+        "primarySaleHappened": false,
+        "tokenStandard": "Fungible",
+        "updateAuthority": "FofZs6f7a2ZYcySCx7gWREaET8gJZXtRg3q1YNvKq4Sv",
+        "uses": {
+          "remaining": 0,
+          "total": 0,
+          "useMethod": ""
+        }
+      }
+    }
+  },
+  {
+    "account": "A65edjLpS8xh9vpqfdTiTVwobxRGa8Fzbdi9BxduaAhr",
+    "legacyMetadata": null,
+    "onChainAccountInfo": {
+      "accountInfo": {
+        "data": {
+          "parsed": {
+            "info": {
+              "decimals": 9,
+              "freezeAuthority": "",
+              "isInitialized": true,
+              "mintAuthority": "",
+              "supply": "921820324584187212"
+            },
+            "type": "mint"
+          },
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "space": 82
+        },
+        "executable": false,
+        "isSigner": false,
+        "isWritable": false,
+        "key": "A65edjLpS8xh9vpqfdTiTVwobxRGa8Fzbdi9BxduaAhr",
+        "lamports": 7467602813,
+        "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "rentEpoch": 18446744073709551615
+      },
+      "error": ""
+    },
+    "onChainMetadata": {
+      "error": "",
+      "metadata": {
+        "collection": null,
+        "collectionDetails": null,
+        "data": {
+          "creators": null,
+          "name": "What The F*ck",
+          "sellerFeeBasisPoints": 0,
+          "symbol": "WTF",
+          "uri": "https://ipfs.io/ipfs/QmSC91iE8tVvk2Bt8MV19HceAa8FQWHHRwDA9efgdnbPvt"
+        },
+        "editionNonce": 252,
+        "isMutable": false,
+        "key": "MetadataV1",
+        "mint": "A65edjLpS8xh9vpqfdTiTVwobxRGa8Fzbdi9BxduaAhr",
+        "primarySaleHappened": false,
+        "tokenStandard": "Fungible",
+        "updateAuthority": "4sNZcwVuei58Q7DyYR3VWPzdUfxwoBL3VDaxXhbeS7Lo",
+        "uses": {
+          "remaining": 0,
+          "total": 0,
+          "useMethod": ""
+        }
+      }
+    }
+  },
+  {
+    "account": "HRcgvea3PdKqPY2XzEjjYkQgKbcsCQvMBkZQkecbonk",
+    "legacyMetadata": null,
+    "onChainAccountInfo": {
+      "accountInfo": {
+        "data": {
+          "parsed": {
+            "info": {
+              "decimals": 6,
+              "freezeAuthority": "",
+              "isInitialized": true,
+              "mintAuthority": "",
+              "supply": "998691879755384"
+            },
+            "type": "mint"
+          },
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "space": 82
+        },
+        "executable": false,
+        "isSigner": false,
+        "isWritable": false,
+        "key": "HRcgvea3PdKqPY2XzEjjYkQgKbcsCQvMBkZQkecbonk",
+        "lamports": 1461600,
+        "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "rentEpoch": 18446744073709551615
+      },
+      "error": ""
+    },
+    "onChainMetadata": {
+      "error": "",
+      "metadata": {
+        "collection": null,
+        "collectionDetails": null,
+        "data": {
+          "creators": [
+            {
+              "address": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
+              "share": 100,
+              "verified": true
+            }
+          ],
+          "name": "SOME COIN",
+          "sellerFeeBasisPoints": 0,
+          "symbol": "SOME",
+          "uri": "https://ipfs.io/ipfs/bafkreibjmzxnw324whbiaju7jwxsks6nfvysrbyvp2vs6szdv6wz7kzy5i"
+        },
+        "editionNonce": 254,
+        "isMutable": false,
+        "key": "MetadataV1",
+        "mint": "HRcgvea3PdKqPY2XzEjjYkQgKbcsCQvMBkZQkecbonk",
+        "primarySaleHappened": false,
+        "tokenStandard": "Fungible",
+        "updateAuthority": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
+        "uses": {
+          "remaining": 0,
+          "total": 0,
+          "useMethod": ""
+        }
+      }
+    }
+  },
+  {
+    "account": "6zp9BprAjm2536ngTJVhLp2Cu3pA8tcecCNUjx7wshot",
+    "legacyMetadata": null,
+    "onChainAccountInfo": {
+      "accountInfo": {
+        "data": {
+          "parsed": {
+            "info": {
+              "decimals": 6,
+              "freezeAuthority": "",
+              "isInitialized": true,
+              "mintAuthority": "",
+              "supply": "1000000000000000"
+            },
+            "type": "mint"
+          },
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "space": 82
+        },
+        "executable": false,
+        "isSigner": false,
+        "isWritable": false,
+        "key": "6zp9BprAjm2536ngTJVhLp2Cu3pA8tcecCNUjx7wshot",
+        "lamports": 1461600,
+        "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "rentEpoch": 18446744073709551615
+      },
+      "error": ""
+    },
+    "onChainMetadata": {
+      "error": "",
+      "metadata": {
+        "collection": null,
+        "collectionDetails": null,
+        "data": {
+          "creators": null,
+          "name": "ENERGY",
+          "sellerFeeBasisPoints": 0,
+          "symbol": "ENERGY",
+          "uri": "https://token-metadata.shout.fun/metadata/6zp9BprAjm2536ngTJVhLp2Cu3pA8tcecCNUjx7wshot.json"
+        },
+        "editionNonce": 253,
+        "isMutable": false,
+        "key": "MetadataV1",
+        "mint": "6zp9BprAjm2536ngTJVhLp2Cu3pA8tcecCNUjx7wshot",
+        "primarySaleHappened": false,
+        "tokenStandard": "Fungible",
+        "updateAuthority": "11111111111111111111111111111111",
+        "uses": {
+          "remaining": 0,
+          "total": 0,
+          "useMethod": ""
+        }
+      }
+    }
+  },
+  {
+    "account": "BSXFKLVsyrYckSF4SGXu9DRfMb3Fos7tRF9zMXgRCUsP",
+    "legacyMetadata": null,
+    "onChainAccountInfo": {
+      "accountInfo": {
+        "data": {
+          "parsed": {
+            "info": {
+              "decimals": 6,
+              "freezeAuthority": "",
+              "isInitialized": true,
+              "mintAuthority": "",
+              "supply": "999962177949501"
+            },
+            "type": "mint"
+          },
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "space": 82
+        },
+        "executable": false,
+        "isSigner": false,
+        "isWritable": false,
+        "key": "BSXFKLVsyrYckSF4SGXu9DRfMb3Fos7tRF9zMXgRCUsP",
+        "lamports": 1461600,
+        "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "rentEpoch": 18446744073709551615
+      },
+      "error": ""
+    },
+    "onChainMetadata": {
+      "error": "",
+      "metadata": {
+        "collection": null,
+        "collectionDetails": null,
+        "data": {
+          "creators": null,
+          "name": "Holy coin",
+          "sellerFeeBasisPoints": 0,
+          "symbol": "HOLY",
+          "uri": "https://static.smapocke-marketplace.app/3943258e-cd81-4a42-91dd-fd617663a071.png"
+        },
+        "editionNonce": 252,
+        "isMutable": false,
+        "key": "MetadataV1",
+        "mint": "BSXFKLVsyrYckSF4SGXu9DRfMb3Fos7tRF9zMXgRCUsP",
+        "primarySaleHappened": false,
+        "tokenStandard": "Fungible",
+        "updateAuthority": "2Fr9BZyJ5xs3YtwyiijYPXV5zgvhH3dyd9K7JZekESt7",
+        "uses": {
+          "remaining": 0,
+          "total": 0,
+          "useMethod": ""
+        }
+      }
+    }
+  },
+  {
+    "account": "67FC3WUkWtiXwSMJaBqd945tRccbrapuNBDNhxTpbonk",
+    "legacyMetadata": null,
+    "onChainAccountInfo": {
+      "accountInfo": {
+        "data": {
+          "parsed": {
+            "info": {
+              "decimals": 6,
+              "freezeAuthority": "",
+              "isInitialized": true,
+              "mintAuthority": "",
+              "supply": "999866272673102"
+            },
+            "type": "mint"
+          },
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "space": 82
+        },
+        "executable": false,
+        "isSigner": false,
+        "isWritable": false,
+        "key": "67FC3WUkWtiXwSMJaBqd945tRccbrapuNBDNhxTpbonk",
+        "lamports": 1461600,
+        "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "rentEpoch": 18446744073709551615
+      },
+      "error": ""
+    },
+    "onChainMetadata": {
+      "error": "",
+      "metadata": {
+        "collection": null,
+        "collectionDetails": null,
+        "data": {
+          "creators": [
+            {
+              "address": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
+              "share": 100,
+              "verified": true
+            }
+          ],
+          "name": "Mike Grok Companion",
+          "sellerFeeBasisPoints": 0,
+          "symbol": "Mike",
+          "uri": "https://ipfs.io/ipfs/bafkreibj3sqdu23k3eysob4ckcpls45tttbf7wcw7b2u4tz357zcx2kyeq"
+        },
+        "editionNonce": 255,
+        "isMutable": false,
+        "key": "MetadataV1",
+        "mint": "67FC3WUkWtiXwSMJaBqd945tRccbrapuNBDNhxTpbonk",
+        "primarySaleHappened": false,
+        "tokenStandard": "Fungible",
+        "updateAuthority": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
+        "uses": {
+          "remaining": 0,
+          "total": 0,
+          "useMethod": ""
+        }
+      }
+    }
+  },
+  {
+    "account": "3uxMtF7dT2VSvRFkrLf9Gqm4nDDy2J5RBEXCQpjubonk",
+    "legacyMetadata": null,
+    "onChainAccountInfo": {
+      "accountInfo": {
+        "data": {
+          "parsed": {
+            "info": {
+              "decimals": 6,
+              "freezeAuthority": "",
+              "isInitialized": true,
+              "mintAuthority": "",
+              "supply": "999999989876130"
+            },
+            "type": "mint"
+          },
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "space": 82
+        },
+        "executable": false,
+        "isSigner": false,
+        "isWritable": false,
+        "key": "3uxMtF7dT2VSvRFkrLf9Gqm4nDDy2J5RBEXCQpjubonk",
+        "lamports": 1461600,
+        "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "rentEpoch": 18446744073709551615
+      },
+      "error": ""
+    },
+    "onChainMetadata": {
+      "error": "",
+      "metadata": {
+        "collection": null,
+        "collectionDetails": null,
+        "data": {
+          "creators": [
+            {
+              "address": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
+              "share": 100,
+              "verified": true
+            }
+          ],
+          "name": "Rhetor",
+          "sellerFeeBasisPoints": 0,
+          "symbol": "RT",
+          "uri": "https://ipfs.io/ipfs/bafkreigcti3ygx4x522kgrezy4xezmhxydpte2t3gruikfc7bq5vquljaa"
+        },
+        "editionNonce": 253,
+        "isMutable": false,
+        "key": "MetadataV1",
+        "mint": "3uxMtF7dT2VSvRFkrLf9Gqm4nDDy2J5RBEXCQpjubonk",
+        "primarySaleHappened": false,
+        "tokenStandard": "Fungible",
+        "updateAuthority": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
+        "uses": {
+          "remaining": 0,
+          "total": 0,
+          "useMethod": ""
+        }
+      }
+    }
+  },
+  {
+    "account": "GQjfXJq18BQ4AUT1BKFsWvbgGbrf1By6diZW3BMBjups",
+    "legacyMetadata": null,
+    "onChainAccountInfo": {
+      "accountInfo": {
+        "data": {
+          "parsed": {
+            "info": {
+              "decimals": 6,
+              "freezeAuthority": "",
+              "isInitialized": true,
+              "mintAuthority": "",
+              "supply": "100000000000000"
+            },
+            "type": "mint"
+          },
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "space": 82
+        },
+        "executable": false,
+        "isSigner": false,
+        "isWritable": false,
+        "key": "GQjfXJq18BQ4AUT1BKFsWvbgGbrf1By6diZW3BMBjups",
+        "lamports": 1461600,
+        "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "rentEpoch": 18446744073709551615
+      },
+      "error": ""
+    },
+    "onChainMetadata": {
+      "error": "",
+      "metadata": {
+        "collection": null,
+        "collectionDetails": null,
+        "data": {
+          "creators": null,
+          "name": "Jupiter Dog",
+          "sellerFeeBasisPoints": 0,
+          "symbol": "JUPDOG",
+          "uri": "https://static-create.jup.ag/metadata/GQjfXJq18BQ4AUT1BKFsWvbgGbrf1By6diZW3BMBjups.json"
+        },
+        "editionNonce": 254,
+        "isMutable": false,
+        "key": "MetadataV1",
+        "mint": "GQjfXJq18BQ4AUT1BKFsWvbgGbrf1By6diZW3BMBjups",
+        "primarySaleHappened": false,
+        "tokenStandard": "Fungible",
+        "updateAuthority": "11111111111111111111111111111111",
+        "uses": {
+          "remaining": 0,
+          "total": 0,
+          "useMethod": ""
+        }
+      }
+    }
+  },
+  {
+    "account": "D56E51xtTaGMeT7GFFw4G1kLtdw3WcqzA2w6CQsjCNDL",
+    "legacyMetadata": null,
+    "onChainAccountInfo": {
+      "accountInfo": {
+        "data": {
+          "parsed": {
+            "info": {
+              "decimals": 6,
+              "freezeAuthority": "",
+              "isInitialized": true,
+              "mintAuthority": "",
+              "supply": "999937547849348"
+            },
+            "type": "mint"
+          },
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "space": 82
+        },
+        "executable": false,
+        "isSigner": false,
+        "isWritable": false,
+        "key": "D56E51xtTaGMeT7GFFw4G1kLtdw3WcqzA2w6CQsjCNDL",
+        "lamports": 1461600,
+        "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "rentEpoch": 18446744073709551615
+      },
+      "error": ""
+    },
+    "onChainMetadata": {
+      "error": "",
+      "metadata": {
+        "collection": null,
+        "collectionDetails": null,
+        "data": {
+          "creators": null,
+          "name": "Wicky The Candle",
+          "sellerFeeBasisPoints": 0,
+          "symbol": "WICKY",
+          "uri": "https://candletv.mypinata.cloud/ipfs/bafkreigf2c3v4bawmsis3dtniulpxaps7uui74tmo7geegripuhu42h7jy"
+        },
+        "editionNonce": 255,
+        "isMutable": false,
+        "key": "MetadataV1",
+        "mint": "D56E51xtTaGMeT7GFFw4G1kLtdw3WcqzA2w6CQsjCNDL",
+        "primarySaleHappened": false,
+        "tokenStandard": "Fungible",
+        "updateAuthority": "11111111111111111111111111111111",
+        "uses": {
+          "remaining": 0,
+          "total": 0,
+          "useMethod": ""
+        }
+      }
+    }
+  },
+  {
+    "account": "C2e3NphKmVNJHcaB2yUhEfujwXJgB46godSrRSVboop",
+    "legacyMetadata": null,
+    "onChainAccountInfo": {
+      "accountInfo": {
+        "data": {
+          "parsed": {
+            "info": {
+              "decimals": 9,
+              "freezeAuthority": "",
+              "isInitialized": true,
+              "mintAuthority": "11111111111111111111111111111111",
+              "supply": "999810945552725058"
+            },
+            "type": "mint"
+          },
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "space": 82
+        },
+        "executable": false,
+        "isSigner": false,
+        "isWritable": false,
+        "key": "C2e3NphKmVNJHcaB2yUhEfujwXJgB46godSrRSVboop",
+        "lamports": 1461600,
+        "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "rentEpoch": 18446744073709551615
+      },
+      "error": ""
+    },
+    "onChainMetadata": {
+      "error": "",
+      "metadata": {
+        "collection": null,
+        "collectionDetails": null,
+        "data": {
+          "creators": null,
+          "name": "Lamine Yamal",
+          "sellerFeeBasisPoints": 0,
+          "symbol": "Yamal",
+          "uri": "https://mainnet-boop.s3.us-east-1.amazonaws.com/C2e3NphKmVNJHcaB2yUhEfujwXJgB46godSrRSVboop/metadata.json"
+        },
+        "editionNonce": 255,
+        "isMutable": false,
+        "key": "MetadataV1",
+        "mint": "C2e3NphKmVNJHcaB2yUhEfujwXJgB46godSrRSVboop",
+        "primarySaleHappened": false,
+        "tokenStandard": "Fungible",
+        "updateAuthority": "C2e3NphKmVNJHcaB2yUhEfujwXJgB46godSrRSVboop",
+        "uses": {
+          "remaining": 0,
+          "total": 0,
+          "useMethod": ""
+        }
+      }
+    }
+  },
+  {
     "account": "3R4WF1RzaZNe7tyJCdYcwuFbcADrfQbHTAA8Xyribonk",
     "legacyMetadata": null,
     "onChainAccountInfo": {
@@ -11,7 +707,7 @@
               "freezeAuthority": "",
               "isInitialized": true,
               "mintAuthority": "",
-              "supply": "999929872375003"
+              "supply": "999929864402436"
             },
             "type": "mint"
           },
@@ -53,6 +749,558 @@
         "primarySaleHappened": false,
         "tokenStandard": "Fungible",
         "updateAuthority": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
+        "uses": {
+          "remaining": 0,
+          "total": 0,
+          "useMethod": ""
+        }
+      }
+    }
+  },
+  {
+    "account": "3UzkMymHpqDijXYaGsz8Vbc1Vk4tKBED5TDT9v6Hbonk",
+    "legacyMetadata": null,
+    "onChainAccountInfo": {
+      "accountInfo": {
+        "data": {
+          "parsed": {
+            "info": {
+              "decimals": 6,
+              "freezeAuthority": "",
+              "isInitialized": true,
+              "mintAuthority": "",
+              "supply": "999965618820547"
+            },
+            "type": "mint"
+          },
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "space": 82
+        },
+        "executable": false,
+        "isSigner": false,
+        "isWritable": false,
+        "key": "3UzkMymHpqDijXYaGsz8Vbc1Vk4tKBED5TDT9v6Hbonk",
+        "lamports": 1471600,
+        "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "rentEpoch": 18446744073709551615
+      },
+      "error": ""
+    },
+    "onChainMetadata": {
+      "error": "",
+      "metadata": {
+        "collection": null,
+        "collectionDetails": null,
+        "data": {
+          "creators": [
+            {
+              "address": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
+              "share": 100,
+              "verified": true
+            }
+          ],
+          "name": "Degen the Otter",
+          "sellerFeeBasisPoints": 0,
+          "symbol": "DEGEN",
+          "uri": "https://ipfs.io/ipfs/bafkreibwskrjxeq4c6hvkofonc4kilppjlg6qr6cpbsvhskmhmugoix7ce"
+        },
+        "editionNonce": 253,
+        "isMutable": false,
+        "key": "MetadataV1",
+        "mint": "3UzkMymHpqDijXYaGsz8Vbc1Vk4tKBED5TDT9v6Hbonk",
+        "primarySaleHappened": false,
+        "tokenStandard": "Fungible",
+        "updateAuthority": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
+        "uses": {
+          "remaining": 0,
+          "total": 0,
+          "useMethod": ""
+        }
+      }
+    }
+  },
+  {
+    "account": "DfVX5gdoB7AMyxmUCyAthBkypio2BuefcMDir1zbfomo",
+    "legacyMetadata": null,
+    "onChainAccountInfo": {
+      "accountInfo": {
+        "data": {
+          "parsed": {
+            "info": {
+              "decimals": 6,
+              "freezeAuthority": "",
+              "isInitialized": true,
+              "mintAuthority": "",
+              "supply": "999869506920215"
+            },
+            "type": "mint"
+          },
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "space": 82
+        },
+        "executable": false,
+        "isSigner": false,
+        "isWritable": false,
+        "key": "DfVX5gdoB7AMyxmUCyAthBkypio2BuefcMDir1zbfomo",
+        "lamports": 1461600,
+        "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "rentEpoch": 18446744073709551615
+      },
+      "error": ""
+    },
+    "onChainMetadata": {
+      "error": "",
+      "metadata": {
+        "collection": null,
+        "collectionDetails": null,
+        "data": {
+          "creators": [
+            {
+              "address": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
+              "share": 100,
+              "verified": true
+            }
+          ],
+          "name": "FOMO",
+          "sellerFeeBasisPoints": 0,
+          "symbol": "FOMO",
+          "uri": "https://sapphire-elaborate-sturgeon-483.mypinata.cloud/ipfs/bafkreibbvsza6wh3bayekcicufim74mzeoilrlyqteh45gam43mdqexiby"
+        },
+        "editionNonce": 254,
+        "isMutable": false,
+        "key": "MetadataV1",
+        "mint": "DfVX5gdoB7AMyxmUCyAthBkypio2BuefcMDir1zbfomo",
+        "primarySaleHappened": false,
+        "tokenStandard": "Fungible",
+        "updateAuthority": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
+        "uses": {
+          "remaining": 0,
+          "total": 0,
+          "useMethod": ""
+        }
+      }
+    }
+  },
+  {
+    "account": "GS29biiyFF9Su88XaK2F1Sn1EHqtJh9CP5xoKV3Tbonk",
+    "legacyMetadata": null,
+    "onChainAccountInfo": {
+      "accountInfo": {
+        "data": {
+          "parsed": {
+            "info": {
+              "decimals": 6,
+              "freezeAuthority": "",
+              "isInitialized": true,
+              "mintAuthority": "",
+              "supply": "999927964495875"
+            },
+            "type": "mint"
+          },
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "space": 82
+        },
+        "executable": false,
+        "isSigner": false,
+        "isWritable": false,
+        "key": "GS29biiyFF9Su88XaK2F1Sn1EHqtJh9CP5xoKV3Tbonk",
+        "lamports": 1461600,
+        "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "rentEpoch": 18446744073709551615
+      },
+      "error": ""
+    },
+    "onChainMetadata": {
+      "error": "",
+      "metadata": {
+        "collection": null,
+        "collectionDetails": null,
+        "data": {
+          "creators": [
+            {
+              "address": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
+              "share": 100,
+              "verified": true
+            }
+          ],
+          "name": "IMGEN BY GROK",
+          "sellerFeeBasisPoints": 0,
+          "symbol": "IMGEN",
+          "uri": "https://ipfs.io/ipfs/bafkreigt5klxcwniaicyr3ibgzgs64gkd6t3puj7xdhtlgrwblspxrul3m"
+        },
+        "editionNonce": 254,
+        "isMutable": false,
+        "key": "MetadataV1",
+        "mint": "GS29biiyFF9Su88XaK2F1Sn1EHqtJh9CP5xoKV3Tbonk",
+        "primarySaleHappened": false,
+        "tokenStandard": "Fungible",
+        "updateAuthority": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
+        "uses": {
+          "remaining": 0,
+          "total": 0,
+          "useMethod": ""
+        }
+      }
+    }
+  },
+  {
+    "account": "2NphU3FoDiqariGDc7QTrM64eQXebbLqNJ5Ngx21bonk",
+    "legacyMetadata": null,
+    "onChainAccountInfo": {
+      "accountInfo": {
+        "data": {
+          "parsed": {
+            "info": {
+              "decimals": 6,
+              "freezeAuthority": "",
+              "isInitialized": true,
+              "mintAuthority": "",
+              "supply": "999925750285231"
+            },
+            "type": "mint"
+          },
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "space": 82
+        },
+        "executable": false,
+        "isSigner": false,
+        "isWritable": false,
+        "key": "2NphU3FoDiqariGDc7QTrM64eQXebbLqNJ5Ngx21bonk",
+        "lamports": 1461600,
+        "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "rentEpoch": 18446744073709551615
+      },
+      "error": ""
+    },
+    "onChainMetadata": {
+      "error": "",
+      "metadata": {
+        "collection": null,
+        "collectionDetails": null,
+        "data": {
+          "creators": [
+            {
+              "address": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
+              "share": 100,
+              "verified": true
+            }
+          ],
+          "name": "Valentine Michael Smith",
+          "sellerFeeBasisPoints": 0,
+          "symbol": "Mike",
+          "uri": "https://ipfs.io/ipfs/bafkreieply5ycquwbi2v52it3hsufuoyf3yzxak7cl5tx7x5leuwvvawdq"
+        },
+        "editionNonce": 255,
+        "isMutable": false,
+        "key": "MetadataV1",
+        "mint": "2NphU3FoDiqariGDc7QTrM64eQXebbLqNJ5Ngx21bonk",
+        "primarySaleHappened": false,
+        "tokenStandard": "Fungible",
+        "updateAuthority": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
+        "uses": {
+          "remaining": 0,
+          "total": 0,
+          "useMethod": ""
+        }
+      }
+    }
+  },
+  {
+    "account": "FkbgfLXdEqhsuPkLTunT3YL7Y4KTEzku3QXrnC4rbonk",
+    "legacyMetadata": null,
+    "onChainAccountInfo": {
+      "accountInfo": {
+        "data": {
+          "parsed": {
+            "info": {
+              "decimals": 6,
+              "freezeAuthority": "",
+              "isInitialized": true,
+              "mintAuthority": "",
+              "supply": "998976090512397"
+            },
+            "type": "mint"
+          },
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "space": 82
+        },
+        "executable": false,
+        "isSigner": false,
+        "isWritable": false,
+        "key": "FkbgfLXdEqhsuPkLTunT3YL7Y4KTEzku3QXrnC4rbonk",
+        "lamports": 2773685600,
+        "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "rentEpoch": 18446744073709551615
+      },
+      "error": ""
+    },
+    "onChainMetadata": {
+      "error": "",
+      "metadata": {
+        "collection": null,
+        "collectionDetails": null,
+        "data": {
+          "creators": [
+            {
+              "address": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
+              "share": 100,
+              "verified": true
+            }
+          ],
+          "name": "BonkTv",
+          "sellerFeeBasisPoints": 0,
+          "symbol": "BonkTv",
+          "uri": "https://ipfs.io/ipfs/bafkreiexx25q6gt4z4k66743umykowrkerlmzn27humft74e3gtmq5rx7u"
+        },
+        "editionNonce": 253,
+        "isMutable": false,
+        "key": "MetadataV1",
+        "mint": "FkbgfLXdEqhsuPkLTunT3YL7Y4KTEzku3QXrnC4rbonk",
+        "primarySaleHappened": false,
+        "tokenStandard": "Fungible",
+        "updateAuthority": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
+        "uses": {
+          "remaining": 0,
+          "total": 0,
+          "useMethod": ""
+        }
+      }
+    }
+  },
+  {
+    "account": "DJ6usSsie4Dscp6FVdnGa3yb1wsgQtLovApHmcBNbonk",
+    "legacyMetadata": null,
+    "onChainAccountInfo": {
+      "accountInfo": {
+        "data": {
+          "parsed": {
+            "info": {
+              "decimals": 6,
+              "freezeAuthority": "",
+              "isInitialized": true,
+              "mintAuthority": "",
+              "supply": "997638694943674"
+            },
+            "type": "mint"
+          },
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "space": 82
+        },
+        "executable": false,
+        "isSigner": false,
+        "isWritable": false,
+        "key": "DJ6usSsie4Dscp6FVdnGa3yb1wsgQtLovApHmcBNbonk",
+        "lamports": 1461600,
+        "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "rentEpoch": 18446744073709551615
+      },
+      "error": ""
+    },
+    "onChainMetadata": {
+      "error": "",
+      "metadata": {
+        "collection": null,
+        "collectionDetails": null,
+        "data": {
+          "creators": [
+            {
+              "address": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
+              "share": 100,
+              "verified": true
+            }
+          ],
+          "name": "Anime Realm",
+          "sellerFeeBasisPoints": 0,
+          "symbol": "ANIME",
+          "uri": "https://ipfs.io/ipfs/bafkreibx2yvoqzaugl46ske7qgd5gvd3sqa667tixpneiyipbzu77we4ii"
+        },
+        "editionNonce": 253,
+        "isMutable": false,
+        "key": "MetadataV1",
+        "mint": "DJ6usSsie4Dscp6FVdnGa3yb1wsgQtLovApHmcBNbonk",
+        "primarySaleHappened": false,
+        "tokenStandard": "Fungible",
+        "updateAuthority": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
+        "uses": {
+          "remaining": 0,
+          "total": 0,
+          "useMethod": ""
+        }
+      }
+    }
+  },
+  {
+    "account": "FRdZhWyq14XTzcVGDsF2VrsAgY8sH18NQxLaLGR2bonk",
+    "legacyMetadata": null,
+    "onChainAccountInfo": {
+      "accountInfo": {
+        "data": {
+          "parsed": {
+            "info": {
+              "decimals": 6,
+              "freezeAuthority": "",
+              "isInitialized": true,
+              "mintAuthority": "",
+              "supply": "999910102763067"
+            },
+            "type": "mint"
+          },
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "space": 82
+        },
+        "executable": false,
+        "isSigner": false,
+        "isWritable": false,
+        "key": "FRdZhWyq14XTzcVGDsF2VrsAgY8sH18NQxLaLGR2bonk",
+        "lamports": 21260941,
+        "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "rentEpoch": 18446744073709551615
+      },
+      "error": ""
+    },
+    "onChainMetadata": {
+      "error": "",
+      "metadata": {
+        "collection": null,
+        "collectionDetails": null,
+        "data": {
+          "creators": [
+            {
+              "address": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
+              "share": 100,
+              "verified": true
+            }
+          ],
+          "name": "NIGGABONK",
+          "sellerFeeBasisPoints": 0,
+          "symbol": "NIGGABONK.",
+          "uri": "https://ipfs.io/ipfs/bafkreidvkkvedimtlj445p43u2qamye2lrbjduunf4giod3fldaoa5uoaq"
+        },
+        "editionNonce": 255,
+        "isMutable": false,
+        "key": "MetadataV1",
+        "mint": "FRdZhWyq14XTzcVGDsF2VrsAgY8sH18NQxLaLGR2bonk",
+        "primarySaleHappened": false,
+        "tokenStandard": "Fungible",
+        "updateAuthority": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
+        "uses": {
+          "remaining": 0,
+          "total": 0,
+          "useMethod": ""
+        }
+      }
+    }
+  },
+  {
+    "account": "HfMYSE89LWYaCeJbpXhxUkDTVUbonA34T9t3QDBbonk",
+    "legacyMetadata": null,
+    "onChainAccountInfo": {
+      "accountInfo": {
+        "data": {
+          "parsed": {
+            "info": {
+              "decimals": 6,
+              "freezeAuthority": "",
+              "isInitialized": true,
+              "mintAuthority": "",
+              "supply": "999913130524471"
+            },
+            "type": "mint"
+          },
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "space": 82
+        },
+        "executable": false,
+        "isSigner": false,
+        "isWritable": false,
+        "key": "HfMYSE89LWYaCeJbpXhxUkDTVUbonA34T9t3QDBbonk",
+        "lamports": 1461600,
+        "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "rentEpoch": 18446744073709551615
+      },
+      "error": ""
+    },
+    "onChainMetadata": {
+      "error": "",
+      "metadata": {
+        "collection": null,
+        "collectionDetails": null,
+        "data": {
+          "creators": [
+            {
+              "address": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
+              "share": 100,
+              "verified": true
+            }
+          ],
+          "name": "pig wif hat",
+          "sellerFeeBasisPoints": 0,
+          "symbol": "NORMA",
+          "uri": "https://metadata.pumplify.eu/data/QmbJzx3oJnsN2jMTC1JTe7rbcktx7TgtNxTorFDAwBvATq"
+        },
+        "editionNonce": 248,
+        "isMutable": false,
+        "key": "MetadataV1",
+        "mint": "HfMYSE89LWYaCeJbpXhxUkDTVUbonA34T9t3QDBbonk",
+        "primarySaleHappened": false,
+        "tokenStandard": "Fungible",
+        "updateAuthority": "WLHv2UAZm6z4KyaaELi5pjdbJh6RESMva1Rnn8pJVVh",
+        "uses": {
+          "remaining": 0,
+          "total": 0,
+          "useMethod": ""
+        }
+      }
+    }
+  },
+  {
+    "account": "26ssv9eqXoLWMnxaprKRB1378Kdeg7T57GksFW9PV7VS",
+    "legacyMetadata": null,
+    "onChainAccountInfo": {
+      "accountInfo": {
+        "data": {
+          "parsed": {
+            "info": {
+              "decimals": 9,
+              "freezeAuthority": "",
+              "isInitialized": true,
+              "mintAuthority": "",
+              "supply": "999032707323145652"
+            },
+            "type": "mint"
+          },
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "space": 82
+        },
+        "executable": false,
+        "isSigner": false,
+        "isWritable": false,
+        "key": "26ssv9eqXoLWMnxaprKRB1378Kdeg7T57GksFW9PV7VS",
+        "lamports": 6971004608,
+        "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "rentEpoch": 18446744073709551615
+      },
+      "error": ""
+    },
+    "onChainMetadata": {
+      "error": "",
+      "metadata": {
+        "collection": null,
+        "collectionDetails": null,
+        "data": {
+          "creators": null,
+          "name": "Whiko",
+          "sellerFeeBasisPoints": 0,
+          "symbol": "Whiko",
+          "uri": "https://bafkreiaj7a64zgblug4pu5d5yd4nk6w2o26wxjwa47343ksmk2sepi6hwe.ipfs.nftstorage.link"
+        },
+        "editionNonce": 255,
+        "isMutable": true,
+        "key": "MetadataV1",
+        "mint": "26ssv9eqXoLWMnxaprKRB1378Kdeg7T57GksFW9PV7VS",
+        "primarySaleHappened": false,
+        "tokenStandard": "Fungible",
+        "updateAuthority": "3tTvmELdhEJWmu4Qxp6HX7eGkCrcB1r5JJ9vtzDZ5kfq",
         "uses": {
           "remaining": 0,
           "total": 0,

@@ -12,9 +12,15 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .filter_map(|token| {
             let mint = token.get("address")?.as_str()?;
             let name = token.get("name")?.as_str()?;
-            Some(json!({ "mint": mint, "name": name }))
+            let decimals = token.get("decimals")?.as_u64()?;
+            Some(json!({
+                "mint": mint,
+                "name": name,
+                "decimals": decimals
+            }))
         })
         .collect();
+
 
     // Save to file
     fs::create_dir_all("data")?;

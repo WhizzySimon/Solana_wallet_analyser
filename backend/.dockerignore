@@ -1,0 +1,11 @@
+target
+.git
+output
+node_modules
+.env
+.cache
+.vscode
+*.log
+*.bak
+.DS_Store
+*.swp

@@ -39,10 +39,13 @@ pub struct NamedSwap {
     pub sold_mint: String,
     pub sold_token_name: String,
     pub sold_amount: f64,
+    pub sold_decimals: Option<u8>,  
     pub bought_mint: String,
     pub bought_token_name: String,
     pub bought_amount: f64,
+    pub bought_decimals: Option<u8>,
 }
+
 
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
@@ -52,13 +55,16 @@ pub struct PricedSwap {
     pub sold_mint: String,
     pub sold_token_name: String,
     pub sold_amount: f64,
+    pub sold_decimals: Option<u8>,
     pub bought_mint: String,
     pub bought_token_name: String,
     pub bought_amount: f64,
+    pub bought_decimals: Option<u8>,
     pub pricing_method: String,
     pub binance_sol_usd_price: Option<f64>,
     pub usd_value: Option<f64>,
 }
+
 
 
 

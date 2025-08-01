@@ -8,53 +8,6 @@ use std::path::Path;
 use serde_json::json;
 use serde_json::Value;
 
-/// Loads Jupiter token map (mint → token name)
-fn load_jupiter_token_map() -> HashMap<String, String> {
-    let path = "data/jupiter_token_map.json";
-    if let Ok(content) = fs::read_to_string(path) {
-        if let Ok(entries) = serde_json::from_str::<Vec<Value>>(&content) {
-            return entries
-                .into_iter()
-                .filter_map(|v| {
-                    Some((
-                        v.get("mint")?.as_str()?.to_string(),
-                        v.get("name")?.as_str()?.to_string(),
-                    ))
-                })
-                .collect();
-        }
-    }
-    println!("⚠️  Could not load Jupiter token map from {}", path);
-    HashMap::new()
-}
-
-/// Loads resolved token names from cache (Helius results)
-fn load_cached_token_names() -> HashMap<String, String> {
-    let path = "cache/token_names.json";
-    if let Ok(content) = fs::read_to_string(path) {
-        if let Ok(entries) = serde_json::from_str::<Vec<Value>>(&content) {
-            return entries
-                .into_iter()
-                .filter_map(|v| {
-                    let mint = v.get("account")?.as_str()?.to_string();
-                    let name = v
-                        .get("onChainMetadata")
-                        .and_then(|m| m.get("metadata"))
-                        .and_then(|m| m.get("data"))
-                        .and_then(|d| d.get("name"))
-                        .or_else(|| v.get("tokenInfo").and_then(|t| t.get("name")))
-                        .and_then(|n| n.as_str())
-                        .unwrap_or("UNKNOWN")
-                        .to_string();
-                    Some((mint, name))
-                })
-                .collect();
-        }
-    }
-    HashMap::new()
-}
-
-
 pub async fn filter_and_name_swaps(
     transactions: &Vec<RawTxn>,
     settings: &Settings
@@ -77,7 +30,6 @@ pub async fn filter_and_name_swaps(
         let mut raw_swaps = vec![];
 
         for tx in transactions.iter() {
-
             if tx.token_transfers.is_empty() {
                 continue;
             }
@@ -98,16 +50,31 @@ pub async fn filter_and_name_swaps(
                     bought_amount: b.token_amount,
                 });
             }
-
         }
-
-
 
         println!("🔎 Found {} swaps", raw_swaps.len());
         println!("🧠 Resolving token names for swaps...");
 
         let jupiter_token_map = if use_jupiter_token_list {
-            load_jupiter_token_map()
+            let path = "data/jupiter_token_map.json";
+            if let Ok(content) = fs::read_to_string(path) {
+                if let Ok(entries) = serde_json::from_str::<Vec<Value>>(&content) {
+                    entries
+                        .into_iter()
+                        .filter_map(|v| {
+                            let mint = v.get("mint")?.as_str()?.to_string();
+                            let name = v.get("name")?.as_str()?.to_string();
+                            let decimals = v.get("decimals").and_then(|d| d.as_u64()).map(|d| d as u8);
+                            Some((mint, (name, decimals)))
+                        })
+                        .collect::<HashMap<_, _>>()
+                } else {
+                    HashMap::new()
+                }
+            } else {
+                println!("⚠️  Could not load Jupiter token map");
+                HashMap::new()
+            }
         } else {
             println!("Skipping Jupiter token list (use_jupiter_token_list=false)");
             HashMap::new()
@@ -115,24 +82,51 @@ pub async fn filter_and_name_swaps(
 
         let cached_map = if use_token_cache {
             println!("Using cached token names...");
-            load_cached_token_names()
+            let path = "cache/token_names.json";
+            if let Ok(content) = fs::read_to_string(path) {
+                if let Ok(entries) = serde_json::from_str::<Vec<Value>>(&content) {
+                    entries
+                        .into_iter()
+                        .filter_map(|v| {
+                            let mint = v.get("account")?.as_str()?.to_string();
+                            let name = v.get("onChainMetadata")
+                                .and_then(|m| m.get("metadata"))
+                                .and_then(|m| m.get("data"))
+                                .and_then(|d| d.get("name"))
+                                .or_else(|| v.get("tokenInfo").and_then(|t| t.get("name")))
+                                .and_then(|n| n.as_str())
+                                .unwrap_or("UNKNOWN")
+                                .to_string();
+                            let decimals = v.get("tokenInfo")
+                                .and_then(|t| t.get("decimals"))
+                                .and_then(|d| d.as_u64())
+                                .map(|d| d as u8);
+                            Some((mint, (name, decimals)))
+                        })
+                        .collect::<HashMap<_, _>>()
+                } else {
+                    HashMap::new()
+                }
+            } else {
+                HashMap::new()
+            }
         } else {
             HashMap::new()
         };
 
+        let mut mint_name_map: HashMap<String, (String, Option<u8>)> = HashMap::new();
         let mut all_mints = HashSet::new();
         for s in &raw_swaps {
             all_mints.insert(s.sold_mint.clone());
             all_mints.insert(s.bought_mint.clone());
         }
 
-        let mut mint_name_map: HashMap<String, String> = HashMap::new();
         let mut unknown_mints = vec![];
         for mint in &all_mints {
-            if let Some(name) = jupiter_token_map.get(mint) {
-                mint_name_map.insert(mint.clone(), name.clone());
-            } else if let Some(name) = cached_map.get(mint) {
-                mint_name_map.insert(mint.clone(), name.clone());
+            if let Some((name, dec)) = jupiter_token_map.get(mint).cloned() {
+                mint_name_map.insert(mint.clone(), (name, dec));
+            } else if let Some((name, dec)) = cached_map.get(mint).cloned() {
+                mint_name_map.insert(mint.clone(), (name, dec));
             } else {
                 unknown_mints.push(mint.clone());
             }
@@ -149,6 +143,7 @@ pub async fn filter_and_name_swaps(
                 Ok(response) => {
                     if response.status().is_success() {
                         let token_data: Vec<serde_json::Value> = response.json().await?;
+
                         for entry in &token_data {
                             let mint = entry.get("account").and_then(|v| v.as_str()).unwrap_or("").to_string();
                             let name = entry
@@ -160,7 +155,20 @@ pub async fn filter_and_name_swaps(
                                 .and_then(|n| n.as_str())
                                 .unwrap_or("UNKNOWN")
                                 .to_string();
-                            mint_name_map.insert(mint, name);
+                            let decimals = entry.get("tokenInfo")
+                                .and_then(|t| t.get("decimals"))
+                                .or_else(|| {
+                                    entry.get("onChainAccountInfo")
+                                        .and_then(|oci| oci.get("accountInfo"))
+                                        .and_then(|ai| ai.get("data"))
+                                        .and_then(|data| data.get("parsed"))
+                                        .and_then(|parsed| parsed.get("info"))
+                                        .and_then(|info| info.get("decimals"))
+                                })
+                                .and_then(|d| d.as_u64())
+                                .map(|d| d as u8);
+
+                            mint_name_map.insert(mint, (name, decimals));
                         }
                         let mut file = File::create("cache/token_names.json")?;
                         write!(file, "{}", serde_json::to_string_pretty(&token_data)?)?;
@@ -176,28 +184,31 @@ pub async fn filter_and_name_swaps(
         let enriched: Vec<NamedSwap> = raw_swaps
             .into_iter()
             .map(|s| {
-                let sold_token_name = mint_name_map.get(&s.sold_mint).cloned().unwrap_or_else(|| "UNKNOWN".to_string());
-                let bought_token_name = mint_name_map.get(&s.bought_mint).cloned().unwrap_or_else(|| "UNKNOWN".to_string());
+                let (sold_token_name, sold_decimals) = mint_name_map.get(&s.sold_mint).cloned().unwrap_or(("UNKNOWN".to_string(), None));
+                let (bought_token_name, bought_decimals) = mint_name_map.get(&s.bought_mint).cloned().unwrap_or(("UNKNOWN".to_string(), None));
                 NamedSwap {
                     timestamp: s.timestamp,
                     signature: s.signature,
                     sold_mint: s.sold_mint,
                     sold_token_name,
                     sold_amount: s.sold_amount,
+                    sold_decimals,
                     bought_mint: s.bought_mint,
                     bought_token_name,
                     bought_amount: s.bought_amount,
+                    bought_decimals,
                 }
             })
             .collect();
+
         if write_cache_files {
             let mut file = File::create(&swaps_path_raw)?;
             write!(file, "{}", serde_json::to_string_pretty(&enriched)?)?;
             println!("✅ Enriched swaps written to {}", swaps_path_raw);
-        }
-        else {
+        } else {
             println!("Filtered and named {} swaps.", enriched.len());
         }
+
         enriched
     };
 

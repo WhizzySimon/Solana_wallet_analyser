@@ -17,22 +17,35 @@ pub fn calculate_direct_token_pnl(swaps: &[PricedSwap]) -> Vec<TokenPnl> {
         }
         let usd_value = swap.usd_value.unwrap();
 
-        // === GROUPING LOGIC FIX ===
+        // === Grouping: determine which token to attribute PnL to ===
         let group_token = match (
             swap.sold_token_name.as_str(),
             swap.bought_token_name.as_str(),
         ) {
+            // Ignore swaps between stables or WSOL
+            (a, b) if is_stable(a) && is_stable(b) => continue,
+            (a, b) if a == "Wrapped SOL" && b == "Wrapped SOL" => continue,
+
+            // If buying a token with WSOL, group by the bought token
             ("Wrapped SOL", other) if !is_stable(other) => Some(other.to_string()),
+            // If selling a token into WSOL, group by the sold token
             (other, "Wrapped SOL") if !is_stable(other) => Some(other.to_string()),
-            ("Wrapped SOL", other) if is_stable(other) => Some(other.to_string()),
-            (other, "Wrapped SOL") if is_stable(other) => Some(other.to_string()),
-            _ => None,
+
+            // Skip swaps like WSOL <-> stable
+            ("Wrapped SOL", other) if is_stable(other) => continue,
+            (other, "Wrapped SOL") if is_stable(other) => continue,
+
+            // Fallback: group by sold token
+            _ => Some(swap.sold_token_name.clone()),
         };
 
         if let Some(token) = group_token {
-            let entry = token_map.entry(token.clone()).or_insert_with(|| (VecDeque::new(), Vec::new(), 0.0));
+            let entry = token_map
+                .entry(token.clone())
+                .or_insert_with(|| (VecDeque::new(), Vec::new(), 0.0));
 
-            if !is_stable(&swap.bought_token_name) && swap.bought_token_name != "Wrapped SOL" {
+            // Track buys for all non-stable tokens (including Wrapped SOL if bought)
+            if !is_stable(&swap.bought_token_name) {
                 entry.0.push_back(BuyPart {
                     timestamp: swap.timestamp,
                     amount: swap.bought_amount,
@@ -40,6 +53,7 @@ pub fn calculate_direct_token_pnl(swaps: &[PricedSwap]) -> Vec<TokenPnl> {
                 });
             }
 
+            // SELL logic
             let mut remaining = swap.sold_amount;
             let mut cost_basis = 0.0;
 
@@ -74,9 +88,31 @@ pub fn calculate_direct_token_pnl(swaps: &[PricedSwap]) -> Vec<TokenPnl> {
     token_map
         .into_iter()
         .map(|(token, (buys, sells, realized_pnl))| {
+            if token == "Lamine Yamal" {
+                println!("--- DEBUG: Lamine Yamal PnL Breakdown ---");
+                println!("Total Bought: {:.2}, Total Cost: {:.2}", 
+                        buys.iter().map(|b| b.amount).sum::<f64>(), 
+                        buys.iter().map(|b| b.cost_usd).sum::<f64>());
+                for (i, b) in buys.iter().enumerate() {
+                    println!("Buy #{:>2}: {:.4} tokens for ${:.4} at {}", i+1, b.amount, b.cost_usd, b.timestamp);
+                }
+
+                println!("Total Sold: {:.2}", sells.iter().map(|s| s.amount).sum::<f64>());
+                for (i, s) in sells.iter().enumerate() {
+                    println!("Sell #{:>2}: {:.4} tokens for ${:.4} at {}", i+1, s.amount, s.proceeds_usd, s.timestamp);
+                }
+
+                println!("Realized PnL: {:.2}\n", realized_pnl);
+            }
+
+
             let total_bought: f64 = buys.iter().map(|b| b.amount).sum();
             let total_cost: f64 = buys.iter().map(|b| b.cost_usd).sum();
-            let average_cost = if total_bought > 0.0 { total_cost / total_bought } else { 0.0 };
+            let average_cost = if total_bought > 0.0 {
+                total_cost / total_bought
+            } else {
+                0.0
+            };
             let total_sold: f64 = sells.iter().map(|s| s.amount).sum();
 
             TokenPnl {
@@ -93,34 +129,42 @@ pub fn calculate_direct_token_pnl(swaps: &[PricedSwap]) -> Vec<TokenPnl> {
         .collect()
 }
 
-pub async fn calc_pnl(priced_swaps: &[PricedSwap], settings: &Settings) 
-    -> Result<Vec<TokenPnl>, Box<dyn std::error::Error>> {
-    
-    //let use_fifo = settings.fifo.unwrap_or(true);
+pub async fn calc_pnl(
+    priced_swaps: &[PricedSwap],
+    settings: &Settings,
+) -> Result<Vec<TokenPnl>, Box<dyn std::error::Error>> {
     let write_cache_files = settings.config.write_cache_files.unwrap_or(false);
 
-    // let inventory: HashMap<String, Vec<InventoryEntry>> = HashMap::new();
     let mut swaps_sorted = priced_swaps.to_vec();
+
+    for swap in &swaps_sorted {
+        if swap.sold_token_name.contains("Yamal") || swap.bought_token_name.contains("Yamal") {
+            println!(
+                "🧪 DEBUG normalized: {} -> sold: {} (dec: {:?}) bought: {} (dec: {:?})",
+                swap.signature,
+                swap.sold_amount, swap.sold_decimals,
+                swap.bought_amount, swap.bought_decimals
+            );
+        }
+    }
+
     swaps_sorted.sort_by(|a, b| {
-        a.timestamp.cmp(&b.timestamp)
+        a.timestamp
+            .cmp(&b.timestamp)
             .then(a.signature.cmp(&b.signature))
     });
-    let trades = calculate_direct_token_pnl (&swaps_sorted);
 
-/*     let mut trades = calculate_direct_usd_pnl(&swaps_sorted, use_fifo, &mut inventory);
-    let mut sol_trades = calculate_sol_indirect_pnl(&swaps_sorted, use_fifo, &mut inventory);
+    let trades = calculate_direct_token_pnl(&swaps_sorted);
 
-    trades.append(&mut sol_trades); */
-    
     if write_cache_files {
         let out_path = format!("cache/trades_{}.json", settings.wallet_address);
         let json = serde_json::to_string_pretty(&trades)?;
         let mut file = File::create(&out_path)?;
         file.write_all(json.as_bytes())?;
         println!("💰 Wrote {} trades to {}", trades.len(), out_path);
-    }
-    else {
+    } else {
         println!("Found {} trades.", trades.len());
     }
+
     Ok(trades)
 }

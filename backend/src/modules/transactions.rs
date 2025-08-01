@@ -37,15 +37,13 @@ pub async fn get_transactions(settings: &Settings) -> Result<Vec<RawTxn>, AnyErr
         let thirty_days_ago = Utc::now().timestamp() - ChronoDuration::days(30).num_seconds();
 
         loop {
-            let url = format!(
-                "https://api.helius.xyz/v0/addresses/{}/transactions?api-key={}{}",
-                settings.wallet_address,
-                helius_api_key,
-                before
-                    .as_ref()
-                    .map(|b| format!("&before={}", b))
-                    .unwrap_or_default()
+            let mut url = format!(
+                "https://api.helius.xyz/v0/addresses/{}/transactions?api-key={}",
+                settings.wallet_address, helius_api_key
             );
+            if let Some(before_sig) = &before {
+                url.push_str(&format!("&before={}", before_sig));
+            }
 
             let response = client.get(&url).send().await
                 .map_err(|e| format!("HTTP error from Helius: {}", e))?;
@@ -61,7 +59,6 @@ pub async fn get_transactions(settings: &Settings) -> Result<Vec<RawTxn>, AnyErr
                 .into_iter()
                 .filter(|tx| tx.timestamp.unwrap_or(0) as i64 >= thirty_days_ago)
                 .collect();
-
 
             if filtered_batch.is_empty() {
                 println!("⏹️  Stopped: no transactions in last 30 days.");
